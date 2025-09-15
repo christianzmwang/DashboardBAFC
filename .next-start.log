@@ -1,0 +1,39 @@
+
+> bafc-revenue-app@0.1.0 start /Users/christianwang/Desktop/BayAreaFencing/testBAFC
+> next start
+
+  ▲ Next.js 14.2.5
+  - Local:        http://localhost:3001
+
+ ✓ Starting...
+ ✓ Ready in 197ms
+ ⨯ Error: Cannot find module './vendor-chunks/next@14.2.5_react-dom@18.3.1_react@18.3.1__react@18.3.1.js'
+Require stack:
+- /Users/christianwang/Desktop/BayAreaFencing/testBAFC/.next/server/webpack-runtime.js
+- /Users/christianwang/Desktop/BayAreaFencing/testBAFC/.next/server/app/page.js
+- /Users/christianwang/Desktop/BayAreaFencing/testBAFC/node_modules/.pnpm/next@14.2.5_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/server/require.js
+- /Users/christianwang/Desktop/BayAreaFencing/testBAFC/node_modules/.pnpm/next@14.2.5_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/server/next-server.js
+- /Users/christianwang/Desktop/BayAreaFencing/testBAFC/node_modules/.pnpm/next@14.2.5_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/server/next.js
+- /Users/christianwang/Desktop/BayAreaFencing/testBAFC/node_modules/.pnpm/next@14.2.5_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/server/lib/start-server.js
+- /Users/christianwang/Desktop/BayAreaFencing/testBAFC/node_modules/.pnpm/next@14.2.5_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/cli/next-start.js
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1410:15)
+    at /Users/christianwang/Desktop/BayAreaFencing/testBAFC/node_modules/.pnpm/next@14.2.5_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/server/require-hook.js:55:36
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1051:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1056:22)
+    at Module._load (node:internal/modules/cjs/loader:1219:37)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:238:24)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1493:12)
+    at mod.require (/Users/christianwang/Desktop/BayAreaFencing/testBAFC/node_modules/.pnpm/next@14.2.5_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/server/require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    '/Users/christianwang/Desktop/BayAreaFencing/testBAFC/.next/server/webpack-runtime.js',
+    '/Users/christianwang/Desktop/BayAreaFencing/testBAFC/.next/server/app/page.js',
+    '/Users/christianwang/Desktop/BayAreaFencing/testBAFC/node_modules/.pnpm/next@14.2.5_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/server/require.js',
+    '/Users/christianwang/Desktop/BayAreaFencing/testBAFC/node_modules/.pnpm/next@14.2.5_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/server/next-server.js',
+    '/Users/christianwang/Desktop/BayAreaFencing/testBAFC/node_modules/.pnpm/next@14.2.5_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/server/next.js',
+    '/Users/christianwang/Desktop/BayAreaFencing/testBAFC/node_modules/.pnpm/next@14.2.5_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/server/lib/start-server.js',
+    '/Users/christianwang/Desktop/BayAreaFencing/testBAFC/node_modules/.pnpm/next@14.2.5_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/cli/next-start.js'
+  ]
+}

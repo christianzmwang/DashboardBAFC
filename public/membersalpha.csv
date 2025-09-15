@@ -1,0 +1,937 @@
+Client,Plan Name,Start Date,End Date,Used for Client's First Visit?,Membership?,Canceled?,Client's First Pass/Plan?,Client's First Membership?,Client's Home Location,Client ID,Plan ID
+Zoie Wang,Elite Competitive,2021-12-22,2021-12-22,No,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,9503509,25486863
+Serena Peng,Elite Competitive,2021-12-22,2021-12-22,No,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,9510188,25487170
+Celine Wang,Competitive 2,2022-01-01,2022-08-13,No,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,9512228,25507474
+Changhan Sung,Competitive 2,2022-01-01,2023-03-31,No,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,9510919,25507510
+Chienyu Sun,Competitive 2,2022-01-01,2022-03-08,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,9512291,25508674
+Emma Fung,Competitive 2,2022-01-01,2023-03-31,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,9512495,25508682
+Vera Fung,Competitive 2,2022-01-01,2022-05-01,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,9512496,25508683
+Hannah Zhang,Competitive 2,2021-12-25,2021-12-25,No,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,9506880,25508797
+Ethan Liang,Competitive 2,2021-12-25,2021-12-25,No,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,9513175,25508978
+Lucas Wu,Competitive 2,2022-01-01,2023-03-31,No,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,9506881,25509607
+Prisha Maniktala,Competitive 2,2022-01-01,2022-07-31,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,9504997,25509614
+Suvir Maniktala,Competitive 1,2022-01-01,2022-04-08,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,9511076,25509616
+Tyler Nishihira,Competitive 1,2022-01-01,2022-08-02,No,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,9505710,25509637
+Micaela Heyfitch,Competitive 1,2022-01-01,2022-04-01,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,9512460,25511239
+william gordon,Competitive 1,2022-01-01,2022-08-02,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,9503258,25528478
+Nicolas Lam,Competitive 2,2022-01-01,2023-03-31,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,9510899,25536505
+Oscar Estell,Open Bouting,2022-01-03,2022-11-30,No,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,9528411,25571883
+Cedric Andrade,Competitive 1,2022-01-03,2022-08-02,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,9528346,25574198
+Isabelle Ma,Competitive 1,2022-01-01,2022-08-02,No,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,9515650,25576580
+Jacob Shkolnik,Intermediate,2022-01-01,2022-05-28,No,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,9528629,25586995
+Rui Zhu,Open Bouting,2022-01-05,2023-02-08,No,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,9536459,25603182
+Jayden Zhang,Competitive 1,2022-01-10,2022-08-02,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,9555153,25696222
+Miles Foh,Beginning Fencing Program,2022-01-28,2022-08-28,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,9585999,25798029
+Nikita Nilangekar,Beginning Fencing Program,2022-01-25,2022-08-13,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,9597555,25831603
+Jayden Yan,Beginning Fencing Program,2022-01-28,2022-02-27,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,9585993,25854120
+Derren Luo,Beginning Fencing Program,2022-02-04,2022-07-31,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,9602782,25878859
+Ruijia (Rebecca ) Xu,Beginning Fencing Program,2022-02-21,2022-04-24,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,9619369,25929724
+Bryan Fu,Competitive 1,2022-02-07,2022-08-02,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,9628889,25944676
+Lilou Smajek,Beginning Fencing Program,2022-02-04,2022-07-31,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,9631823,25956261
+Zack Luo,Beginning Fencing Program,2022-02-12,2022-03-10,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,9636383,25974657
+Evan Chen,Beginning Fencing Program,2022-02-07,2022-04-03,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,9638486,25980909
+Aiden Brown,Beginning Fencing Program,2022-02-12,2022-07-31,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,9568946,25984812
+Lora Xu,Beginning Fencing Program,2022-02-07,2022-05-31,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,9641588,25990918
+Aiden Xu,Beginning Fencing Program,2022-03-07,2022-05-31,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,9641587,25992321
+Austin Wu,Beginning Fencing Program,2022-02-07,2022-05-14,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,9642791,25992868
+Christina Wu,Beginning Fencing Program,2022-02-07,2022-05-14,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,9642790,25992897
+Ashley Ren,Beginning Fencing Program,2022-02-11,2022-02-25,No,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,9643489,25995361
+Balian Valladao,Beginning Fencing Program,2022-02-09,2022-07-31,No,Yes,No,No,Yes,Bay Area Fencing Club - Los Gatos,9552691,26021073
+Derek Valladao,Beginning Fencing Program,2022-02-09,2022-07-31,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,9552690,26021077
+Henry Forster,Beginning Fencing Program,2022-02-14,2022-05-28,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,9657410,26039712
+Oscar Zhong,Beginning Fencing Program,2022-02-19,2022-07-31,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,9563829,26052859
+Richard Zhong,Beginning Fencing Program,2022-02-19,2023-02-22,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,9563830,26052974
+Jake Yao,Beginning Fencing Program,2022-02-19,2022-06-28,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,9666515,26071099
+Owen Slain,Beginning Fencing Program,2022-02-14,2022-02-14,No,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,9663815,26075141
+Parker Forster,Beginning Fencing Program,2022-02-21,2022-05-28,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,9668524,26078382
+Zooey Lan,Beginning Fencing Program,2022-02-19,2022-07-31,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,9685771,26143202
+Xiaoshu Xiao,Beginning Fencing Program,2022-02-25,2022-02-25,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,9705497,26212678
+Albert Xiao,Beginning Fencing Program,2022-03-01,2022-10-04,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,9705498,26227944
+Emerson Willey,Beginning Fencing Program,2022-03-05,2022-03-06,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,9718898,26257224
+David Wang,Beginning Fencing Program,2022-03-07,2022-07-31,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,9721147,26264832
+Jia Tao,Beginning Fencing Program,2022-03-09,2022-06-29,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,9720978,26266583
+Ezekiel Schultz,Beginning Fencing Program,2022-03-04,2022-05-31,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,9728392,26294559
+Wenyao Shi,Beginning Fencing Program,2022-03-07,2022-08-13,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,9717175,26296614
+Adam Whitehouse,Beginning Fencing Program,2022-03-11,2022-05-28,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,9735476,26310878
+Rongcheng  Noah Lin,Beginning Fencing Program,2022-03-11,2022-11-29,Yes,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,9740599,26331211
+Rongxuan Lin,Beginning Fencing Program,2022-03-11,2022-11-29,Yes,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,9740609,26331218
+Ariana Jin,Beginning Fencing Program,2022-03-11,2022-06-29,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,9741417,26331382
+William Chang,Beginning Fencing Program,2022-03-10,2022-07-31,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,9729457,26331489
+Lucas Tenuta,Beginning Fencing Program,2022-03-11,2022-06-29,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,9741177,26331585
+Cayden Zeng,Beginning Fencing Program,2022-03-11,2023-08-31,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,9743834,26338234
+Junhua Wang,Beginning Fencing Program,2022-03-09,2024-03-24,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,9483589,26376950
+Cindy Zhang,Beginning Fencing Program,2022-03-09,2024-07-23,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,9483587,26376951
+Andy Peng,Beginning Fencing Program,2022-03-09,2023-05-13,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,9483584,26376955
+John Wang,Beginning Fencing Program,2022-03-09,2023-12-02,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,9488372,26376957
+London Garside,Beginning Fencing Program,2022-03-11,2022-03-16,No,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,9764698,26401957
+Iris Zhan,Beginning Fencing Program,2022-04-01,2024-02-29,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,9735924,26401987
+matthew hunter,Beginning Fencing Program,2022-03-12,2022-08-09,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,9766946,26413261
+Kayla Shu,Beginning Fencing Program,2022-03-19,2022-08-10,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,9784104,26470762
+Callum Tan,Beginning Fencing Program,2022-04-02,2022-05-31,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,9794741,26510231
+Eric Shu,Beginning Fencing Program,2022-03-26,2022-08-10,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,9794890,26510496
+Sven Myhrstad,Beginning Fencing Program,2022-04-01,2024-01-21,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,9845660,26698914
+Casey Chu,Beginning Fencing Program,2022-04-08,2023-08-28,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,9849532,26714437
+Julie Willey,Beginning Fencing Program,2022-04-06,2022-04-06,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,9718897,26723961
+Sebastian Gelman,Beginning Fencing Program,2022-04-16,2022-07-13,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,9877477,26815332
+Mufleh Shaqir,Beginning Fencing Program,2022-04-10,2023-08-10,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,9879859,26824224
+Maxwell Chen,Beginning Fencing Program,2022-04-14,2022-07-31,No,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,9880012,26824734
+Ryan Tan,Beginning Fencing Program,2022-04-14,2022-07-31,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,9880758,26827447
+Daniel Tan,Beginning Fencing Program,2022-04-14,2022-07-31,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,9880759,26827465
+Ethan Lin,Beginning Fencing Program,2022-04-16,2022-04-29,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,9856187,26835590
+Noah Lin,Beginning Fencing Program,2022-04-16,2022-04-29,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,9856211,26835656
+Ethan Ma,Beginning Fencing Program,2022-04-16,2024-05-31,Yes,Yes,No,Yes,Yes,Bay Area Fencing Club - Los Gatos,9892036,26857488
+Gary He,Beginning Fencing Program,2022-04-14,2022-05-28,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,9871320,26859739
+chloe chen,Beginning Fencing Program,2022-04-16,2023-01-20,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,9887452,26861309
+William Wang,Beginning Fencing Program,2022-04-16,2022-05-28,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,9887458,26861442
+Tovar Friedman,Beginning Fencing Program,2022-04-21,2022-05-31,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,9905978,26909763
+Mia Ren,Beginning Fencing Program,2022-04-23,2022-05-14,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,9891097,26911845
+Allen Yan,Beginning Fencing Program,2022-04-17,2023-08-12,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,9907583,26914364
+Angus Wu,Beginning Fencing Program,2022-04-17,2023-01-28,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,9907589,26914386
+Henry Wang,Beginning Fencing Program,2022-04-18,2022-06-01,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,9883968,26916761
+Suraj Seth,Beginning Fencing Program,2022-04-19,2022-05-30,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,9911981,26929256
+Emily Jiang,Beginning Fencing Program,2022-04-23,2022-08-27,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,9900373,26929636
+Sophia Jiang,Beginning Fencing Program,2022-04-23,2022-08-27,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,9900374,26929687
+Ethan Xu,Beginning Fencing Program,2022-04-19,2023-01-01,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,9904043,26945722
+Eleanor Zhao,Beginning Fencing Program,2022-04-26,2023-10-08,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,9917685,26948975
+Rhys Abraham,Beginning Fencing Program,2022-04-22,2022-05-30,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,9930560,26992303
+timothy tao,Beginning Fencing Program,2022-04-23,2022-09-25,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,9906569,27005317
+Lucas Tzeng,Beginning Fencing Program,2022-04-23,2023-01-28,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,9907597,27005446
+Hannah Liu,Beginning Fencing Program,2022-04-26,2022-07-31,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,9935369,27012461
+Marcus Chen,Beginning Fencing Program,2022-04-30,2022-11-30,Yes,Yes,No,Yes,Yes,Bay Area Fencing Club - Los Gatos,9940829,27033540
+Parker Fanoe,Beginning Fencing Program,2022-04-25,2023-08-29,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,9940985,27034059
+Pierce Fanoe,Beginning Fencing Program,2022-04-25,2023-08-29,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,9940991,27034059
+Aiden Wu,Beginning Fencing Program,2022-04-26,2024-02-05,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,9942162,27037938
+Wei Chen,Beginning Fencing Program,2022-04-26,2022-05-31,No,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,9819061,27053895
+Aaron Wang,Beginning Fencing Program,2022-05-03,2022-06-13,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,9947601,27054497
+eesham deshpande,Beginning Fencing Program,2022-05-03,2022-05-17,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,9951775,27067822
+David Lee,Open Bouting,2022-04-27,2024-08-18,No,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,9922399,27069097
+Vina Zheng,Beginning Fencing Program,2022-05-07,2025-01-24,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,9960132,27105164
+Bobo Zeng,Beginning Fencing Program,2022-05-01,2022-05-31,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,9743833,27171168
+Enzo Zhao,Beginning Fencing Program,2022-05-07,2022-05-31,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,9819062,27215555
+Paxton Bui,Beginning Fencing Program,2022-05-13,2023-04-30,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,9994816,27221428
+Kai Stratmann,Beginning Fencing Program,2022-05-09,2022-06-04,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,9994995,27222190
+Charles Gabriel,Beginning Fencing Program,2022-05-14,2023-01-05,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,9995091,27222677
+Daniel Tseng-Cser,Beginning Fencing Program,2022-05-16,2023-01-08,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10004654,27254670
+Vivian Fan,Beginning Fencing Program,2022-05-16,2023-04-23,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10005066,27256293
+Peter Wang,Beginning Fencing Program,2022-05-11,2023-12-02,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,9708257,27274385
+Joe Sanchez,Beginning Fencing Program,2022-05-11,2023-08-29,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10010089,27276186
+Sara Newell,Beginning Fencing Program,2022-05-11,2022-05-31,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10010618,27276481
+ETHAN ZHANG,Beginning Fencing Program,2022-05-17,2023-01-02,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10007497,27308617
+Isaiah Lin,Beginning Fencing Program,2022-05-21,2022-08-27,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing - Pleasanton,10024138,27325491
+Chris Wilderink,Open Bouting,2022-05-18,,Yes,Yes,No,Yes,Yes,Bay Area Fencing Club - Los Gatos,10037882,27376432
+Juliette Eppolito,Beginning Fencing Program,2022-05-20,2022-10-11,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10042592,27392462
+Ludvig Nilsson,Beginning Fencing Program,2022-05-19,2022-10-09,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10047133,27409998
+Valdemar Nilsson,Beginning Fencing Program,2022-05-19,2022-10-09,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10047208,27410859
+Ezra Madhvani,Beginning Fencing Program,2022-05-27,2022-07-31,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10032599,27534568
+Valen Venkatesh,Competitive 2,2022-06-01,2023-08-29,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10106076,27611969
+Cyrus Shahroody,Beginning Fencing Program,2022-06-02,2022-08-15,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10035307,27626941
+Beibei Zhu,Beginning Fencing Program,2022-06-08,2022-08-19,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,9900372,27664886
+Barak Yang,Beginning Fencing Program,2022-06-09,2022-07-31,No,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10123663,27669723
+ethan sollis,Beginning Fencing Program,2022-06-07,2022-10-01,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10136118,27706359
+ian schaub,Beginning Fencing Program,2022-06-07,2022-10-01,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10136217,27706359
+Nathan Tsai,Beginning Fencing Program,2022-06-07,2022-10-01,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10131112,27708304
+Ethan Tsai,Beginning Fencing Program,2022-06-07,2022-10-01,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10131284,27708304
+Gillian Wang,Beginning Fencing Program,2022-06-09,2022-10-17,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing - Pleasanton,10147334,27742566
+Rongyi Lin,Beginning Fencing Program,2022-06-11,2022-08-31,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,10125370,27782027
+JADY ZHANG,Beginning Fencing Program,2022-06-11,2022-09-22,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10155874,27794099
+Raza Chaudhary,Beginning Fencing Program,2022-06-16,2022-10-29,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,10022676,27883166
+Austin Li,Beginning Fencing Program,2022-06-16,2023-02-03,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,10122350,27890971
+Rebecca Shen,Beginning Fencing Program,2022-06-24,2023-09-09,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10193255,27917989
+Arissa Cao,Beginning Fencing Program,2022-06-16,2022-08-25,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,9913193,27940161
+Aurelius Lien,Beginning Fencing Program,2022-06-24,2022-11-02,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10202763,27955671
+Sarah Zhou,Beginning Fencing Program,2022-06-23,2023-06-11,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,10154036,28012609
+chad sin,Beginning Fencing Program,2022-06-25,2023-10-20,No,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10019818,28041794
+Emily Lin,Beginning Fencing Program,2022-07-01,2022-08-27,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,10084570,28101099
+Jiyuan Jin,Beginning Fencing Program,2022-07-01,2023-01-27,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10084014,28103087
+Oliver Wong,Beginning Fencing Program,2022-07-01,2023-02-01,Yes,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,10170703,28113130
+Luna Duan,Beginning Fencing Program,2022-07-01,2024-07-25,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10230182,28155228
+Elijah Voralik,Beginning Fencing Program,2022-07-01,2024-01-08,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,10071901,28200252
+Kelley Duan,Beginning Fencing Program,2022-07-07,2023-08-29,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,10087441,28233453
+Ethan Chambers,Beginning Fencing Program,2022-07-11,2023-11-01,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10276305,28235493
+Ying Wang,Beginning Fencing Program,2022-07-08,2023-01-20,Yes,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,10057318,28253090
+Jacqueline Zu,Beginning Fencing Program,2022-07-08,2022-07-31,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10281014,28255683
+Caleb Liu,Beginning Fencing Program,2022-07-16,2023-01-20,No,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10280634,28268804
+Lucas Schorsch,Beginning Fencing Program,2022-08-06,2022-08-22,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10321258,28415548
+Caitlin Toor,Beginning Fencing Program,2022-07-21,2022-10-31,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10246806,28463921
+Isabelle Hoffman,Beginning Fencing Program,2022-08-01,2022-09-19,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,10328054,28470996
+Amelia Hoffman,Beginning Fencing Program,2022-08-03,2022-09-19,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,10095598,28471004
+Cian Alcazaren,Beginning Fencing Program,2022-08-12,2022-10-06,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10344127,28514753
+Adelynn Roberts,Beginning Fencing Program,2022-08-10,2022-09-25,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10346137,28522662
+Audrey Hu,Beginning Fencing Program,2022-08-19,2023-07-04,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,9844108,28532527
+Grace Qi,Beginning Fencing Program,2022-08-19,2023-06-29,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,9841398,28544160
+David Foulkes,Beginning Fencing Program,2022-07-27,2023-09-27,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10354077,28565571
+Elizabeth Foulkes,Beginning Fencing Program,2022-07-27,2024-07-02,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10354078,28565591
+Yuriy Ostroukhov,Beginning Fencing Program,2022-07-28,2022-10-31,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,10072666,28580619
+Marwan Elsherbiny,Beginning Fencing Program,2022-08-06,2023-10-09,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10361653,28595815
+Sonia Chang,Beginning Fencing Program,2022-08-05,2024-01-04,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10350984,28610393
+Emytis Keyhan,Intermediate,2022-08-01,2023-08-28,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,9542149,28623359
+Rasika Kulkarni,Intermediate,2022-08-01,2022-08-17,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,9902599,28624167
+Olivia Luo,Intermediate,2022-08-01,2023-03-31,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10340117,28638252
+Jacob Cheng,Beginning Fencing Program,2022-08-01,2023-01-31,No,Yes,No,No,Yes,Bay Area Fencing Club - Los Gatos,10059230,28645320
+Gavin Luo,Beginning Fencing Program,2022-08-02,2022-08-09,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,9671444,28657273
+Cooper Tseng,Beginning Fencing Program,2022-08-04,2022-10-28,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,9976707,28690200
+Yueming Julia Zhu,Competitive,2022-08-04,2022-08-08,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,10368331,28694028
+Aran Nair,Beginning Fencing Program,2022-08-12,2023-03-01,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,9968935,28706270
+Yihan Chen,Beginning Fencing Program,2022-08-06,2023-02-24,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,10034214,28716446
+Amy Jian,Beginning Fencing Program,2022-08-06,2023-03-12,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10383406,28716573
+Asmi Sawant,Intermediate,2022-08-06,2022-08-17,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,10106185,28721049
+David Zhi LuoZhang,Open Bouting,2022-08-08,2022-11-05,No,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10300134,28746361
+Su Xie,Competitive,2022-08-01,2023-03-31,No,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10368330,28761089
+Mirabelle Tai,Beginning Fencing Program,2022-08-10,2023-01-10,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10386411,28781696
+Ivy Ye,Beginning Fencing Program,2022-09-06,2023-03-17,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10404573,28813535
+Cian Alcazaren,Beginning Fencing Program,2022-08-12,2023-06-07,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,9881067,28815446
+Eliana Chang,Beginning Fencing Program,2022-08-12,2024-05-17,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10407619,28815657
+Vihaan Potturi,Beginning Fencing Program,2022-08-13,2023-10-04,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,10266024,28825511
+Mu Jia Jiang,Competitive,2022-08-16,2023-03-31,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10389620,28874075
+Milah McDonald,Beginning Fencing Program,2022-08-24,2023-01-11,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10430158,28911417
+Celeste Willey,Competitive,2022-08-16,2023-03-30,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10250599,28915718
+Grace Augusteo,Beginning Fencing Program,2022-08-19,2022-10-28,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,9887544,28924443
+Chen Xie,Beginning Fencing Program,2022-08-19,2023-07-31,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10434509,28925129
+Arushi Iyer,Competitive,2022-08-16,2023-02-23,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10402910,28969098
+Neil Iyer,Competitive,2022-08-16,2023-02-23,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10402911,28969108
+Zoey Tagne,Beginning Fencing Program,2022-09-09,2022-09-14,No,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10403953,29008278
+Sky Li,Beginning Fencing Program,2022-08-27,2023-06-14,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10462305,29061375
+Cody Lee,Beginning Fencing Program,2022-09-01,2023-04-17,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10462579,29071824
+David Lyu-Piper,Beginning Fencing Program,2022-09-01,2023-04-19,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10483174,29147183
+Grant Bossow,Beginning Fencing Program,2022-09-08,2023-04-24,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10424390,29157129
+Kyle Goshko,Beginning Fencing Program,2022-09-08,2023-08-28,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10486168,29160587
+Elon Chen,Beginning Fencing Program,2022-09-02,2023-08-24,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10465400,29161359
+Sean Chen,Beginning Fencing Program,2022-09-03,2023-09-26,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10465399,29169692
+Matt Zheng,Beginning Fencing Program,2022-09-10,2023-12-08,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10501354,29215970
+Aiden Zhang,Beginning Fencing Program,2022-09-12,2024-01-04,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10509319,29250117
+Ryan Luo,Beginning Fencing Program,2022-09-10,2023-07-31,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10511783,29262016
+Kaitlyn Fang,Beginning Fencing Program,2022-09-10,2023-08-17,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10511814,29262082
+Aanvi Jena,Beginning Fencing Program,2022-09-07,2023-01-03,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10501768,29321112
+Elio Mendez,Beginning Fencing Program,2022-09-17,2023-01-30,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10505706,29360585
+Agata Fin,Beginning Fencing Program,2022-09-17,2022-12-12,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10535082,29364638
+Alexander Hoffman,Beginning Fencing Program,2022-09-20,2024-06-29,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10509256,29395994
+Zachary Cheang,Beginning Fencing Program,2022-09-23,2023-08-17,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10553482,29449753
+Caleb Duong,Beginning Fencing Program,2022-09-24,2022-10-28,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10555783,29462187
+Bernie Stein,Beginning Fencing Program,2022-09-24,2023-01-31,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10555901,29462221
+Zander Stein,Beginning Fencing Program,2022-09-24,2023-01-31,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10555904,29462225
+Anaaya Chamoli,Beginning Fencing Program,2022-10-03,2023-03-20,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10571194,29535091
+Raghav Kadambi,Beginning Fencing Program,2022-10-01,2023-08-20,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10571741,29537969
+Noah Navala,Beginning Fencing Program,2022-10-04,2023-08-23,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10584038,29592172
+Mia Hoh-Choi,Beginning Fencing Program,2022-10-05,2023-04-02,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10589659,29619098
+Sheng Li,Open Bouting,2022-10-06,2022-12-01,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,10413335,29640369
+Tai Labrie,Beginning Fencing Program,2022-10-15,2023-03-02,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10394394,29660440
+Liz Wold,Beginning Fencing Program,2022-10-21,2022-10-31,No,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10633030,29832095
+Danielle Stults,Beginning Fencing Program,2022-11-02,2022-11-19,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10652789,29921674
+Brandon Maldonado,Beginning Fencing Program,2022-11-01,2023-06-07,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10633031,29976987
+Tim Chang,Beginning Fencing Program,2022-11-06,2023-10-29,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10669310,30005152
+Griffin Steinbacher,Beginning Fencing Program,2022-11-04,2023-07-11,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10655489,30025528
+Justin Gibbs,Beginning Fencing Program,2022-11-05,2025-03-30,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10676054,30041783
+Eric Wilk,Beginning Fencing Program,2022-11-08,2023-08-25,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10677775,30049590
+Jeremy Zhu,Beginning Fencing Program,2022-11-12,2024-01-08,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10678823,30054498
+Eitan Wernik,Beginning Fencing Program,2022-11-07,2023-08-28,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10679981,30062157
+QiAo Wu,Beginning Fencing Program,2022-11-12,2024-04-10,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10664808,30065824
+Tilden Tian,Beginning Fencing Program,2022-11-12,2024-01-08,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10684861,30094373
+Aiden Lu,Beginning Fencing Program,2022-11-12,2023-12-17,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10692768,30147450
+adam bouadjel-zebian,Beginning Fencing Program,2022-11-12,2023-09-29,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10693290,30151088
+Callyn Loader,Beginning Fencing Program,2022-11-13,2023-07-30,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10695655,30161586
+Maoz Tal,Beginning Fencing Program,2022-11-22,2023-01-06,No,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10702323,30205145
+Lin Yu,Beginning Fencing Program,2022-11-27,2023-11-27,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10719859,30312815
+Ethan Lee,Beginning Fencing Program,2022-12-03,2023-03-31,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10741378,30418413
+Juliette Bui,Beginning Fencing Program,2022-12-10,2023-04-30,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10742584,30556179
+David Grajeda,Beginning Fencing Program,2022-12-24,2023-01-05,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10763872,30570884
+Ethan Hill,Beginning Fencing Program,2022-12-22,2023-08-08,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10776397,30668750
+Avery Cheng,Beginning Fencing Program,2023-01-07,2023-05-12,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10744435,30672115
+Dylan Chen,Beginning Fencing Program,2022-12-17,2023-06-26,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10761600,30685229
+Ian Quan,Beginning Fencing Program,2022-12-31,2023-02-24,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10806145,30833313
+Sammie Ding,Beginning Fencing Program,2023-01-03,2023-02-22,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10813881,30869493
+Callie Ding,Beginning Fencing Program,2023-01-03,2023-02-22,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10813890,30869506
+Joelle Ma,Beginning Fencing Program,2023-01-03,2024-03-10,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10817703,30870688
+Max Ma,Beginning Fencing Program,2023-01-03,2025-08-08,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10817704,30870700
+Cassie Liu,Beginning Fencing Program,2023-01-07,2023-08-15,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10829320,30909219
+Emma Maybruck,Beginning Fencing Program,2023-01-07,2023-07-04,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10832246,30930853
+Bahar Eliot Saglam,Beginning Fencing Program,2023-01-07,2023-06-07,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10835389,30931385
+Alden Liu,Beginning Fencing Program,2023-01-13,2024-02-29,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10838227,30940770
+weichiau hsieh,Beginning Fencing Program,2023-01-09,2023-03-05,No,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10844820,30959308
+Ethan Ting,Beginning Fencing Program,2023-01-09,2023-04-25,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10844821,30959513
+Skipper Cortright,Competitive,2023-02-01,2023-03-31,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,10832861,30961741
+Joshua Cortright,Competitive,2023-02-01,2023-03-31,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,10832860,30962173
+Megan Vaughan,Beginning Fencing Program,2023-01-14,2023-06-16,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10848043,30969771
+kaleb yang,Beginning Fencing Program,2023-01-14,2023-10-29,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10864400,31029766
+Ara Kim,Beginning Fencing Program,2023-01-19,2023-10-08,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10867463,31041070
+Raymond Ding,Beginning Fencing Program,2023-01-20,2023-03-31,Yes,Yes,No,Yes,Yes,Bay Area Fencing Club - Los Gatos,10878623,31079004
+Willow Daniels,Beginning Fencing Program,2023-01-18,2023-06-13,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10878920,31079747
+Bonnie Davis,Open Bouting,2023-01-18,2023-10-10,No,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10882201,31091256
+Taylor Lee,Beginning Fencing Program,2023-03-09,2023-08-17,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10872630,31093254
+Jadyn Lee,Beginning Fencing Program,2023-03-09,2023-08-17,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10872629,31093322
+Dong Kim,Beginning Fencing Program,2023-01-22,2024-03-19,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10883580,31095963
+Leon Kim,Beginning Fencing Program,2023-01-19,2024-11-26,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10873055,31106863
+Joshua Hwang,Beginning Fencing Program,2023-01-20,2023-03-20,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10890769,31121594
+August Figura,Beginning Fencing Program,2023-01-26,2024-01-22,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10896982,31144090
+Saisha Deshpande,Beginning Fencing Program,2023-01-24,2023-09-18,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10897205,31175032
+Jorge Luis Rojas Pinero,Competitive,2023-01-25,2023-04-03,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10907934,31190659
+Freya Myhrstad,Beginning Fencing Program,2023-01-26,2024-01-21,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10913444,31205554
+daniel nguyen,Beginning Fencing Program,2023-01-26,2023-06-07,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10791520,31205560
+Annabelle Merrigan,Beginning Fencing Program,2023-01-28,2023-06-07,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10917441,31221497
+Stella Giannetti,Beginning Fencing Program,2023-02-01,2023-04-12,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10913390,31240502
+Kwang-Soo Kim,Beginning Fencing Program,2023-01-29,2023-12-21,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10923230,31243825
+Aditri Goswami,Beginning Fencing Program,2023-02-04,2023-12-06,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10926221,31256377
+Kara Marenitch,Intermediate,2023-01-30,2023-03-31,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10927484,31262197
+Prisha Gupta,Beginning Fencing Program,2023-01-31,2024-02-29,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10931777,31280340
+Sean Shenoy,Competitive,2023-02-01,2023-02-09,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,10845796,31283424
+Neil Shenoy,Intermediate,2023-02-01,2023-03-31,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,10845797,31283427
+Caitlyn Tom,Competitive,2023-02-01,2023-03-31,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10927823,31299066
+Smira bavipati,Competitive,2023-02-02,2023-03-31,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10932342,31302950
+Nolan Gibbs,Beginning Fencing Program,2023-02-02,2023-08-01,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10910197,31313229
+Piksel Schramm,Beginning Fencing Program,2023-02-14,2023-07-31,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10968140,31407520
+Paisley Schramm,Beginning Fencing Program,2023-02-14,2023-07-31,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10968157,31407595
+Landon Waldo,Beginning Fencing Program,2023-02-13,2023-10-15,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10954581,31408799
+nicole sukharev,Beginning Fencing Program,2023-02-13,2023-09-24,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10954811,31408858
+MaryCarmen Alva,Beginning Fencing Program,2023-02-09,2023-06-07,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10969016,31411674
+Warren Byrne,Beginning Fencing Program,2023-02-15,2023-07-16,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10989194,31498501
+Dorris Lam,Beginning Fencing Program,2023-02-17,2023-12-02,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10989787,31501163
+Martin Hu,Beginning Fencing Program,2023-02-24,2023-12-14,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10998344,31530893
+MONTSERRAT PARRA,Beginning Fencing Program,2023-02-20,2023-08-16,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,11008420,31568526
+Caitlin Duff,Beginning Fencing Program,2023-02-26,2023-06-13,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,11003512,31597834
+Michael Duff,Beginning Fencing Program,2023-02-26,2023-06-13,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,11003513,31597914
+Belle Juson,Beginning Fencing Program,2023-02-24,2023-08-29,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,11011665,31630297
+Ianne Juson,Beginning Fencing Program,2023-02-24,2023-12-02,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,11011664,31630385
+Samuel Tu,Beginning Fencing Program,2023-02-24,2024-04-07,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10997644,31630468
+Arya Shariat,Beginning Fencing Program,2023-02-26,2023-03-31,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,11066611,31653316
+Iqra Shaikh,Beginning Fencing Program,2023-02-26,2023-08-28,No,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,11070175,31657159
+Aya Abdul Mateen,Beginning Fencing Program,2023-02-28,2023-11-01,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,11012756,31690310
+Emma Zhou,Beginning Fencing Program,2023-03-08,2023-06-20,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,11089030,31724142
+Ianne Juson,Beginning Fencing Program,2023-03-03,2023-04-02,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,11074606,31738195
+Tarush Gupta,Competitive,2023-03-04,2023-03-31,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,11069727,31752472
+Misha Seth,Beginning Fencing Program,2023-03-12,2023-07-31,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,9911980,31868433
+Finn Jacobson-Wong,Beginning Fencing Program,2023-03-18,2023-05-26,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,11150829,31968047
+Lief Li,Beginning Fencing Program,2023-03-24,2023-09-19,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,11148567,32072921
+Padma Atreya,Beginning Fencing Program,2023-03-25,2023-03-26,No,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,11178081,32082775
+Alfred Galang,Beginning Fencing Program,2023-03-25,2023-04-30,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,11178454,32084295
+Charvi Atreya,Beginning Fencing Program,2023-03-25,2023-06-11,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,11178451,32084403
+Matvey Loenko,Beginning Fencing Program,2023-03-25,2023-06-07,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,11172099,32085696
+George Chang,Beginning Fencing Program,2023-03-25,2023-03-26,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,11166903,32094279
+Anna Victor,Beginning Fencing Program,2023-03-30,2023-04-30,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,10180782,32095456
+Neil Atreya,Beginning Fencing Program,2023-03-27,2023-10-31,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,11183763,32111038
+Ian sin,Beginning Fencing Program,2023-04-01,2023-10-20,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,11204965,32196897
+Audrina Galang,Beginning Fencing Program,2023-04-02,2025-01-17,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,11208930,32212319
+Joshua Yu,Beginning Fencing Program,2023-04-12,2023-08-28,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,11247527,32358755
+Aiden Galang,Beginning Fencing Program,2023-04-15,2023-12-06,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,11208924,32399418
+Fiona Li,Beginning Fencing Program,2023-04-15,2023-07-11,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,11257978,32400785
+Rishi Seth,Beginning Fencing Program,2023-04-16,2024-07-03,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,11261038,32411373
+CHARLES ZHOU,Beginning Fencing Program,2023-04-17,2023-10-01,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,11238334,32428532
+Risha Mallur,Beginning Fencing Program,2023-04-30,2024-09-12,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,11288502,32518846
+Ruby Tseng,Beginning Fencing Program,2023-04-23,2024-07-28,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,11074319,32520271
+Richard Sah,Beginning Fencing Program,2023-04-23,2024-05-28,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,11286284,32520317
+Weiran Zhao,Beginning Fencing Program,2023-04-23,,Yes,Yes,No,Yes,Yes,Bay Area Fencing Club - Los Gatos,11289593,32520694
+Isla Maani,Beginning Fencing Program,2023-04-30,2023-08-10,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,11294947,32539526
+Noa Go,Beginning Fencing Program,2023-04-25,2023-08-08,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,11298490,32552704
+Satoshi Hiramoto,Competitive,2023-04-29,2023-05-01,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,11302729,32569060
+Grayson DeVine,Beginning Fencing Program,2023-05-01,2024-01-13,No,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,11148700,32603324
+Anna Wu,Beginning Fencing Program,2023-04-29,2023-07-31,No,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,11314624,32618904
+Albert Tsai,Beginning Fencing Program,2023-04-30,2024-04-07,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,11316362,32625308
+Yi Ma,Beginning Fencing Program,2023-04-30,,Yes,Yes,No,Yes,Yes,Bay Area Fencing Club - Los Gatos,11289592,32630054
+Jayden Gui,Beginning Fencing Program,2023-04-30,2024-01-28,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,11115858,32630468
+Maanvi Manubolu,Beginning Fencing Program,2023-05-08,2023-08-15,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,11343283,32726557
+Valerie Martinez,Beginning Fencing Program,2023-05-06,2023-08-05,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,11344092,32730620
+Sarah Khanal,Beginning Fencing Program,2023-05-13,2024-01-07,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,11357565,32777474
+Adrian Wang,Beginning Fencing Program,2023-05-27,2023-07-31,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,10896664,33090555
+Meera Batra,Beginning Fencing Program,2023-05-27,2023-06-20,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,11436395,33099815
+Eva Zlobina,Beginning Fencing Program,2023-06-03,2023-08-05,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,11470634,33217924
+Seungwoon (Joshua) Hong,Competitive Saber,2023-06-03,2023-07-23,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,11471119,33219542
+Claire Murray,Beginning Fencing Program,2023-06-05,2023-10-18,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,11482080,33255458
+Duc Than,Competitive,2023-06-09,2023-12-05,No,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,11454944,33346017
+Arya Vivares,Beginning Fencing Program,2023-06-11,2023-06-30,No,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,11499452,33377209
+Oleg Korol,Beginning Fencing Program,2023-06-11,2024-06-01,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,11511209,33378013
+Renee Yang,Intermediate,2023-06-12,2023-06-14,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,10864385,33459327
+Amol Kher,Beginning Fencing Program,2023-06-18,2023-10-01,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,11543754,33513863
+Kenny Zhi,Beginning Fencing Program,2023-06-29,2023-08-17,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,11594096,33743649
+Eric Yu,Open Bouting,2023-06-30,2023-10-29,No,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,11598931,33763659
+Asher Weinstein,Beginning Fencing Program,2023-07-13,2023-08-21,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,11628187,33881127
+Lucas Yang,Beginning Fencing Program,2023-07-09,2024-07-22,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,11601162,33890271
+Anish Gowda,Intermediate,2023-07-12,2023-08-21,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,11198608,33943241
+adrian sessions,Beginning Fencing Program,2023-07-16,2024-01-09,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,10502284,34020606
+Jemma Jin,Beginning Fencing Program,2023-07-17,2024-02-29,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,10663125,34034286
+Audrey Rudnick,Beginning Fencing Program,2023-07-21,2024-03-27,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,11670434,34064018
+lukas ferrante,Beginning Fencing Program,2023-07-27,2023-09-20,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,11678234,34099606
+Chloe Kim,Beginning Fencing Program,2023-07-24,2023-12-15,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,11429809,34161258
+Ella Kim,Beginning Fencing Program,2023-07-24,2024-01-08,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,11429810,34161306
+Fang Zhan,Beginning Fencing Program,2023-07-29,2023-10-20,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,11684172,34247528
+Francis Zhan,Beginning Fencing Program,2023-07-29,2024-04-20,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,11689926,34247560
+Sonia Seth,Intermediate,2023-08-01,2024-07-03,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,11194526,34309384
+Oleksandr Zhenirovskyy,Competitive,2023-08-01,2024-01-25,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,11709952,34310592
+Bella Zhu,Intermediate,2023-08-01,2024-04-02,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,11363481,34310974
+Maryam Elogeel,Beginning Fencing Program,2023-08-15,2024-02-29,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,11727415,34334175
+Omar Elogeel,Beginning Fencing Program,2023-08-15,2023-08-27,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,11727429,34334182
+Ian tagne,Beginning Fencing Program,2023-08-01,2024-06-30,Yes,Yes,No,Yes,Yes,Bay Area Fencing Club - Los Gatos,11721793,34338372
+Zachary Hwang,Beginning Fencing Program,2023-08-03,2023-10-25,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,11729967,34347552
+jonathan li,Beginning Fencing Program,2023-08-06,2024-11-05,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,11685404,34388803
+Woobin Park,Beginning Fencing Program,2023-08-20,2023-12-18,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,11747056,34449343
+Seamus Coonan,Competitive,2023-08-11,,No,Yes,No,No,Yes,Bay Area Fencing Club - Los Gatos,11115668,34485406
+Joan Liew,Beginning Fencing Program,2023-08-13,2023-09-06,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,11699508,34513899
+Lincoln Daus,Beginning Fencing Program,2023-08-16,2023-12-06,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,11774789,34573313
+John Pound,Beginning Fencing Program,2023-08-17,2023-11-26,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,11778530,34595986
+Luna Daus,Beginning Fencing Program,2023-08-19,2024-07-21,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,11774790,34626043
+Lauren Boyle,Beginning Fencing Program,2023-08-19,2024-02-29,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,11684217,34626665
+Ishani Sood,Open Bouting,2023-08-20,2024-06-19,No,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10388222,34643665
+Kyle Wu,Beginning Fencing Program,2023-08-21,2024-11-30,Yes,Yes,No,Yes,Yes,Bay Area Fencing Club - Los Gatos,11761861,34658721
+"John ""Iain"" MacAskill",Beginning Fencing Program,2023-08-21,2023-10-22,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,11323931,34662521
+Katerina Guseva,Beginning Fencing Program,2023-08-21,2023-09-30,No,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,11796808,34666985
+vasilisa Tikhonova,Intermediate,2023-08-24,2025-04-13,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,10220045,34721072
+Owen Valdez,Intermediate,2023-08-26,,Yes,Yes,No,Yes,Yes,Bay Area Fencing Club - Los Gatos,11813066,34750946
+Alexis Goot,Intermediate,2023-08-26,2024-09-23,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,11813457,34752541
+Léa Kandl-Zhang,Competitive,2023-09-01,2024-06-30,Yes,Yes,No,Yes,Yes,Bay Area Fencing Club - Los Gatos,11817911,34773213
+Nathan Shoykhet,Beginning Fencing Program,2023-08-28,2024-04-15,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,11796809,34785144
+Dhaani Jeevanani,Beginning Fencing Program,2023-09-02,2024-03-04,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,11820089,34786815
+Justin Gibbs,Open Bouting,2023-08-29,2023-10-13,No,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10676055,34800658
+Yan-Yi Ku,Beginning Fencing Program,2023-09-01,2024-03-06,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,11835248,34862115
+Axel Topping,Beginning Fencing Program,2023-09-02,2023-09-22,No,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,11837178,34872077
+Zak Perryman,Beginning Fencing Program,2023-09-09,2023-11-03,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,11837330,34872914
+Alex Flores,Beginning Fencing Program,2023-09-03,2023-12-31,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,11838957,34879402
+Amy Matthews,Beginning Fencing Program,2023-09-03,2024-08-02,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,11815224,34879418
+Andrea Casals,Beginning Fencing Program,2023-09-07,2023-10-31,No,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,11851728,34934707
+Makai Yano,Beginning Fencing Program,2023-09-08,2023-10-29,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,11851961,34935715
+Alex Ostroukhov,Intermediate,2023-09-07,2024-11-30,No,Yes,No,No,Yes,Bay Area Fencing Club - Los Gatos,10246408,34943744
+Eric Wells,Beginning Fencing Program,2023-09-08,2024-06-30,Yes,Yes,No,Yes,Yes,Bay Area Fencing Club - Los Gatos,11852218,34944963
+Archer Henry,Beginning Fencing Program,2023-09-08,2024-01-31,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,11853198,34950732
+Jack Henry,Beginning Fencing Program,2023-09-08,2024-01-31,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,11853197,34950741
+Michael Kilian Motion,Beginning Fencing Program,2023-09-08,2024-05-31,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,11809864,34968335
+Camila Brouse,Beginning Fencing Program,2023-09-08,2024-05-12,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,11748925,34968368
+Paxton Wang,Beginning Fencing Program,2023-09-09,2024-06-02,Yes,Yes,No,Yes,Yes,Bay Area Fencing Club - Los Gatos,11836881,34968500
+Aaron Lin,Beginning Fencing Program,2023-09-10,2024-03-04,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,11331343,34975041
+Charles Wang,Beginning Fencing Program,2023-09-10,2023-10-01,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,11860778,34980866
+Fox Hagedorn,Beginning Fencing Program,2023-09-10,2024-09-11,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,11860791,34980888
+Alaina Cheng,Beginning Fencing Program,2023-09-10,2023-12-17,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,11783937,34981325
+EVA CHEN,Beginning Fencing Program,2023-09-10,2023-10-08,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,11354147,34981322
+Nick Sazanovich,Beginning Fencing Program,2023-09-11,2024-08-31,Yes,Yes,No,Yes,Yes,Bay Area Fencing Club - Los Gatos,11820124,35002905
+Roshan Masuda,Beginning Fencing Program,2023-10-05,2024-06-08,Yes,Yes,No,Yes,Yes,Bay Area Fencing Club - Los Gatos,11867771,35011580
+Norman Cheng,Beginning Fencing Program,2023-09-17,2024-03-06,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,11884342,35091008
+Mustafa Ucar,Beginning Fencing Program,2023-09-17,2023-12-31,No,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,11861464,35092427
+Elena Yang,Beginning Fencing Program,2023-09-22,,Yes,Yes,No,Yes,Yes,Bay Area Fencing Club - Los Gatos,11901625,35178185
+Alvin Lu,Beginning Fencing Program,2023-09-23,2024-05-17,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,11870246,35189175
+Kianna Casetta,Beginning Fencing Program,2023-09-23,2024-07-31,Yes,Yes,No,Yes,Yes,Bay Area Fencing Club - Los Gatos,11903233,35191195
+Savera Kullar,Beginning Fencing Program,2023-09-25,2024-03-27,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,11902578,35207795
+Ari Hu,Beginning Fencing Program,2023-10-01,2023-10-31,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,11906478,35304406
+Nolan Chang,Beginning Fencing Program,2023-10-01,2025-01-09,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,11925296,35304413
+yang liu,Beginning Fencing Program,2023-10-04,2023-12-02,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,11586133,35348522
+Jennifer Wang,Beginning Fencing Program,2023-10-04,,Yes,Yes,No,Yes,Yes,Bay Area Fencing Club - Los Gatos,11590926,35348594
+ian Katayama,Beginning Fencing Program,2023-10-06,2024-03-03,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,11940930,35388010
+Qiandi Du,Beginning Fencing Program,2023-10-10,2023-11-01,No,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,9671443,35446356
+Crystal Yang,Beginning Fencing Program,2023-10-31,2023-10-31,No,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,11959045,35456203
+SANAYA PALTA,Beginning Fencing Program,2023-10-13,2024-03-04,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,11964897,35489595
+Anderson Lane,Beginning Fencing Program,2023-10-14,2024-10-02,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,10112481,35496838
+Gia PALTA,Beginning Fencing Program,2023-10-14,2024-05-20,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,11966179,35500530
+Jayden Lee,Beginning Fencing Program,2023-10-17,2024-02-26,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,11975489,35548489
+ALEXANDER TRAN,Beginning Fencing Program,2023-10-20,2024-08-02,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,11964521,35590189
+Benjamin Tran,Beginning Fencing Program,2023-10-20,2024-08-02,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,11981812,35590199
+Oliver Foster,Beginning Fencing Program,2023-10-20,2024-07-29,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,11983258,35591369
+lucas dai,Beginning Fencing Program,2023-10-21,2024-09-04,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,11903189,35599729
+Wei Luo,Beginning Fencing Program,2023-10-22,2024-10-29,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,11969621,35626501
+Euan Lee,Beginning Fencing Program,2023-10-23,2024-06-16,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,11971837,35628386
+Eithan Aliphas,Beginning Fencing Program,2023-11-02,2024-04-10,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,12015504,35778289
+Dashiell Rogers,Beginning Fencing Program,2023-11-03,2024-02-12,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,12017669,35791501
+Eddie Luo,Beginning Fencing Program,2023-11-04,2024-06-08,Yes,Yes,No,Yes,Yes,Bay Area Fencing Club - Los Gatos,12002668,35809621
+Evan Arcara,Competitive,2023-12-02,2024-06-30,Yes,Yes,No,Yes,Yes,Bay Area Fencing Club - Los Gatos,12032486,35930207
+Lelan Bai,Beginning Fencing Program,2023-11-20,2024-06-30,No,Yes,No,No,Yes,Bay Area Fencing Club - Los Gatos,12042315,36070375
+eric qiu,Beginning Fencing Program,2023-11-26,2024-01-27,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,12073150,36134979
+Ellis Lin,Intermediate,2023-11-27,2024-04-23,No,Yes,Yes,No,Yes,Bay Area Fencing - Pleasanton,11815255,36135038
+Andy Broiles,Beginning Fencing Program,2023-11-27,2024-04-15,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,12076962,36148267
+Marco Zambrano,Beginning Fencing Program,2023-12-01,2024-06-04,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,11851729,36207399
+Amelia Goodfellow,Beginning Fencing Program,2023-12-01,2024-09-19,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,12087276,36217404
+Winston Wei,Open Bouting,2023-12-01,2024-06-30,No,Yes,No,Yes,Yes,Bay Area Fencing Club - Los Gatos,12063088,36226890
+Yash Goyal,Beginning Fencing Program,2023-12-02,,Yes,Yes,No,Yes,Yes,Bay Area Fencing Club - Los Gatos,12074887,36245029
+Zephora Lee,Beginning Fencing Program,2023-12-03,2024-04-07,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,12091939,36260648
+Oliver Scholer,Beginning Fencing Program,2023-12-03,2023-12-16,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,12059635,36264377
+Noelle Rudak,Beginning Fencing Program,2023-12-04,2024-06-07,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,12083293,36287790
+Amber Zhang,Beginning Fencing Program,2023-12-04,2025-04-15,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,12083261,36287870
+Aria Zhang,Beginning Fencing Program,2023-12-04,2025-08-21,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,12083283,36289030
+Yahia Amin Elsayed,Open Bouting,2023-12-07,2024-04-08,No,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,12056560,36346965
+Zhuoying Lu,Beginning Fencing Program,2023-12-09,2024-06-02,Yes,Yes,No,Yes,Yes,Bay Area Fencing Club - Los Gatos,12090490,36368937
+Ethan Klein,homeschool,2023-12-14,2024-01-09,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,12084414,36468030
+Gabriella Klein,homeschool,2023-12-14,2024-01-09,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,12084407,36468047
+hannah klein,homeschool,2023-12-14,2024-01-09,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,12084401,36468077
+Avni Kanungo,Beginning Fencing Program,2023-12-24,2024-06-18,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,12142039,36633360
+arjun bhanot,Competitive/Elite,2023-12-29,,No,Yes,No,No,Yes,Bay Area Fencing Club - Los Gatos,12152762,36668187
+Sia Arkatkar,Beginning Fencing Program,2024-01-07,2024-05-31,Yes,Yes,No,Yes,Yes,Bay Area Fencing Club - Los Gatos,12094306,36731053
+Blythe Gabriel,Beginning Fencing Program,2024-01-05,2024-03-11,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,12077074,36748082
+Andrew Zhang,Open Bouting,2024-01-06,2024-04-12,No,Yes,Yes,No,Yes,Bay Area Fencing - Pleasanton,12058413,36763721
+Gabriel spare,Beginning Fencing Program,2024-01-07,2024-04-26,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,12177839,36771188
+Caden Xie,Beginning Fencing Program,2024-01-07,2024-04-29,Yes,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,12170264,36771201
+Ryker Chen,Open Bouting,2024-01-08,2024-04-09,No,Yes,Yes,No,Yes,Bay Area Fencing - Pleasanton,11983331,36782375
+Jasper zhang,Beginning Fencing Program,2024-01-08,2024-05-31,Yes,Yes,No,Yes,Yes,Bay Area Fencing Club - Los Gatos,12186655,36790273
+Kennedy Galante,Beginning Fencing Program,2024-01-08,2024-02-05,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,12137577,36791653
+Easton Galante,Beginning Fencing Program,2024-01-08,2024-02-05,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,12137569,36791809
+Marcus White,Beginning Fencing Program,2024-01-08,2024-08-21,Yes,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,12156280,36791925
+Sasha Tikhonov,Intermediate,2024-01-08,2025-04-13,Yes,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,12187431,36793292
+Alp Yayli,Competitive Saber,2024-01-09,2024-05-31,Yes,Yes,No,No,Yes,Bay Area Fencing Club - Los Gatos,12188007,36813283
+Flint Ditty,Beginning Fencing Program,2024-01-11,2024-06-30,Yes,Yes,No,Yes,Yes,Bay Area Fencing Club - Los Gatos,12199315,36844741
+Sofia tikhonova,Competitive/Elite Foil,2024-01-13,2025-07-21,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,10220058,36877075
+Yulin Zhan,Competitive/Elite Foil,2024-01-17,2024-03-12,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,12119700,36942319
+Sorana Suciu,Beginning Fencing Program,2024-01-19,2024-08-31,Yes,Yes,No,Yes,Yes,Bay Area Fencing Club - Los Gatos,12211905,36972001
+Gabriel tompkin,Intermediate,2024-01-27,2025-05-12,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,12252930,37085457
+claire Li,Beginning Fencing Program,2024-01-29,2024-07-09,No,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,12266015,37117795
+Auden Wyman,Beginning Fencing Program,2024-01-29,2024-07-28,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,12265196,37125348
+Jasper Xu,Beginning Fencing Program,2024-02-02,2025-07-26,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,12282805,37185774
+Tristan Kandl-zhang,Beginning Fencing Program,2024-02-03,2024-02-23,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,12284960,37195316
+Misha madhan,Beginning Fencing Program,2024-02-04,2024-06-30,Yes,Yes,No,Yes,Yes,Bay Area Fencing Club - Los Gatos,12287972,37205437
+Joey Latourrette,Beginning Fencing Program,2024-02-04,2024-07-27,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,12288205,37205566
+Walter Liu,Beginning Fencing Program,2024-02-04,2024-04-07,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,12289451,37208930
+Josiah Seeba,Beginning Fencing Program,2024-02-23,2024-05-30,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,12309140,37488773
+Grisha Baranov,Beginning Fencing Program,2024-02-23,2024-05-11,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,12309235,37492448
+Lauren Roseman,Beginning Fencing Program,2024-02-28,2024-03-06,No,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,12380685,37567110
+Cayden Roseman,Beginning Fencing Program,2024-02-28,2024-03-04,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,12380686,37568140
+isabella baccari,Competitive/Elite Foil,2024-03-04,2024-06-30,Yes,Yes,No,Yes,Yes,Bay Area Fencing Club - Los Gatos,12381363,37649195
+noah howell,Beginning Fencing Program,2024-03-08,2024-07-11,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,12418152,37728619
+Danica Chen,Beginning Foil (Pleasanton),2024-03-19,2024-03-20,No,Yes,Yes,No,Yes,Bay Area Fencing - Pleasanton,12460223,37899608
+jack bouguerba,Beginning Fencing Program (Los Gatos),2024-03-21,2024-06-04,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,12460135,37922047
+Brandon shih,Beginning Fencing Program (Los Gatos),2024-03-21,2024-08-28,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,12459717,37922109
+Kimber Wu,Pre-Intermediate Foil (Pleasanton),2024-04-01,2024-06-30,No,Yes,No,No,Yes,Bay Area Fencing - Pleasanton,12451397,37925137
+Cindy Test,Competitive Foil Basic (Pleasanton),2024-03-23,2024-05-22,No,Yes,Yes,Yes,Yes,Bay Area Fencing - Pleasanton,12467141,37958823
+Alexandra Gu,Intermediate Foil (Pleasanton),2024-04-08,2024-06-30,No,Yes,No,No,Yes,Bay Area Fencing - Pleasanton,12414923,37994664
+Jaron Yang,Intermediate Foil (Pleasanton),2024-04-01,2024-05-07,No,Yes,Yes,No,Yes,Bay Area Fencing - Pleasanton,12043349,37994813
+William Choi,Intermediate Foil (Pleasanton),2024-04-08,2024-05-31,No,Yes,No,No,Yes,Bay Area Fencing - Pleasanton,12465056,38012065
+Julie Scheffelin,Beginning Fencing Program (Los Gatos),2024-03-29,2025-05-02,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,12459652,38056969
+Olivia Tang,Pre-Intermediate Foil (Pleasanton),2024-03-30,2024-05-31,No,Yes,No,No,Yes,Bay Area Fencing - Pleasanton,12451402,38068305
+Jane Wu,Competitive Foil Basic (Pleasanton),2024-04-02,2024-12-31,No,Yes,No,No,Yes,Bay Area Fencing - Pleasanton,12459793,38102964
+Milana Ebrahimoon,Beginning Fencing Program (Los Gatos),2024-04-02,2024-06-04,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,12495890,38114740
+Sam Ding,Competitive Foil (Pleasanton),2024-04-02,2024-05-31,No,Yes,No,No,Yes,Bay Area Fencing Club - Los Gatos,12403468,38129121
+Patricia lin,Pre-Intermediate Foil (Pleasanton),2024-04-04,2025-01-01,No,Yes,Yes,No,Yes,Bay Area Fencing - Pleasanton,12477038,38140734
+Eno Wang,Beginning Foil (Pleasanton),2024-04-06,2024-05-31,Yes,Yes,No,Yes,Yes,Bay Area Fencing - Pleasanton,12456423,38152073
+Ava Chen,Beginning Foil (Pleasanton),2024-04-06,2024-10-31,Yes,Yes,No,Yes,Yes,Bay Area Fencing - Pleasanton,12526549,38175856
+Alvis Huang,Beginning Foil (Pleasanton),2024-04-06,2024-06-30,Yes,Yes,No,Yes,Yes,Bay Area Fencing - Pleasanton,12499739,38179884
+Ashrey fournier,Beginning Fencing Program (Los Gatos),2024-04-07,2024-07-19,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,12450392,38187501
+Danny Zhang,Beginning Fencing Program (Los Gatos),2024-04-08,2024-08-04,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,12529909,38201354
+sky deng,Beginning Foil (Pleasanton),2024-04-08,2024-07-31,Yes,Yes,No,Yes,Yes,Bay Area Fencing - Pleasanton,12526917,38201534
+Damon Weng,Beginning Foil (Pleasanton),2024-04-08,2025-01-31,Yes,Yes,No,Yes,Yes,Bay Area Fencing - Pleasanton,12534687,38206818
+Vivian Pei,Pre-Intermediate Foil (Pleasanton),2024-04-01,2024-04-09,No,Yes,Yes,Yes,Yes,Bay Area Fencing - Pleasanton,12451388,38231440
+samantha pan,Competitive Foil Basic (Pleasanton),2024-04-10,2024-04-30,No,Yes,No,No,Yes,Bay Area Fencing - Pleasanton,12285750,38232051
+Aiden Chen,Intermediate Foil Plus (Pleasanton),2024-04-10,2024-05-06,No,Yes,Yes,No,Yes,Bay Area Fencing - Pleasanton,12539430,38232078
+Avrian Lo,Beginning Fencing Program (Los Gatos),2024-04-10,2024-06-19,Yes,Yes,No,Yes,Yes,Bay Area Fencing Club - Los Gatos,12543611,38240883
+Collins Zhou,Beginning Foil (Pleasanton),2024-04-10,2024-05-31,Yes,Yes,No,Yes,Yes,Bay Area Fencing - Pleasanton,12543368,38242067
+Evelyn Yang,Pre-Intermediate Foil (Pleasanton),2024-04-01,2024-05-31,No,Yes,Yes,No,Yes,Bay Area Fencing - Pleasanton,12149997,38247210
+Emily Hsu,Competitive Foil Basic (Pleasanton),2024-04-11,2024-04-24,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing - Pleasanton,12546036,38249844
+Brian Hii,Intermediate Foil (Pleasanton),2024-04-15,2024-08-11,No,Yes,No,Yes,Yes,Bay Area Fencing - Pleasanton,12496270,38250779
+Asher Hii,Intermediate Foil (Pleasanton),2024-04-15,2024-08-11,Yes,Yes,No,No,Yes,Bay Area Fencing - Pleasanton,12496246,38250834
+Kai Zhao,Beginning Foil (Pleasanton),2024-04-15,2024-05-31,Yes,Yes,No,Yes,Yes,Bay Area Fencing - Pleasanton,12555560,38309026
+Terrence Huang,Beginning Foil (Pleasanton),2024-04-15,2024-06-30,No,Yes,No,No,Yes,Bay Area Fencing - Pleasanton,12499738,38309215
+Dylan Rothberg,Beginning Fencing Program (Los Gatos),2024-04-15,2025-04-17,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,12527291,38317551
+John Trainer,Intermediate Foil (Pleasanton),2024-04-16,2024-09-18,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing - Pleasanton,12567194,38328967
+Karen Li,Beginning Fencing Program (Los Gatos),2024-04-16,2024-08-08,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,12547600,38336353
+Simon Weng,Beginning Foil (Pleasanton),2024-04-16,,Yes,Yes,No,Yes,Yes,Bay Area Fencing - Pleasanton,12569181,38336885
+Noah Cheng,Beginning Foil (Pleasanton),2024-04-22,2024-05-01,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing - Pleasanton,12577890,38369040
+Leo Cai,Beginning Fencing Program (Los Gatos),2024-04-19,2024-12-31,Yes,Yes,No,Yes,Yes,Bay Area Fencing Club - Los Gatos,12554139,38378457
+Jeffrey Chen,Beginning Fencing Program (Los Gatos),2024-04-19,2025-08-26,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,12581303,38383592
+hannah lau,Beginning Foil (Pleasanton),2024-04-20,2024-11-30,Yes,Yes,No,Yes,Yes,Bay Area Fencing - Pleasanton,12496348,38392618
+Guy Hewitt,Beginning Fencing Program (Los Gatos),2024-04-20,2024-06-30,Yes,Yes,No,Yes,Yes,Bay Area Fencing Club - Los Gatos,12583426,38394281
+Molly Yu,Beginning Foil (Pleasanton),2024-04-20,2024-06-07,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing - Pleasanton,12584486,38399231
+Zihan (Adam) Wang,Beginning Foil (Pleasanton),2024-04-20,2024-06-30,Yes,Yes,No,Yes,Yes,Bay Area Fencing - Pleasanton,12558472,38399332
+Jasper Shi,Beginning Fencing Program (Los Gatos),2024-04-21,2024-07-25,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,12586825,38406441
+Bella miao,Beginning Foil (Pleasanton),2024-04-21,2024-06-11,Yes,Yes,No,Yes,Yes,Bay Area Fencing - Pleasanton,12588112,38410207
+Mason Rothberg,Beginning Fencing Program (Los Gatos),2024-04-23,2024-05-28,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,12597021,38443643
+Akul Sharma,Beginning Foil (Pleasanton),2024-04-27,2024-06-30,Yes,Yes,No,Yes,Yes,Bay Area Fencing - Pleasanton,12611164,38504627
+Jeff Li,Beginning Foil (Pleasanton),2024-04-27,,Yes,Yes,No,Yes,Yes,Bay Area Fencing - Pleasanton,12612438,38509341
+Ariel Germanaz,Beginning Fencing Program (Los Gatos),2024-04-28,,Yes,Yes,No,Yes,Yes,Bay Area Fencing Club - Los Gatos,12615920,38521396
+Chloe Wu,Pre-Intermediate Foil (Pleasanton),2024-04-01,2024-08-31,No,Yes,Yes,Yes,Yes,Bay Area Fencing - Pleasanton,12477086,38525900
+Sanah Virk,Beginning Fencing Program (Los Gatos),2024-04-30,2024-05-31,Yes,Yes,No,Yes,Yes,Bay Area Fencing Club - Los Gatos,12597158,38560889
+Shaan Virk,Beginning Fencing Program (Los Gatos),2024-04-30,2024-05-31,Yes,Yes,No,Yes,Yes,Bay Area Fencing Club - Los Gatos,12597157,38560915
+Conrad Kaspar,Beginning Fencing Program (Los Gatos),2024-05-03,2024-08-02,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,12637037,38610445
+Ryan Hung,Beginning Fencing Program (Los Gatos),2024-05-04,2024-06-23,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,12639221,38621473
+Sophie Choi,Competitive Foil Basic (Pleasanton),2024-06-01,2024-07-31,No,Yes,No,No,Yes,Bay Area Fencing - Pleasanton,12465054,38627828
+Dong Kim,Beginning Fencing Program (Los Gatos),2024-06-02,2025-01-01,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,12465736,38639881
+Maximilian Rose,Beginning Fencing Program (Los Gatos),2024-05-06,2024-06-11,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,12620197,38655099
+Samantha Pan,Competitive Foil Basic (Pleasanton),2024-05-01,2024-06-07,No,Yes,No,No,Yes,Bay Area Fencing - Pleasanton,12448864,38718515
+JIAQI XU,Intermediate Foil (Pleasanton),2024-05-11,2025-05-26,No,Yes,No,No,Yes,Bay Area Fencing - Pleasanton,12460029,38751147
+Katie Zhang,Intermediate Foil (Pleasanton),2024-06-01,2024-10-04,Yes,Yes,Yes,No,Yes,Bay Area Fencing - Pleasanton,12745619,38992312
+hailey Lau,Beginning Foil (Pleasanton),2024-05-18,2024-11-30,Yes,Yes,No,Yes,Yes,Bay Area Fencing - Pleasanton,12562216,39035913
+Jamie Lui,Beginning Foil (Pleasanton),2024-05-25,2024-10-29,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing - Pleasanton,12757544,39038432
+Ellen Wang,Competitive 2 day (Pleasanton),2024-05-01,2024-06-29,No,Yes,Yes,No,Yes,Bay Area Fencing - Pleasanton,12528476,39041496
+zhiwei gu,Beginning Fencing Program (Los Gatos),2024-05-27,2024-08-05,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,12681140,39053813
+Timothy Chang,Beginning Fencing Program (Los Gatos),2024-05-27,2024-10-26,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,12762344,39054974
+Travis Yan,Beginning Foil (Pleasanton),2024-05-30,2025-01-31,Yes,Yes,No,Yes,Yes,Bay Area Fencing - Pleasanton,12581536,39111056
+Connor Kim,Beginning Foil (Pleasanton),2024-05-30,2024-09-13,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing - Pleasanton,12757602,39111141
+Audrey Ho,Beginning Foil (Pleasanton),2024-05-30,2024-11-26,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing - Pleasanton,12777512,39111171
+Owen Kim,Beginning Foil (Pleasanton),2024-05-30,2024-09-14,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing - Pleasanton,12757591,39111353
+Claire Li,Beginning Fencing Program (Los Gatos),2024-06-01,2024-06-23,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,12479237,39152994
+Elaine Ji,Beginning Foil (Pleasanton),2024-06-01,2025-02-26,Yes,Yes,No,Yes,Yes,Bay Area Fencing - Pleasanton,12788904,39155351
+Mia Suh,Competitive Foil Basic (Pleasanton),2024-06-01,,Yes,Yes,No,Yes,Yes,Bay Area Fencing - Pleasanton,12758642,39159377
+Myra kulkarni,Competitive Foil Basic (Pleasanton),2024-06-01,2024-09-02,No,Yes,Yes,No,Yes,Bay Area Fencing - Pleasanton,12496916,39159439
+Justin Kamimura,Beginning Fencing Program (Los Gatos),2024-06-21,2024-08-02,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,12805164,39276704
+william Liu,Beginning Foil (Pleasanton),2024-06-08,2025-08-06,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing - Pleasanton,12640610,39284402
+Ian Zhou,Beginning Fencing Program (Los Gatos),2024-08-19,2024-11-22,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,12836986,39351394
+Charissa Wong,Intermediate Foil (Pleasanton),2024-06-11,2024-06-13,No,Yes,Yes,Yes,Yes,Bay Area Fencing - Pleasanton,12837268,39351970
+Niven Saxena,Pre-Intermediate Foil (Pleasanton),2024-06-13,2025-01-01,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing - Pleasanton,12841935,39377114
+Summer (Shan En) Tam,Intermediate Foil (Pleasanton),2024-06-13,2024-07-26,No,Yes,Yes,No,Yes,Bay Area Fencing - Pleasanton,12837269,39412400
+Zasha Sterling,Beginning Fencing Program (Los Gatos),2024-06-15,2024-07-30,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,12849605,39429742
+Mira Mahajan,Pre-Intermediate Foil (Pleasanton),2024-06-15,2024-11-18,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing - Pleasanton,12822449,39433880
+Zhaocheng Qiu,Competitive Foil Basic (Pleasanton),2024-06-15,2024-06-29,No,Yes,Yes,Yes,Yes,Bay Area Fencing - Pleasanton,12851716,39453376
+avery lee,Beginning Fencing Program (Los Gatos),2024-06-22,2024-09-28,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,12880188,39559052
+Misha Shukla,Beginning Fencing Program (Los Gatos),2024-06-24,2024-12-06,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,12890018,39599861
+Caleb Liu,Beginning Fencing Program (Los Gatos),2024-06-24,2025-07-26,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,12883866,39604443
+Kyson Ho,Beginning Foil (Pleasanton),2024-06-26,2024-11-30,Yes,Yes,No,Yes,Yes,Bay Area Fencing - Pleasanton,12636203,39647154
+Alexandra Cusack,Beginning Fencing Program (Los Gatos),2024-06-28,2024-08-05,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,12231727,39687822
+Anjana Sivarama Krishnan,Beginning Foil (Pleasanton),2024-06-24,2024-12-27,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing - Pleasanton,12864205,39704970
+Janrain Huo,Beginning Fencing Program (Los Gatos),2024-06-30,2025-08-26,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,12911395,39712424
+Thomas Yan,Beginning Fencing Program (Los Gatos),2024-07-01,2024-09-09,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,12890421,39714261
+Sienna Fisher,Intermediate Foil (Pleasanton),2024-07-01,2024-07-31,No,Yes,No,No,Yes,Bay Area Fencing - Pleasanton,12516719,39727266
+Charlie Kim,Competitive Foil (Pleasanton),2024-07-01,2025-08-29,No,Yes,Yes,No,Yes,Bay Area Fencing - Pleasanton,12611865,39781958
+Rebecca Yan,Beginning Fencing Program (Los Gatos),2024-07-08,2024-11-24,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,12920636,39839163
+Matthew zhu,Beginning Foil (Pleasanton),2024-07-22,2024-07-30,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,12953454,39873665
+Isla Maani,Beginning Fencing Program (Los Gatos),2024-07-10,2024-12-06,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,12963651,39879959
+Kyle Krisdakumtorn,Beginning Fencing Program (Los Gatos),2024-07-13,2024-08-12,No,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,12973527,39929996
+Vihaan Chatterji,Beginning Foil (Pleasanton),2024-07-13,2024-11-09,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing - Pleasanton,12963748,39931161
+Hashim Bajwa,Beginning Foil (Pleasanton),2024-07-17,,Yes,Yes,No,Yes,Yes,Bay Area Fencing - Pleasanton,12989169,40003485
+Leia Mehta,Beginning Fencing Program (Los Gatos),2024-07-18,2024-08-31,Yes,Yes,No,Yes,Yes,Bay Area Fencing Club - Los Gatos,12967633,40021073
+Hugh Xu,Beginning Fencing Program (Los Gatos),2024-07-20,2025-06-17,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,12997191,40046454
+Ares Chan,Beginning Foil (Pleasanton),2024-07-20,,Yes,Yes,No,Yes,Yes,Bay Area Fencing - Pleasanton,12974207,40090914
+Jayln Jijo,Beginning Fencing Program (Los Gatos),2024-07-23,2024-12-06,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,13008794,40101359
+Carter Cohen,Beginning Fencing Program (Los Gatos),2024-07-24,,Yes,Yes,No,Yes,Yes,Bay Area Fencing Club - Los Gatos,12849669,40119993
+Jack Li,Beginning Fencing Program (Los Gatos),2024-07-25,2024-11-06,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,12895585,40129545
+Claire Zhu,Intermediate Foil Plus (Pleasanton),2024-08-01,2024-09-01,No,Yes,Yes,Yes,Yes,Bay Area Fencing - Pleasanton,12609632,40179444
+manli nie,Beginning Foil (Pleasanton),2024-08-01,2024-11-18,No,Yes,Yes,Yes,Yes,Bay Area Fencing - Pleasanton,12588111,40182673
+Marcus Liao,Beginning Fencing Program (Los Gatos),2024-08-01,,Yes,Yes,No,Yes,Yes,Bay Area Fencing Club - Los Gatos,13042416,40266272
+Willard Wang,Beginning Fencing Program (Los Gatos),2024-08-01,2025-08-14,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,13040938,40267280
+Elvis Yuan,Intermediate Foil (Pleasanton),2024-08-03,2024-09-16,No,Yes,Yes,No,Yes,Bay Area Fencing - Pleasanton,12488099,40293102
+Emily Kim,Competitive Foil (Pleasanton),2024-08-03,2025-08-29,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing - Pleasanton,12611847,40293575
+Jenny Cai,Beginning Foil (Pleasanton),2024-08-04,2024-08-04,No,Yes,Yes,Yes,Yes,Bay Area Fencing - Pleasanton,12506465,40305869
+Julie Cai,Beginning Foil (Pleasanton),2024-08-04,2024-08-04,No,Yes,Yes,Yes,Yes,Bay Area Fencing - Pleasanton,13056288,40305882
+Ryan Nham,Beginning Foil (Pleasanton),2024-08-05,2024-09-20,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,13054558,40322400
+Jack Zuech,Beginning Fencing Program (Los Gatos),2024-08-06,2025-08-12,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,13056247,40345109
+Quxin (Alissia) Shen,Intermediate (Los Gatos),2024-08-10,2025-01-19,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,13057091,40411768
+John de Lorimier,Beginning Fencing Program (Los Gatos),2024-08-10,2024-08-12,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,13065056,40412248
+Ellie Panatopoulos,Beginning Fencing Program (Los Gatos),2024-08-12,2024-12-13,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,12682141,40441702
+Rongcheng Noah lin,Intermediate (Los Gatos),2024-08-12,2025-08-04,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,13084312,40443723
+Judy Hosny,Beginning Fencing Program (Los Gatos),2024-08-14,2024-12-06,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,13084959,40445795
+Evan Che,Beginning Fencing Program (Los Gatos),2024-08-19,2025-07-26,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,13065312,40461688
+Wenting Pan,Beginning Foil (Pleasanton),2024-08-15,2024-08-29,No,Yes,Yes,Yes,Yes,Bay Area Fencing - Pleasanton,13091843,40496302
+Juliette Raimond,Intermediate (Los Gatos),2024-08-17,2025-01-19,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,13089490,40535718
+Lux Broxton,Beginning Fencing Program (Los Gatos),2024-08-17,2024-10-30,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,13076742,40535963
+Pax Broxton,Beginning Fencing Program (Los Gatos),2024-08-17,2024-10-30,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,13076738,40535968
+Miles Wang,Beginning Foil (Pleasanton),2024-08-18,2025-01-31,Yes,Yes,No,Yes,Yes,Bay Area Fencing - Pleasanton,13102568,40546870
+Jayden Lee,Beginning Fencing Program (Los Gatos),2024-08-19,2025-01-09,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,13107312,40569344
+Eleanor Zhang,Beginning Fencing Program (Los Gatos),2024-08-20,2025-01-13,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,13082087,40588125
+Raelynn Zhang,Beginning Fencing Program (Los Gatos),2024-08-20,2025-01-13,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,13082088,40588136
+Esther Huang,Beginning Fencing Program (Los Gatos),2024-08-21,2024-12-27,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,13074514,40608597
+Valen Venkatesh,Competitive/Elite Foil (Los Gatos),2024-08-21,2025-06-15,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,13107613,40609975
+Taylor Lee,Beginning Fencing Program (Los Gatos),2024-08-22,2024-12-05,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,13115616,40614724
+Grace Wang,Intermediate (Los Gatos),2024-08-22,2025-07-13,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,13111423,40625919
+Aaryan Paidi,Beginning Foil (Pleasanton),2024-08-26,2025-01-31,Yes,Yes,No,Yes,Yes,Bay Area Fencing - Pleasanton,13119149,40634233
+Jolene Min,Beginning Foil (Pleasanton),2024-08-23,2024-11-03,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing - Pleasanton,13100790,40640513
+Reid Campoy,Beginning Fencing Program (Los Gatos),2024-08-23,2025-04-30,Yes,Yes,No,Yes,Yes,Bay Area Fencing Club - Los Gatos,13074201,40644881
+Allen Zhou,Beginning Fencing Program (Los Gatos),2024-08-24,2024-11-22,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,12909472,40654654
+Siddhartha Gannavarapu,Beginning Fencing Program (Los Gatos),2024-08-25,2025-08-23,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,13123458,40660840
+Bodhi Gannavarapu,Beginning Fencing Program (Los Gatos),2024-08-25,2025-07-05,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,11824130,40660848
+Darryn Chen,Beginning Foil (Pleasanton),2024-09-14,,Yes,Yes,No,Yes,Yes,Bay Area Fencing - Pleasanton,13118425,40662954
+Olivia Wert,Beginning Foil (Pleasanton),2024-08-31,2025-02-26,No,Yes,Yes,No,Yes,Bay Area Fencing - Pleasanton,13119448,40682617
+Megan Wert,Beginning Foil (Pleasanton),2024-08-31,2025-02-26,No,Yes,Yes,No,Yes,Bay Area Fencing - Pleasanton,13119449,40682626
+Maida Rider,Beginning Foil (Pleasanton),2024-08-26,2024-11-30,Yes,Yes,No,Yes,Yes,Bay Area Fencing - Pleasanton,13111311,40682665
+Sarah Chen,Beginning Fencing Program (Los Gatos),2024-08-26,2024-12-06,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,13125140,40682906
+Max Ketchersid,Beginning Foil (Pleasanton),2024-08-31,2024-09-30,Yes,Yes,No,Yes,Yes,Bay Area Fencing - Pleasanton,13061187,40682962
+Logan Chen,Beginning Foil (Pleasanton),2024-08-31,2025-02-26,Yes,Yes,No,Yes,Yes,Bay Area Fencing - Pleasanton,13107877,40682995
+Leon Chen,Beginning Fencing Program (Los Gatos),2024-09-01,2024-09-14,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,12421053,40683027
+Chloe Bagrak,Beginning Fencing Program (Los Gatos),2024-09-03,,No,Yes,No,No,Yes,Bay Area Fencing Club - Los Gatos,13087838,40683137
+Ayaan Dasaka,Beginning Foil (Pleasanton),2024-08-26,2025-02-26,Yes,Yes,No,Yes,Yes,Bay Area Fencing - Pleasanton,13125144,40684406
+Julien Zhou,Beginning Foil (Pleasanton),2024-09-01,2024-10-27,No,Yes,Yes,No,Yes,Bay Area Fencing - Pleasanton,13131480,40749629
+Avila Pan,Beginning Foil (Pleasanton),2024-08-30,2024-10-31,No,Yes,Yes,No,Yes,Bay Area Fencing - Pleasanton,13091844,40760974
+Eivind Xue,Beginning Fencing Program (Los Gatos),2024-09-01,2024-10-15,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,13110710,40776134
+Shreeya Brahmankar,Beginning Fencing Program (Los Gatos),2024-09-03,2025-03-02,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,13078474,40806924
+Eine Seo,Pre-Intermediate Foil (Pleasanton),2024-09-04,2025-03-10,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing - Pleasanton,13118216,40826521
+Ian Seo,Competitive Foil Basic (Pleasanton),2024-09-04,2025-03-10,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing - Pleasanton,13118215,40827070
+Dominic Strebe,Intermediate (Los Gatos),2024-09-05,2025-01-20,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,13116724,40828596
+Johnny Lyu,Intermediate (Los Gatos),2024-09-05,2025-06-30,No,Yes,No,No,Yes,Bay Area Fencing Club - Los Gatos,13073696,40841085
+Jayden Wang,Beginning Fencing Program (Los Gatos),2024-09-05,2025-03-05,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,13130971,40841643
+Kaylee Wang,Beginning Fencing Program (Los Gatos),2024-09-05,2025-03-05,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,13131006,40841655
+Michelangelo Chan,Beginning Fencing Program (Los Gatos),2024-09-05,2024-12-20,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,13151898,40841861
+Emily Saoud,Beginning Foil (Pleasanton),2024-09-05,2024-11-30,No,Yes,No,No,Yes,Bay Area Fencing - Pleasanton,13102939,40844892
+Nainoa Hanson,Beginning Fencing Program (Los Gatos),2024-09-06,2025-07-26,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,13057265,40860692
+Cooper Joseph,Intermediate (Los Gatos),2024-09-07,2024-12-20,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,12580648,40871180
+Astrid Fu,Intermediate (Los Gatos),2024-09-07,2025-01-17,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,13156160,40871996
+Nyra Gupta,Beginning Foil (Pleasanton),2024-09-14,2025-02-01,No,Yes,No,No,Yes,Bay Area Fencing - Pleasanton,13160109,40872923
+Zihan Lu,Intermediate (Los Gatos),2024-09-01,2025-01-20,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,13107723,40875211
+Ananya Dantuluri,Intermediate Foil (Pleasanton),2024-09-12,2024-09-16,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing - Pleasanton,13164727,40875654
+Justin Hsu,Beginning Fencing Program (Los Gatos),2024-09-08,2025-04-18,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,13125153,40882151
+Wolfgang Schultz,Beginning Fencing Program (Los Gatos),2024-09-15,2024-12-13,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,13151079,40893141
+Darren Hu,Beginning Foil (Pleasanton),2024-09-09,2024-09-23,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,13168299,40894781
+Lillian Li,Beginning Foil (Pleasanton),2024-09-09,2025-01-04,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing - Pleasanton,13167573,40894855
+Nolan Li,Beginning Foil (Pleasanton),2024-09-09,2025-01-04,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing - Pleasanton,13168290,40894873
+Siwoo Lee,Beginning Foil (Pleasanton),2024-09-09,2025-01-04,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing - Pleasanton,13167466,40894897
+Charlotte Kast,Beginning Foil (Pleasanton),2024-09-09,2025-01-04,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing - Pleasanton,13167755,40894988
+Leon Navasca,Beginning Fencing Program (Los Gatos),2024-09-09,2025-02-22,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,12951587,40895417
+Leo Holayter,Beginning Fencing Program (Los Gatos),2024-09-15,,Yes,Yes,No,No,Yes,Bay Area Fencing Club - Los Gatos,13143048,40904638
+Sofia Moraes,Beginning Fencing Program (Los Gatos),2024-09-15,2024-12-13,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,13171031,40922346
+Maria Moraes,Beginning Fencing Program (Los Gatos),2024-09-15,2024-12-13,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,13171023,40922348
+Ariv rai,Beginning Foil (Pleasanton),2024-09-14,2025-06-12,No,Yes,No,No,Yes,Bay Area Fencing - Pleasanton,13174812,40936381
+Anaika Rai,Beginning Foil (Pleasanton),2024-09-14,2025-01-31,No,Yes,No,No,Yes,Bay Area Fencing - Pleasanton,13174814,40936484
+William Shaw,Beginning Fencing Program (Los Gatos),2024-09-13,,Yes,Yes,No,Yes,Yes,Bay Area Fencing Club - Los Gatos,13166597,40959081
+Roos Mari Koppel,Intermediate (Los Gatos),2024-09-17,2025-01-19,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,13085688,40967226
+Kaira Malhotra,Pre Intermediate Foil (Los Gatos),2024-09-13,2025-07-13,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,13183397,40967338
+Ari Pascal,Beginning Fencing Program (Los Gatos),2024-09-14,2024-12-06,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,13184811,40977692
+BHARATH Iyer,Beginning Foil (Pleasanton),2024-09-14,2025-05-26,No,Yes,No,No,Yes,Bay Area Fencing - Pleasanton,13157833,40981443
+Jayren Hsu,Beginning Fencing Program (Los Gatos),2024-09-15,2025-01-19,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,13156858,40988486
+Ethan Chen,Beginning Fencing Program (Los Gatos),2024-09-15,2024-11-17,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,13157649,40989243
+Connor Garza,Beginning Fencing Program (Los Gatos),2024-09-15,2025-05-12,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,13166398,40989609
+Carter Lum,Beginning Foil (Pleasanton),2024-09-16,2025-01-04,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing - Pleasanton,13190324,41004956
+Hazel Lum,Beginning Foil (Pleasanton),2024-09-16,2025-01-27,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing - Pleasanton,13190320,41004982
+Leo Huang,Beginning Fencing Program (Los Gatos),2024-09-17,2025-02-28,No,Yes,No,No,Yes,Bay Area Fencing Club - Los Gatos,13166922,41016384
+Jase Izais,Beginning Fencing Program (Los Gatos),2024-09-17,2025-02-24,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,13182870,41022990
+Elliott Cayetano,Beginning Fencing Program (Los Gatos),2024-09-16,2025-08-26,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,13154408,41031510
+Jashn Malhotra,Beginning Foil (Pleasanton),2024-09-18,,Yes,Yes,No,Yes,Yes,Bay Area Fencing - Pleasanton,13185436,41038275
+Karly Izais,Beginning Fencing Program (Los Gatos),2024-09-19,2025-02-24,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,13183550,41054052
+Nikhil Jupudy,Beginning Foil (Pleasanton),2024-09-21,,No,Yes,No,No,Yes,Bay Area Fencing - Pleasanton,13160567,41077751
+Julie Cao,Intermediate (Los Gatos),2024-09-21,2025-01-19,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,13187213,41082399
+Sai Srujan aakula,Beginning Foil (Pleasanton),2024-09-28,2025-03-12,Yes,Yes,No,Yes,Yes,Bay Area Fencing - Pleasanton,13204459,41086997
+Runhe Chen,Beginning Foil (Pleasanton),2024-09-22,2025-02-26,Yes,Yes,No,Yes,Yes,Bay Area Fencing - Pleasanton,13206472,41096201
+Tian Tian,Beginning Foil (Pleasanton),2024-09-22,2024-09-30,No,Yes,Yes,Yes,Yes,Bay Area Fencing - Pleasanton,13206471,41096279
+Marcos Franco,Beginning Foil (Pleasanton),2024-09-23,2025-05-26,No,Yes,No,No,Yes,Bay Area Fencing - Pleasanton,13165018,41100523
+Mia Geng,Beginning Fencing Program (Los Gatos),2024-09-23,,No,Yes,No,No,Yes,Bay Area Fencing Club - Los Gatos,13125150,41104116
+Lohith Kuttuva,Beginning Foil (Pleasanton),2024-09-23,2025-04-02,No,Yes,Yes,No,Yes,Bay Area Fencing - Pleasanton,13170058,41109086
+Amelia Ford,Beginning Foil (Pleasanton),2024-09-23,2025-01-04,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing - Pleasanton,13210203,41112609
+Tavish Philar,Beginning Foil (Pleasanton),2024-09-23,2025-01-04,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing - Pleasanton,13209358,41112614
+Jalen Ao,Beginning Foil (Pleasanton),2024-09-23,2025-01-04,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing - Pleasanton,13210341,41112617
+Kaitlin Wang,Beginning Fencing Program (Los Gatos),2024-09-26,2025-01-29,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,13191342,41159564
+Cassie Myers,Intermediate (Los Gatos),2024-09-28,2025-01-03,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,13190341,41192266
+Helena Vital Brazil,Beginning Fencing Program (Los Gatos),2024-09-29,2024-10-26,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,13187274,41198913
+Otavio Vital Brazil,Beginning Fencing Program (Los Gatos),2024-09-29,2024-10-26,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,13187275,41198915
+Lenjoy Lin,Beginning Fencing Program (Los Gatos),2024-09-29,2024-10-24,No,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,13206951,41202352
+Jadyn Luong,Beginning Foil (Pleasanton),2024-09-30,2025-01-16,No,Yes,Yes,No,Yes,Bay Area Fencing - Pleasanton,13200769,41217083
+Eric Wang,Intermediate (Los Gatos),2024-09-30,2024-12-16,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,13206625,41219768
+Charlotte Kwong,Beginning Foil (Pleasanton),2024-10-02,2025-01-27,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing - Pleasanton,13077249,41249145
+Wenyuan Dai,Beginning Fencing Program (Los Gatos),2024-10-03,2025-01-24,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,13185276,41257864
+Lincoln Kim,Beginning Foil (Pleasanton),2024-10-05,2024-10-28,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,13186086,41290600
+Aadhya Chivukula,Beginning Foil (Pleasanton),2024-10-07,2025-01-03,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing - Pleasanton,13229305,41322781
+James Schwab,Beginning Fencing Program (Los Gatos),2024-10-08,2025-02-28,No,Yes,No,No,Yes,Bay Area Fencing Club - Los Gatos,13242845,41335795
+Zhipan Li,Beginning Fencing Program (Los Gatos),2024-10-06,2025-03-30,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,13244550,41390202
+Luna Daus,Beginning Fencing Program (Los Gatos),2024-10-12,2025-03-26,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,13258090,41391447
+Erin Wang,Beginning Fencing Program (Los Gatos),2024-10-13,2025-08-04,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,13225902,41402129
+Arya Misson,Intermediate Foil (Pleasanton),2024-10-16,,Yes,Yes,No,Yes,Yes,Bay Area Fencing - Pleasanton,13266261,41447405
+Aliya Misson,Beginning Foil (Pleasanton),2024-10-16,2025-01-31,Yes,Yes,No,Yes,Yes,Bay Area Fencing - Pleasanton,13266262,41447546
+Andrew Choi,Competitive/Elite Foil (Los Gatos),2024-10-19,2025-01-26,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,13162873,41487816
+Aaron Choi,Competitive/Elite Foil (Los Gatos),2024-10-19,2025-01-26,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,13162880,41487796
+Molly Sanchez,Beginning Foil (Pleasanton),2024-10-19,2024-11-15,No,Yes,Yes,No,Yes,Bay Area Fencing - Pleasanton,13229782,41493260
+Nirvan Patel,Beginning Foil (Pleasanton),2024-10-26,2025-01-31,Yes,Yes,No,No,Yes,Bay Area Fencing - Pleasanton,13230382,41592922
+Miles Zhang,Beginning Foil (Pleasanton),2024-10-26,2025-05-26,Yes,Yes,No,Yes,Yes,Bay Area Fencing - Pleasanton,13274836,41594873
+Meera Shivkumar,Beginning Fencing Program (Los Gatos),2024-10-29,2025-07-30,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,13282205,41635584
+Shreyas Kavalapara,Beginning Fencing Program (Los Gatos),2024-10-29,2025-05-31,Yes,Yes,No,Yes,Yes,Bay Area Fencing Club - Los Gatos,13282420,41636349
+Amelia Tang,Competitive Foil Basic (Pleasanton),2024-10-31,,No,Yes,No,No,Yes,Bay Area Fencing - Pleasanton,13282474,41659145
+Donovan Perazzo,Intermediate Foil (Pleasanton),2024-11-02,2025-01-31,Yes,Yes,No,Yes,Yes,Bay Area Fencing - Pleasanton,13306892,41686635
+Ridhwan Nadaf,Beginning Foil (Pleasanton),2024-11-04,2025-01-04,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing - Pleasanton,13310820,41713797
+Daniel Mirabadi,Beginning Fencing Program (Los Gatos),2024-11-04,2024-12-28,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,13295452,41714567
+Jackson Cannella,Beginning Fencing Program (Los Gatos),2024-11-07,2025-03-19,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,13260110,41760806
+Claire Dolgov,Beginning Fencing Program (Los Gatos),2024-11-09,2025-08-08,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,13315522,41786385
+Ethan Wu,Beginning Foil (Pleasanton),2024-11-09,2025-02-26,No,Yes,No,No,Yes,Bay Area Fencing - Pleasanton,13223944,41790741
+Riley atienza,Intermediate (Los Gatos),2024-11-09,2025-01-20,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,13308864,41791207
+Liubing Yu,Beginning Fencing Program (Los Gatos),2024-11-10,2025-01-11,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,12524127,41800470
+Eleanor Chen,Beginning Fencing Program (Los Gatos),2024-11-12,2025-01-31,Yes,Yes,No,Yes,Yes,Bay Area Fencing Club - Los Gatos,13308220,41837868
+Elorri Otaegi,Competitive Foil (Pleasanton),2024-11-12,,Yes,Yes,No,Yes,Yes,Bay Area Fencing - Pleasanton,13320593,41841658
+Shion Park,Beginning Foil (Pleasanton),2024-11-13,,Yes,Yes,No,Yes,Yes,Bay Area Fencing - Pleasanton,13333505,41856788
+Chelsea Jiang,Beginning Fencing Program (Los Gatos),2024-11-13,2025-03-05,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,13333746,41865469
+Mason Higgins,Beginning Fencing Program (Los Gatos),2024-11-14,2025-02-28,No,Yes,No,No,Yes,Bay Area Fencing Club - Los Gatos,13314836,41873683
+Anvay Chamoli,Beginning Fencing Program (Los Gatos),2024-11-15,2025-07-26,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,13336252,41891243
+Mazen Maalouf,Beginning Foil (Pleasanton),2024-11-19,2025-04-26,Yes,Yes,No,Yes,Yes,Bay Area Fencing - Pleasanton,13338520,41955333
+Nour Maalouf,Beginning Foil (Pleasanton),2024-11-19,2025-04-26,Yes,Yes,No,Yes,Yes,Bay Area Fencing - Pleasanton,13338517,41955507
+Wendy Liu,Beginning Foil (Pleasanton),2024-11-23,2024-12-20,No,Yes,Yes,Yes,Yes,Bay Area Fencing - Pleasanton,13321369,42018305
+Jocelyn Chuang,Open Bouting (Los Gatos),2024-11-23,2025-08-19,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,10502336,42021103
+Caden Church,Beginning Foil (Pleasanton),2024-11-23,2025-04-01,Yes,Yes,No,Yes,Yes,Bay Area Fencing - Pleasanton,13353946,42022321
+Colton Church,Beginning Foil (Pleasanton),2024-11-23,2025-05-26,Yes,Yes,No,Yes,Yes,Bay Area Fencing - Pleasanton,13353952,42022324
+Mel He,Beginning Fencing Program (Los Gatos),2024-11-24,,No,Yes,No,No,Yes,Bay Area Fencing Club - Los Gatos,13342596,42032436
+Sawamah Ahmed,Beginning Fencing Program (Los Gatos),2024-11-25,2025-08-08,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,13329243,42046931
+Enaaba Ahmed,Beginning Fencing Program (Los Gatos),2024-11-25,2025-08-26,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,13329244,42046952
+Olivia Zhao,Beginning Foil (Pleasanton),2024-11-30,2025-08-04,No,Yes,Yes,No,Yes,Bay Area Fencing - Pleasanton,13321370,42100955
+Miranda Zhang,Intermediate Foil (Pleasanton),2024-12-01,2024-12-11,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing - Pleasanton,13311880,42112182
+Julia Matveyev,Competitive Foil Basic (Pleasanton),2024-12-01,,Yes,Yes,No,Yes,Yes,Bay Area Fencing - Pleasanton,13371807,42131809
+Cameron Chong,Intermediate Foil (Los Gatos),2024-12-02,2025-04-22,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,13350079,42138251
+Corinne Chong,Intermediate Foil (Los Gatos),2024-12-02,2025-04-22,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,13350078,42138266
+Daisy Verdin,Beginning Fencing Program (Los Gatos),2024-12-07,2025-01-31,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,13353709,42233533
+Oliver Camiñas,Beginning Fencing Program (Los Gatos),2024-11-30,2025-05-16,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,13311722,42233545
+Clara Chin,Lil' Pirates (Pleasanton),2024-12-14,2025-04-06,No,Yes,Yes,No,Yes,Bay Area Fencing - Pleasanton,13378677,42357542
+Colton Chin,Lil' Pirates (Pleasanton),2024-12-14,2025-04-06,No,Yes,Yes,No,Yes,Bay Area Fencing - Pleasanton,13378673,42357548
+Leona Slipher,Beginning Foil (Pleasanton),2024-12-21,,No,Yes,No,No,Yes,Bay Area Fencing - Pleasanton,13381690,42513056
+Ava Slipher,Beginning Foil (Pleasanton),2024-12-21,,Yes,Yes,No,Yes,Yes,Bay Area Fencing - Pleasanton,13381691,42513066
+Ian Liu,Beginning Fencing Program (Los Gatos),2024-12-28,2025-06-30,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,13428064,42566312
+Ansh Ramannavar,Beginning Fencing Program (Los Gatos),2024-12-29,2025-07-13,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,13426051,42572765
+Chloe Xie,Beginning Fencing Program (Los Gatos),2025-01-01,,Yes,Yes,No,Yes,Yes,Bay Area Fencing Club - Los Gatos,13439007,42598834
+clemencia Hornak,Beginning Fencing Program (Los Gatos),2025-01-04,2025-04-02,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,13338099,42638483
+William Lim,Intermediate Foil (Pleasanton),2025-01-04,,Yes,Yes,No,Yes,Yes,Bay Area Fencing - Pleasanton,13384037,42641966
+Taaj Sethi,Beginning Fencing Program (Los Gatos),2025-01-15,2025-07-26,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,13463329,42704633
+Adam Davidovich,Beginning Fencing Program (Los Gatos),2025-01-13,2025-01-25,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,13450416,42729196
+Avika Pawar,Beginning Foil (Pleasanton),2025-01-09,,Yes,Yes,No,Yes,Yes,Bay Area Fencing - Pleasanton,13403981,42724364
+Isha O'Dwyer,Intermediate Foil (Los Gatos),2025-01-11,2025-01-19,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,13448778,42754195
+Tony Chen,Beginning Foil (Pleasanton),2025-01-11,2025-02-26,No,Yes,No,No,Yes,Bay Area Fencing - Pleasanton,13449067,42754306
+Andrea Liu,Beginning Fencing Program (Los Gatos),2025-01-12,,Yes,Yes,No,Yes,Yes,Bay Area Fencing Club - Los Gatos,13477106,42763335
+Conrad Hagedor,Beginning Fencing Program (Los Gatos),2025-01-13,2025-01-26,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,13481676,42780990
+Austin Chen,Beginning Foil (Pleasanton),2025-01-15,,No,Yes,No,No,Yes,Bay Area Fencing - Pleasanton,13457641,42815130
+Noah Navala,Intermediate Saber (Los Gatos),2025-01-16,2025-07-31,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,13493534,42831356
+Ashwanth Arun,Intermediate Foil (Los Gatos),2025-01-18,2025-01-19,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,13474643,42857135
+Ahwon Chae,Beginning Fencing Program (Los Gatos),2025-01-20,2025-01-26,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,13503931,42887234
+Sahasra Sathish,Beginning Foil (Pleasanton),2025-01-23,,No,Yes,No,No,Yes,Bay Area Fencing - Pleasanton,13481350,42932605
+Wen Li,Beginning Foil (Pleasanton),2025-01-24,2025-02-07,No,Yes,No,Yes,Yes,Bay Area Fencing - Pleasanton,13507493,42940677
+Adelphia Wang,Beginning Foil (Pleasanton),2025-01-26,,Yes,Yes,No,Yes,Yes,Bay Area Fencing - Pleasanton,13507494,42973318
+Daniel Kim,Beginning Foil (Pleasanton),2025-01-27,2025-08-05,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing - Pleasanton,13523412,42983223
+Guanhua Li,Intermediate Foil (Los Gatos),2025-02-01,,Yes,Yes,No,Yes,Yes,Bay Area Fencing Club - Los Gatos,13523319,43015215
+Mollie Hilton,Lil' Pirates (Pleasanton),2025-01-31,2025-02-26,No,Yes,No,Yes,Yes,Bay Area Fencing - Pleasanton,13513770,43048654
+Nancy Yue,Competitive Foil Basic (Pleasanton),2025-01-31,2025-02-27,No,Yes,Yes,No,Yes,Bay Area Fencing - Pleasanton,13516085,43053007
+Emilia Mercado,Beginning Fencing Program (Los Gatos),2025-02-01,2025-05-31,Yes,Yes,No,Yes,Yes,Bay Area Fencing Club - Los Gatos,13539372,43066179
+Julian Mercado,Beginning Fencing Program (Los Gatos),2025-02-01,2025-05-31,Yes,Yes,No,Yes,Yes,Bay Area Fencing Club - Los Gatos,13539571,43066186
+Harrison Hilton,Lil' Pirates (Pleasanton),2025-02-01,2025-02-28,No,Yes,No,No,Yes,Bay Area Fencing - Pleasanton,13513771,43066579
+Ethan Rudakov,Beginning Foil (Pleasanton),2025-02-01,2025-05-26,No,Yes,No,Yes,Yes,Bay Area Fencing - Pleasanton,13537007,43065622
+Eva Tomchenko,Beginning Fencing Program (Los Gatos),2025-02-03,,No,Yes,No,No,Yes,Bay Area Fencing Club - Los Gatos,13466927,43092972
+Teddy Grinshteyn,Beginning Foil Plus (Pleasanton),2025-02-05,2025-07-26,No,Yes,No,No,Yes,Bay Area Fencing - Pleasanton,13538943,43121117
+Owen Liu,Beginning Foil Basic (Pleasanton),2025-02-05,,No,Yes,No,Yes,Yes,Bay Area Fencing - Pleasanton,13543526,43125968
+Noa Go,Intermediate Saber (Los Gatos),2025-02-06,2025-03-31,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,13557447,43140057
+Edward Greene,Beginning Foil Plus (Pleasanton),2025-02-07,2025-08-10,No,Yes,Yes,No,Yes,Bay Area Fencing - Pleasanton,13538948,43153567
+Ayank Sarode,Beginning Fencing Program (Los Gatos),2025-02-11,2025-05-19,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,13572488,43213525
+Preston Anderson,Lil' Pirates (Pleasanton),2025-02-21,,Yes,Yes,No,Yes,Yes,Bay Area Fencing - Pleasanton,13577335,43366665
+Eliot Atienza III,Beginning Fencing Program (Los Gatos),2025-02-22,2025-07-30,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,13604640,43379274
+Emmett Nakamura,Beginning Fencing Program (Los Gatos),2025-02-22,2025-07-26,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,13498986,43379331
+Jordan Lin,Beginning Fencing Program (Los Gatos),2025-02-22,2025-07-26,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,13583062,43380114
+Anthony Leung,Beginning Fencing Program (Los Gatos),2025-02-22,2025-07-22,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,13420540,43382105
+Royce Dell,Beginning Fencing Program (Los Gatos),2025-02-23,2025-07-29,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,13607414,43390962
+Harris Lee,Lil' Pirates (Pleasanton),2025-02-21,2025-03-26,Yes,Yes,No,Yes,Yes,Bay Area Fencing - Pleasanton,13577066,43366623
+Helios lee,Lil' Pirates (Pleasanton),2025-02-21,2025-04-26,Yes,Yes,No,Yes,Yes,Bay Area Fencing - Pleasanton,13577065,43366626
+Sebastian Gerard,Intermediate Foil (Pleasanton),2025-02-22,,No,Yes,No,No,Yes,Bay Area Fencing - Pleasanton,13559370,43382354
+Jayden Yan,Beginning Foil Plus (Pleasanton),2025-02-27,2025-03-30,No,Yes,Yes,No,Yes,Bay Area Fencing - Pleasanton,13580230,43408858
+Benson Yan,Beginning Foil Plus (Pleasanton),2025-02-27,2025-03-30,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing - Pleasanton,13601966,43408878
+Joyce Zhang,Beginning Fencing Program (Los Gatos),2025-03-01,2025-05-31,No,Yes,No,No,Yes,Bay Area Fencing Club - Los Gatos,13581520,43485139
+Shira Korem,Beginning Fencing Program (Los Gatos),2025-03-01,,Yes,Yes,No,Yes,Yes,Bay Area Fencing Club - Los Gatos,13625581,43486302
+Alan Du,Beginning Fencing Program (Los Gatos),2025-03-01,2025-05-10,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,13622639,43488025
+Lincoln Kao,Beginning Foil Basic (Pleasanton),2025-03-03,,Yes,Yes,No,Yes,Yes,Bay Area Fencing - Pleasanton,13631448,43517232
+Sesha Ramkumar,Beginning Fencing Program (Los Gatos),2025-03-08,2025-05-30,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,13637792,43589213
+Inga Filatau,Beginning Fencing Program (Los Gatos),2025-03-10,2025-04-20,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,13622920,43619878
+atharv sinha,Beginning Fencing Program (Los Gatos),2025-03-10,2025-07-26,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,13657564,43620186
+Avik Tripathi,Beginning Foil Basic (Pleasanton),2025-03-11,,No,Yes,No,No,Yes,Bay Area Fencing - Pleasanton,13651210,43631003
+Krish Kalia,Beginning Fencing Program (Los Gatos),2025-03-12,2025-08-31,Yes,Yes,No,Yes,Yes,Bay Area Fencing Club - Los Gatos,13645456,43653107
+Tyler Cullen,Beginning Foil Basic (Pleasanton),2025-03-17,2025-07-26,Yes,Yes,No,Yes,Yes,Bay Area Fencing - Pleasanton,13678545,43731161
+Eashwar Bharath,Beginning Fencing Program (Los Gatos),2025-03-22,,Yes,Yes,No,Yes,Yes,Bay Area Fencing Club - Los Gatos,13673506,43808929
+Christopher Yao,Beginning Foil Basic (Pleasanton),2025-03-21,2025-03-31,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing - Pleasanton,13671119,43796012
+Lucy Chen,Competitive/Elite Foil (Los Gatos),2025-03-29,,Yes,Yes,No,Yes,Yes,Bay Area Fencing Club - Los Gatos,13720532,43918064
+Sitara Gondi,Beginning Fencing Program (Los Gatos),2025-04-02,2025-08-29,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,13722309,43987312
+Rory Alcaidinho,Lil' Pirates (Los Gatos),2025-04-06,,Yes,Yes,No,Yes,Yes,Bay Area Fencing Club - Los Gatos,13742092,44025978
+Harrison Lee,Beginning Fencing Program (Los Gatos),2025-04-05,2025-08-10,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,13742802,44029438
+kathy ding,Beginning Fencing Program (Los Gatos),2025-04-07,2025-06-19,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,12083260,44050204
+Aden soto,Competitive/Elite Foil (Los Gatos),2025-04-08,2025-04-19,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,13745186,44069323
+Olivia Cai,Beginning Foil Basic (Pleasanton),2025-04-07,,No,Yes,No,No,Yes,Bay Area Fencing - Pleasanton,13702732,44063293
+Connor Chee,Beginning Fencing Program (Los Gatos),2025-04-15,2025-05-05,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,13220062,44095126
+Anthony An Liu,Beginning Fencing Program (Los Gatos),2025-04-12,2025-05-03,No,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,13767986,44143750
+Joey Wu,Beginning Foil Basic (Pleasanton),2025-04-16,,Yes,Yes,No,Yes,Yes,Bay Area Fencing - Pleasanton,13782215,44208328
+Aaron Feng,Beginning Foil Basic (Pleasanton),2025-04-17,2025-06-28,No,Yes,Yes,Yes,Yes,Bay Area Fencing - Pleasanton,13785832,44226754
+Emily Xiong,Beginning Foil Basic (Pleasanton),2025-04-27,2025-08-27,No,Yes,No,No,Yes,Bay Area Fencing - Pleasanton,13768979,44251993
+Tim Lucas Krasnov,Beginning Fencing Program (Los Gatos),2025-04-22,2025-05-06,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,13779214,44294626
+Josiah Ardel,Beginning Fencing Program (Los Gatos),2025-04-26,,Yes,Yes,No,Yes,Yes,Bay Area Fencing Club - Los Gatos,13822178,44351746
+Layaal Mabrook,Lil' Pirates (Los Gatos),2025-04-27,2025-06-30,No,Yes,No,No,Yes,Bay Area Fencing Club - Los Gatos,12846044,44364182
+Dorothea Ellsworth,Beginning Foil Basic (Pleasanton),2025-05-24,,Yes,Yes,No,Yes,Yes,Bay Area Fencing - Pleasanton,13830930,44394526
+Maddy Totte,Beginning Fencing Program (Los Gatos),2025-04-30,2025-06-30,Yes,Yes,No,Yes,Yes,Bay Area Fencing Club - Los Gatos,13756520,44420041
+Jakob Dunn,Intermediate Foil and Epee (Los Gatos),2025-05-03,2025-07-13,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,13726287,44466918
+Isaiah Wagner,Beginning Fencing Program (Los Gatos),2025-05-03,2025-06-27,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,13823732,44468111
+Maverick Gao,Lil' Pirates (Pleasanton),2025-05-10,,No,Yes,No,No,Yes,Bay Area Fencing - Pleasanton,13804439,44469725
+Axel Lehtinen,Competitive/Elite Foil (Los Gatos),2025-05-02,2025-05-30,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,13238426,44471109
+Adira Dill,Beginning Fencing Program (Los Gatos),2025-05-04,,Yes,Yes,No,Yes,Yes,Bay Area Fencing Club - Los Gatos,13771009,44482529
+Laila Dill,Beginning Fencing Program (Los Gatos),2025-05-04,,Yes,Yes,No,Yes,Yes,Bay Area Fencing Club - Los Gatos,13771010,44482531
+Julia Krasnov,Intermediate Saber (Los Gatos),2025-05-07,,No,Yes,No,No,Yes,Bay Area Fencing Club - Los Gatos,13855298,44527657
+Don Sirivat,Competitive/Elite Saber (Los Gatos),2025-05-08,2025-06-30,No,Yes,No,Yes,Yes,Bay Area Fencing Club - Los Gatos,13866628,44561589
+yimi li,Beginning Fencing Program (Los Gatos),2025-05-10,2025-06-27,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,13870920,44585276
+Vanco Buca,Competitive/Elite epee (Los Gatos),2025-05-12,2025-05-14,No,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,13818644,44624063
+Lucas Martin,Competitive/Elite epee (Los Gatos),2025-05-13,,No,Yes,No,No,Yes,Bay Area Fencing Club - Los Gatos,13872532,44645128
+Kora Wong,Intermediate Epee (Los Gatos),2025-05-13,,No,Yes,No,No,Yes,Bay Area Fencing Club - Los Gatos,13883159,44646080
+Zoe Karlsson,Beginning Fencing Program (Los Gatos),2025-05-14,2025-07-26,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,13865003,44662942
+Chloe Chen,Beginning Foil Basic (Pleasanton),2025-05-14,2025-07-26,Yes,Yes,No,Yes,Yes,Bay Area Fencing - Pleasanton,13887649,44663704
+Edward Cheng,Intermediate Epee (Los Gatos),2025-05-15,,No,Yes,No,No,Yes,Bay Area Fencing Club - Los Gatos,13878708,44683787
+Jack Huddleston,Pre-Intermediate Foil (Pleasanton),2025-05-08,2025-05-28,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing - Pleasanton,13817223,44333730
+Emilia Salistra,Competitive/Elite epee (Los Gatos),2025-05-15,,No,Yes,No,No,Yes,Bay Area Fencing Club - Los Gatos,13878638,44685204
+Nora Buca,Competitive/Elite epee (Los Gatos),2025-05-15,,No,Yes,No,No,Yes,Bay Area Fencing Club - Los Gatos,13818645,44685621
+Lucas Hornak,Intermediate Foil  (Los Gatos),2025-05-17,2025-07-13,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,13897669,44714194
+Soliman Abdoun,Lil' Pirates (Pleasanton),2025-05-27,,No,Yes,No,No,Yes,Bay Area Fencing - Pleasanton,13898151,44715796
+Ibrahim Abdoun,Beginning Foil Basic (Pleasanton),2025-05-27,,No,Yes,No,No,Yes,Bay Area Fencing - Pleasanton,13890288,44715802
+Julian Tang,Beginning Fencing Program (Los Gatos),2025-05-19,2025-08-26,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,13675936,44749292
+Liesl Winoto,Intermediate Epee (Los Gatos),2025-05-19,2025-08-28,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,13864593,44751940
+Zachary Martin,Competitive/Elite epee (Los Gatos),2025-05-19,2025-08-17,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,13872536,44752982
+Enzo Abdulhak,Intermediate Epee (Los Gatos),2025-05-19,,No,Yes,No,No,Yes,Bay Area Fencing Club - Los Gatos,13858897,44754035
+Natalie Lam,Lil' Pirates (Pleasanton),2025-06-07,,Yes,Yes,No,Yes,Yes,Bay Area Fencing - Pleasanton,13817753,44749242
+Audrey Yang,Intermediate Epee (Los Gatos),2025-05-20,,No,Yes,No,No,Yes,Bay Area Fencing Club - Los Gatos,13873933,44772592
+Artimis Shayegan,Intermediate Epee (Los Gatos),2025-05-20,2025-07-07,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,13890365,44772754
+John Thomas,Intermediate Epee (Los Gatos),2025-05-20,,No,Yes,No,No,Yes,Bay Area Fencing Club - Los Gatos,13867412,44774293
+Samuel Baek,Intermediate Epee (Los Gatos),2025-05-20,,Yes,Yes,No,Yes,Yes,Bay Area Fencing Club - Los Gatos,13913265,44774521
+Hanley Lu,Intermediate Epee (Los Gatos),2025-05-20,,No,Yes,No,No,Yes,Bay Area Fencing Club - Los Gatos,13879076,44775224
+Aaral Singh,Intermediate Epee (Los Gatos),2025-05-22,,No,Yes,No,No,Yes,Bay Area Fencing Club - Los Gatos,13862564,44809925
+Nico Siu,Beginning Foil Basic (Pleasanton),2025-05-24,2025-08-18,No,Yes,Yes,No,Yes,Bay Area Fencing - Pleasanton,13913185,44791673
+Doyul Jung,Beginning Fencing Program (Los Gatos),2025-05-25,2025-08-22,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,13900499,44845267
+August (Gus) McCoy,Intermediate Epee (Los Gatos),2025-05-27,2025-05-31,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,13866601,44880505
+(Jooa) Daniel Bergstrom,Competitive/Elite epee (Los Gatos),2025-05-27,2025-05-28,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,13866478,44882431
+Jun Chakravarthy,Competitive/Elite epee (Los Gatos),2025-05-28,2025-06-10,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,13883583,44886689
+Liam Wong,Lil' Pirates (Pleasanton),2025-05-28,,No,Yes,No,No,Yes,Bay Area Fencing - Pleasanton,13929691,44899794
+Dane Diercks,Intermediate Epee (Los Gatos),2025-05-28,2025-06-24,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,13942619,44903690
+Leo Pyskacek,Beginning Foil Basic (Pleasanton),2025-06-27,,No,Yes,No,No,Yes,Bay Area Fencing - Pleasanton,13692087,44930514
+Evan Pren,Competitive/Elite Epee (Los Gatos),2025-05-30,,No,Yes,No,No,Yes,Bay Area Fencing Club - Los Gatos,13836861,44941691
+Liam Yu,Lil' Pirates (Pleasanton),2025-06-27,,No,Yes,No,No,Yes,Bay Area Fencing - Pleasanton,13877047,44994593
+Ashwin Arun,Beginning Fencing Program (Los Gatos),2025-06-02,2025-08-26,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,13918022,44997551
+Peyton Nguyen,Competitive/Elite Epee (Los Gatos),2025-06-02,,Yes,Yes,No,Yes,Yes,Bay Area Fencing Club - Los Gatos,13957948,45001544
+Yuexi(Sophia) Lu,Competitive/Elite Foil (Los Gatos),2025-06-02,,Yes,Yes,No,Yes,Yes,Bay Area Fencing Club - Los Gatos,13965769,45001857
+Rourke Kauder,Intermediate Foil  (Los Gatos),2025-06-02,2025-08-07,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,13867026,45002498
+Logan Wong,Beginning Foil Basic (Pleasanton),2025-06-04,,No,Yes,No,No,Yes,Bay Area Fencing - Pleasanton,13929702,45045561
+aanvi Jha,Intermediate Epee (Los Gatos),2025-06-05,,Yes,Yes,No,Yes,Yes,Bay Area Fencing Club - Los Gatos,13989386,45065743
+Agastya JHA,Intermediate Epee (Los Gatos),2025-06-05,,No,Yes,No,Yes,Yes,Bay Area Fencing Club - Los Gatos,13989387,45065764
+Maximillian Garcia-Sweeney,Lil' Pirates (Pleasanton),2025-06-02,,No,Yes,No,No,Yes,Bay Area Fencing Club - Los Gatos,13740269,44995920
+Aidan Sheng,Yang Fan Summer Fencing,2025-06-09,,Yes,Yes,No,Yes,Yes,Bay Area Fencing - Pleasanton,14003604,45132300
+Amanda Xiang,Yang Fan Summer Fencing,2025-06-09,,Yes,Yes,No,Yes,Yes,Bay Area Fencing Club - Los Gatos,14002935,45132388
+Aria Sheng,Yang Fan Summer Fencing,2025-06-09,,Yes,Yes,No,Yes,Yes,Bay Area Fencing - Pleasanton,14003605,45132392
+Arissa Barua,Yang Fan Summer Fencing,2025-06-09,,Yes,Yes,No,Yes,Yes,Bay Area Fencing - Pleasanton,14005460,45132397
+Edward Yee,Yang Fan Summer Fencing,2025-06-09,,Yes,Yes,No,Yes,Yes,Bay Area Fencing - Pleasanton,14005527,45132404
+Kian Raj,Yang Fan Summer Fencing,2025-06-09,,Yes,Yes,No,Yes,Yes,Bay Area Fencing - Pleasanton,14004782,45132407
+sophia lei,Yang Fan Summer Fencing,2025-06-09,,Yes,Yes,No,Yes,Yes,Bay Area Fencing Club - Los Gatos,14005412,45132410
+Violet Zhu,Yang Fan Summer Fencing,2025-06-09,,Yes,Yes,No,Yes,Yes,Bay Area Fencing - Pleasanton,14002917,45132412
+Yimin Chen,Yang Fan Summer Fencing,2025-06-09,,Yes,Yes,No,Yes,Yes,Bay Area Fencing - Pleasanton,14005032,45132415
+Anaisha Mishra,Yang Fan Summer Fencing,2025-06-16,,Yes,Yes,No,Yes,Yes,Bay Area Fencing - Pleasanton,14036792,45270944
+Mia Motoyama,Yang Fan Summer Fencing,2025-06-16,,Yes,Yes,No,Yes,Yes,Bay Area Fencing - Pleasanton,14008691,45271213
+Ruiqi Gu,Yang Fan Summer Fencing,2025-06-16,,Yes,Yes,No,Yes,Yes,Bay Area Fencing - Pleasanton,14034114,45271232
+Riley Tan,Yang Fan Summer Fencing,2025-06-16,,Yes,Yes,No,Yes,Yes,Bay Area Fencing - Pleasanton,14037923,45271247
+Kathy Zhou,Beginning Foil Basic (Pleasanton),2025-06-16,,Yes,Yes,No,Yes,Yes,Bay Area Fencing - Pleasanton,14039119,45271496
+Ryan Kazemi,Intermediate Epee (Los Gatos),2025-06-18,,No,Yes,No,No,Yes,Bay Area Fencing Club - Los Gatos,13944674,45317130
+Evan Sun,Competitive/Elite Foil (Los Gatos),2025-06-20,2025-06-30,No,Yes,No,Yes,Yes,Bay Area Fencing Club - Los Gatos,14031909,45363641
+Nadia Birringer-Ehsan,Beginning Foil Punch Pass,2025-06-03,2026-06-02,Yes,Yes,No,Yes,Yes,Bay Area Fencing - Pleasanton,13977671,45020758
+Daria Birringer-Ehsan,Beginning Foil Punch Pass,2025-06-03,2026-06-02,No,Yes,No,No,Yes,Bay Area Fencing Club - Los Gatos,13670553,45020767
+Rohit Sivaraman,Beginning Foil Basic (Pleasanton),2025-06-21,,Yes,Yes,No,Yes,Yes,Bay Area Fencing - Pleasanton,13999645,45377419
+Will Zhong,Beginning Foil Basic (Pleasanton),2025-08-13,,No,Yes,No,No,Yes,Bay Area Fencing - Pleasanton,14061470,45416098
+Jackson Fingerman,Competitive/Elite Foil (Los Gatos),2025-08-01,,No,Yes,No,No,Yes,Bay Area Fencing Club - Los Gatos,14038353,45460527
+Aasnha Sahu,Intermediate Epee (Los Gatos),2025-06-23,,Yes,Yes,No,Yes,Yes,Bay Area Fencing Club - Los Gatos,14053942,45463728
+Grayson Dill,Beginning Fencing Program (Los Gatos),2025-06-25,,Yes,Yes,No,Yes,Yes,Bay Area Fencing Club - Los Gatos,14082005,45465832
+MIAO JIATONG,Competitive/Elite Foil (Los Gatos),2025-07-01,2025-07-29,No,Yes,No,Yes,Yes,Bay Area Fencing Club - Los Gatos,14098211,45566994
+ZHENHANG MA,Competitive/Elite Foil (Los Gatos),2025-07-01,2025-07-29,No,Yes,No,Yes,Yes,Bay Area Fencing Club - Los Gatos,14098199,45567017
+Yanwen Xu,Bouting Membership (Los Gatos),2025-07-01,,Yes,Yes,No,Yes,Yes,Bay Area Fencing Club - Los Gatos,13913430,45587375
+Yasmin Aurangabadwala,Beginning Foil Basic (Pleasanton),2025-07-02,,No,Yes,No,No,Yes,Bay Area Fencing Club - Los Gatos,14103215,45605380
+Olivia Lee,Off Season Training,2025-07-02,2025-08-01,Yes,Yes,No,Yes,Yes,Bay Area Fencing Club - Los Gatos,14054098,45606314
+Himani Kumar,Beginning Foil Basic (Pleasanton),2025-08-04,,No,Yes,No,No,Yes,Bay Area Fencing - Pleasanton,14109668,45605801
+Ellie Nguyen,Beginning Foil Basic (Pleasanton),2025-07-07,,No,Yes,No,No,Yes,Bay Area Fencing Club - Los Gatos,14087675,45670193
+Ethan Bright,Beginning Fencing Program (Los Gatos),2025-07-07,,Yes,Yes,No,Yes,Yes,Bay Area Fencing Club - Los Gatos,14108083,45673780
+Raissa Dell,Beginning Fencing Program (Los Gatos),2025-07-08,,Yes,Yes,No,Yes,Yes,Bay Area Fencing Club - Los Gatos,14135723,45698779
+Virata Yindeeyoungyeon,Bouting Membership (Los Gatos),2025-07-10,,No,Yes,No,No,Yes,Bay Area Fencing Club - Los Gatos,13874293,45741026
+Kaylan Garcia,Bouting Membership (Los Gatos),2025-07-10,2025-08-20,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,13989461,45741194
+Janice Qiao,Beginning Foil Basic (Pleasanton),2025-07-12,,No,Yes,No,No,Yes,Bay Area Fencing - Pleasanton,13883478,45771323
+Reagan Nguyen,Beginning Foil Basic (Pleasanton),2025-07-15,,No,Yes,No,No,Yes,Bay Area Fencing Club - Los Gatos,14087676,45828889
+Illy Seltzer,Beginning Fencing Program (Los Gatos),2025-07-16,,No,Yes,No,No,Yes,Bay Area Fencing Club - Los Gatos,13585661,45847883
+McKenna Seltzer,Beginning Fencing Program (Los Gatos),2025-07-16,,No,Yes,No,No,Yes,Bay Area Fencing Club - Los Gatos,13585666,45848549
+Isaac Xie,Beginning Foil Basic (Pleasanton),2025-07-19,,Yes,Yes,No,Yes,Yes,Bay Area Fencing Club - Los Gatos,14149415,45900637
+Krithika Venugopal,Intermediate Foil (Pleasanton),2025-07-27,2025-08-03,No,Yes,Yes,Yes,Yes,Bay Area Fencing - Pleasanton,13157832,45937818
+Peter Nangoy,Beginning Fencing Program (Los Gatos),2025-07-22,,No,Yes,No,No,Yes,Bay Area Fencing Club - Los Gatos,14137883,45955375
+Zoey Du,Competitive Youth,2025-08-01,2025-08-10,No,Yes,Yes,No,Yes,Bay Area Fencing Club - Los Gatos,13676593,46049539
+Matthew Gambarin,Competitive Foil Basic (Pleasanton),2025-08-01,,No,Yes,No,No,Yes,Bay Area Fencing Club - Los Gatos,14157440,46064517
+ian sin,Beginning Fencing Program (Los Gatos),2025-08-01,2025-08-27,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,14217704,46085872
+Anaya Dhole,Beginning Foil Basic (Pleasanton),2025-08-01,,No,Yes,No,No,Yes,Bay Area Fencing Club - Los Gatos,13994721,45466206
+leyla dadashov,Beginning Fencing Program (Los Gatos),2025-07-30,,Yes,Yes,No,Yes,Yes,Bay Area Fencing Club - Los Gatos,14221276,46103715
+Aiden Haines,Intermediate Foil (Pleasanton),2025-07-26,2025-08-05,No,Yes,Yes,Yes,Yes,Bay Area Fencing - Pleasanton,14163800,46030143
+Tristan Vigneron,Lil' Pirates (Los Gatos),2025-08-02,,Yes,Yes,No,Yes,Yes,Bay Area Fencing Club - Los Gatos,14231114,46161258
+Andrew Zhang,Beginning Foil Basic (Pleasanton),2025-08-04,,Yes,Yes,No,Yes,Yes,Bay Area Fencing - Pleasanton,14231022,46195802
+imran murdasov,Beginning Fencing Program (Los Gatos),2025-08-05,,Yes,Yes,No,Yes,Yes,Bay Area Fencing Club - Los Gatos,14241817,46213029
+Hazen Choy,Beginning Foil Plus (Pleasanton),2025-08-06,2025-08-10,No,Yes,Yes,No,Yes,Bay Area Fencing - Pleasanton,14073383,46235219
+Yarden Gluzer,Intermediate Foil  (Los Gatos),2025-08-07,2025-08-12,No,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,14197009,46240414
+Sia Jakate,Beginning Foil Basic (Pleasanton),2025-08-02,,Yes,Yes,No,Yes,Yes,Bay Area Fencing - Pleasanton,14230653,46159228
+Yash Jakate,Beginning Foil Basic (Pleasanton),2025-08-02,,No,Yes,No,No,Yes,Bay Area Fencing - Pleasanton,14189248,46159232
+Benjamin Berman,Beginning Fencing Program (Los Gatos),2025-08-08,,Yes,Yes,No,Yes,Yes,Bay Area Fencing Club - Los Gatos,14203531,46265352
+Fanya Yu,Beginning Fencing Program (Los Gatos),2025-08-09,,No,Yes,No,No,Yes,Bay Area Fencing Club - Los Gatos,13697075,46278483
+Arya Vivares,Beginning Fencing Program (Los Gatos),2025-08-09,,No,Yes,No,No,Yes,Bay Area Fencing Club - Los Gatos,13864366,46280188
+Nolan Chen,Competitive Youth (Los Gatos),2025-08-11,2025-08-24,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,14250630,46315769
+Matthew Hu,Beginning Foil Plus (Pleasanton),2025-08-14,2025-08-17,No,Yes,Yes,Yes,Yes,Bay Area Fencing - Pleasanton,14271654,46370296
+Yichen Liu,Bouting Membership (Los Gatos),2025-08-14,,Yes,Yes,No,Yes,Yes,Bay Area Fencing Club - Los Gatos,14265326,46375179
+Khidr Abdul Mateen,Beginning Fencing Program (Los Gatos),2025-08-18,,Yes,Yes,No,Yes,Yes,Bay Area Fencing Club - Los Gatos,14260785,46438870
+Lucas Chen,Lil' Pirates (Los Gatos),2025-08-19,,Yes,Yes,No,Yes,Yes,Bay Area Fencing Club - Los Gatos,14288145,46459180
+Ada Springs,Beginning Fencing Program (Los Gatos),2025-08-20,,No,Yes,No,No,Yes,Bay Area Fencing Club - Los Gatos,13973083,46476148
+george augusteo,Beginning Fencing Program (Los Gatos),2025-08-27,,No,Yes,No,No,Yes,Bay Area Fencing Club - Los Gatos,14274800,46480041
+Doug Maguire,Bouting Membership (Los Gatos),2025-08-21,,Yes,Yes,No,No,Yes,Bay Area Fencing Club - Los Gatos,14045370,46500067
+Maggie Wu,Beginning Fencing Program (Los Gatos),2025-08-23,,Yes,Yes,No,Yes,Yes,Bay Area Fencing Club - Los Gatos,14277828,46526965
+Enzo Seidel,Beginning Fencing Program (Los Gatos),2025-08-25,2025-08-26,Yes,Yes,Yes,Yes,Yes,Bay Area Fencing Club - Los Gatos,14093893,46560392
+Emma Navill,Beginning Foil Basic (Pleasanton),2025-08-26,,Yes,Yes,No,Yes,Yes,Bay Area Fencing - Pleasanton,14290381,46574480
+Ian MacKenzie,Lil' Pirates (Los Gatos),2025-08-30,,Yes,Yes,No,Yes,Yes,Bay Area Fencing Club - Los Gatos,14314349,46604758
+Louis Wei,Beginning Fencing Program (Los Gatos),2025-08-30,,Yes,Yes,No,Yes,Yes,Bay Area Fencing Club - Los Gatos,14319187,46641661
+Skylar Tiwari,Beginning Fencing Program (Los Gatos),2025-08-30,,No,Yes,No,Yes,Yes,Bay Area Fencing Club - Los Gatos,14320758,46642209
+Alexander Clark,Beginning Foil Basic (Pleasanton),2025-08-30,,Yes,Yes,No,Yes,Yes,Bay Area Fencing - Pleasanton,14310285,46643429
