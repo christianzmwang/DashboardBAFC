@@ -1,11 +1,13 @@
 'use client';
-import React, { useState, useEffect } from 'react';
-import { filterDataByDateRange, getAvailableMonths, MonthlyRevenue, MonthlyMembership, filterMembershipDataByDateRange, getAvailableMembershipMonths } from '../lib/clientUtils';
+import React, { useState, useEffect, useMemo } from 'react';
+import { signOut } from 'next-auth/react';
+import { filterDataByDateRange, getAvailableMonths, MonthlyRevenue, MonthlyMembership, filterMembershipDataByDateRange, getAvailableMembershipMonths, MonthlyAmountBreakdown, filterAmountBreakdownByDateRange } from '../lib/clientUtils';
 import { RevenueChart } from '../components/RevenueChart';
 import { LocationChart } from '../components/LocationChart';
 import { MembershipChart } from '../components/MembershipChart';
 import { LocationMembershipChart } from '../components/LocationMembershipChart';
 import { DateRangeSelector } from '../components/DateRangeSelector';
+import { RevenueAmountBreakdownChart, computeAmountLegendKeys, amountLegendPalette } from '../components/RevenueAmountBreakdownChart';
 
 interface LocationDataResponse {
   allData: MonthlyRevenue[];
@@ -46,6 +48,13 @@ export default function Page() {
   const [endMonth, setEndMonth] = useState<string>('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  // Amount breakdown state
+  const [amountBreakdown, setAmountBreakdown] = useState<MonthlyAmountBreakdown[]>([]);
+  const [filteredAmountBreakdown, setFilteredAmountBreakdown] = useState<MonthlyAmountBreakdown[]>([]);
+  const [lgAmountBreakdown, setLgAmountBreakdown] = useState<MonthlyAmountBreakdown[]>([]);
+  const [plAmountBreakdown, setPlAmountBreakdown] = useState<MonthlyAmountBreakdown[]>([]);
+  const [filteredLgAmountBreakdown, setFilteredLgAmountBreakdown] = useState<MonthlyAmountBreakdown[]>([]);
+  const [filteredPlAmountBreakdown, setFilteredPlAmountBreakdown] = useState<MonthlyAmountBreakdown[]>([]);
   
   // Toggle between revenue and membership view
   const [viewMode, setViewMode] = useState<'revenue' | 'membership'>('revenue');
@@ -57,9 +66,11 @@ export default function Page() {
     const fetchData = async () => {
       try {
         // Fetch both revenue and membership data
-        const [revenueResponse, membershipResponse] = await Promise.all([
+        const [revenueResponse, membershipResponse, amountBreakdownResp, amountBreakdownByLocResp] = await Promise.all([
           fetch('/api/revenue-data'),
-          fetch(`/api/membership-data?file=${membershipFile}`)
+          fetch(`/api/membership-data?file=${membershipFile}`),
+          fetch('/api/revenue-data/amount-breakdown'),
+          fetch('/api/revenue-data/amount-breakdown-by-location')
         ]);
         
         if (!revenueResponse.ok) {
@@ -68,21 +79,33 @@ export default function Page() {
         if (!membershipResponse.ok) {
           throw new Error(`Membership API error! status: ${membershipResponse.status}`);
         }
+        if (!amountBreakdownResp.ok) {
+          throw new Error(`Amount Breakdown API error! status: ${amountBreakdownResp.status}`);
+        }
+        if (!amountBreakdownByLocResp.ok) {
+          throw new Error(`Amount Breakdown by Location API error! status: ${amountBreakdownByLocResp.status}`);
+        }
         
         const revenueData: LocationDataResponse = await revenueResponse.json();
-        const membershipData: MembershipDataResponse = await membershipResponse.json();
+  const membershipData: MembershipDataResponse = await membershipResponse.json();
+  const { breakdown } = await amountBreakdownResp.json();
+  const amountByLoc = await amountBreakdownByLocResp.json();
         
         // Set revenue data
         setAllData(revenueData.allData);
         setLosGatosData(revenueData.losGatosData);
         setPleasantonData(revenueData.pleasantonData);
         
-        // Set membership data
+  // Set membership data
         setAllMembershipData(membershipData.allData);
         setLosGatosMembershipData(membershipData.losGatosData);
         setPleasantonMembershipData(membershipData.pleasantonData);
+  // Set amount breakdown
+  setAmountBreakdown(breakdown || []);
+  setLgAmountBreakdown(amountByLoc?.losGatosData || []);
+  setPlAmountBreakdown(amountByLoc?.pleasantonData || []);
         
-        // Set available months from revenue data (assuming revenue data has more complete date range)
+        // Set available months from revenue data only (previous behavior)
         const months = getAvailableMonths(revenueData.allData);
         setAvailableMonths(months);
         
@@ -114,7 +137,16 @@ export default function Page() {
       setFilteredLosGatosMembershipData(filterMembershipDataByDateRange(losGatosMembershipData, startMonth, endMonth));
       setFilteredPleasantonMembershipData(filterMembershipDataByDateRange(pleasantonMembershipData, startMonth, endMonth));
     }
-  }, [startMonth, endMonth, allData, losGatosData, pleasantonData, allMembershipData, losGatosMembershipData, pleasantonMembershipData]);
+    if (startMonth && endMonth && amountBreakdown.length > 0) {
+      setFilteredAmountBreakdown(filterAmountBreakdownByDateRange(amountBreakdown, startMonth, endMonth));
+    }
+    if (startMonth && endMonth && lgAmountBreakdown.length > 0) {
+      setFilteredLgAmountBreakdown(filterAmountBreakdownByDateRange(lgAmountBreakdown, startMonth, endMonth));
+    }
+    if (startMonth && endMonth && plAmountBreakdown.length > 0) {
+      setFilteredPlAmountBreakdown(filterAmountBreakdownByDateRange(plAmountBreakdown, startMonth, endMonth));
+    }
+  }, [startMonth, endMonth, allData, losGatosData, pleasantonData, allMembershipData, losGatosMembershipData, pleasantonMembershipData, amountBreakdown, lgAmountBreakdown, plAmountBreakdown]);
 
   const handleStartMonthChange = (month: string) => {
     setStartMonth(month);
@@ -126,6 +158,12 @@ export default function Page() {
   const handleEndMonthChange = (month: string) => {
     setEndMonth(month);
   };
+
+  // Legend keys for external legends on location-specific composition charts
+  const lgLegendKeys = useMemo(() => computeAmountLegendKeys(filteredLgAmountBreakdown, 10), [filteredLgAmountBreakdown]);
+  const plLegendKeys = useMemo(() => computeAmountLegendKeys(filteredPlAmountBreakdown, 10), [filteredPlAmountBreakdown]);
+  // Legend keys for the overall composition chart
+  const overallLegendKeys = useMemo(() => computeAmountLegendKeys(filteredAmountBreakdown, 10), [filteredAmountBreakdown]);
 
   if (loading) {
     return (
@@ -145,7 +183,7 @@ export default function Page() {
         <div className="text-center text-gray-600 mt-4 space-y-2">
           <p className="font-semibold">{error}</p>
           <p className="text-sm">
-            If you're seeing this in production, please ensure the CSV files are properly deployed.
+            If you&#39;re seeing this in production, please ensure the CSV files are properly deployed.
           </p>
         </div>
       </main>
@@ -158,28 +196,37 @@ export default function Page() {
       <header className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-4">
         <div>
           <h1 className="text-3xl font-bold tracking-tight">BAFC Dashboard</h1>
-          <p className="text-sm text-gray-500">MoM visualization</p>
+          <p className="text-sm text-gray-500 mt-1">MoM visualization</p>
         </div>
-        <div className="flex items-center gap-2 bg-white rounded-lg shadow p-1 w-fit">
+        <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 bg-white rounded-lg shadow p-1 w-fit">
+            <button
+              onClick={() => setViewMode('revenue')}
+              className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                viewMode === 'revenue'
+                  ? 'bg-blue-600 text-white'
+                  : 'text-gray-700 hover:bg-gray-100'
+              }`}
+            >
+              Revenue
+            </button>
+            <button
+              onClick={() => setViewMode('membership')}
+              className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                viewMode === 'membership'
+                  ? 'bg-blue-600 text-white'
+                  : 'text-gray-700 hover:bg-gray-100'
+              }`}
+            >
+              Membership
+            </button>
+          </div>
           <button
-            onClick={() => setViewMode('revenue')}
-            className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
-              viewMode === 'revenue'
-                ? 'bg-blue-600 text-white'
-                : 'text-gray-700 hover:bg-gray-100'
-            }`}
+            onClick={() => signOut({ callbackUrl: '/auth/signin' })}
+            className="px-3 py-1.5 rounded-md text-sm font-medium border border-gray-300 text-gray-700 hover:bg-gray-100"
+            aria-label="Sign out"
           >
-            Revenue
-          </button>
-          <button
-            onClick={() => setViewMode('membership')}
-            className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
-              viewMode === 'membership'
-                ? 'bg-blue-600 text-white'
-                : 'text-gray-700 hover:bg-gray-100'
-            }`}
-          >
-            Membership
+            Sign out
           </button>
         </div>
       </header>
@@ -201,22 +248,88 @@ export default function Page() {
             <RevenueChart data={filteredAllData} />
           </section>
 
-          {/* Location-specific Charts */}
-          <section className="grid md:grid-cols-2 gap-8">
-            <div className="bg-white rounded-lg shadow-lg p-6">
-              <LocationChart 
-                data={filteredLosGatosData} 
-                title="Los Gatos Location" 
-                color="#059669" 
-              />
+          {/* Amount Breakdown by Transaction Value with legend to the right of header */}
+          <section className="bg-white rounded-lg shadow-lg p-6">
+            <div className="mb-2 flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
+              <h3 className="text-xl font-semibold text-gray-800">Revenue Composition by Transaction Amount</h3>
+              <div className="sm:w-auto">
+                <div className="grid grid-flow-col grid-rows-2 auto-cols-max gap-x-4 gap-y-2">
+                  {overallLegendKeys.map((k, i) => (
+                    <div key={k} className="flex items-center gap-1.5">
+                      <span
+                        className="inline-block w-3 h-3 rounded-[2px]"
+                        style={{ backgroundColor: amountLegendPalette[i % amountLegendPalette.length] }}
+                      />
+                      <span className="text-xs text-gray-700">{k === 'Other' ? 'Other' : `$${k}`}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
-            
-            <div className="bg-white rounded-lg shadow-lg p-6">
-              <LocationChart 
-                data={filteredPleasantonData} 
-                title="Pleasanton Location" 
-                color="#dc2626" 
-              />
+            <p className="text-sm text-gray-500 mb-2">Each bar shows the monthly total, built from segments proportional to common transaction amounts.</p>
+            <RevenueAmountBreakdownChart data={filteredAmountBreakdown} topN={10} showLegend={false} />
+          </section>
+
+          {/* Location-specific Charts with Composition below each */}
+          <section className="grid md:grid-cols-2 gap-8">
+            {/* Los Gatos column */}
+            <div className="space-y-8">
+              <div className="bg-white rounded-lg shadow-lg p-6">
+                <LocationChart 
+                  data={filteredLosGatosData} 
+                  title="Los Gatos Location" 
+                  color="#059669" 
+                />
+              </div>
+              <div className="bg-white rounded-lg shadow-lg p-6">
+                <div className="mb-3 flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
+                  <h4 className="text-lg font-semibold text-gray-800">Los Gatos Composition</h4>
+                  <div className="sm:w-auto">
+                    <div className="grid grid-flow-col grid-rows-2 auto-cols-max gap-x-4 gap-y-2">
+                      {lgLegendKeys.map((k, i) => (
+                        <div key={k} className="flex items-center gap-1.5">
+                          <span
+                            className="inline-block w-3 h-3 rounded-[2px]"
+                            style={{ backgroundColor: amountLegendPalette[i % amountLegendPalette.length] }}
+                          />
+                          <span className="text-xs text-gray-700">{k === 'Other' ? 'Other' : `$${k}`}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+                <RevenueAmountBreakdownChart data={filteredLgAmountBreakdown} topN={10} showLegend={false} />
+              </div>
+            </div>
+
+            {/* Pleasanton column */}
+            <div className="space-y-8">
+              <div className="bg-white rounded-lg shadow-lg p-6">
+                <LocationChart 
+                  data={filteredPleasantonData} 
+                  title="Pleasanton Location" 
+                  color="#dc2626" 
+                />
+              </div>
+              <div className="bg-white rounded-lg shadow-lg p-6">
+                <div className="mb-3 flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
+                  <h4 className="text-lg font-semibold text-gray-800">Pleasanton Composition</h4>
+                  <div className="sm:w-auto">
+                    <div className="grid grid-flow-col grid-rows-2 auto-cols-max gap-x-4 gap-y-2">
+                      {plLegendKeys.map((k, i) => (
+                        <div key={k} className="flex items-center gap-1.5">
+                          <span
+                            className="inline-block w-3 h-3 rounded-[2px]"
+                            style={{ backgroundColor: amountLegendPalette[i % amountLegendPalette.length] }}
+                          />
+                          <span className="text-xs text-gray-700">{k === 'Other' ? 'Other' : `$${k}`}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+                <RevenueAmountBreakdownChart data={filteredPlAmountBreakdown} topN={10} showLegend={false} />
+              </div>
             </div>
           </section>
 
@@ -272,7 +385,7 @@ export default function Page() {
               <div>
                 <h2 className="text-2xl font-semibold text-gray-800">Overall Membership Overview</h2>
                 <p className="text-sm text-gray-500">
-                  Data source: {membershipFile === 'membersbeta.csv' ? 'Membership is Yes filter' : 'Client\'s First Membership is Yes filter'}
+                  Data source: {membershipFile === 'membersbeta.csv' ? 'Membership is Yes filter' : 'Client&#39;s First Membership is Yes filter'}
                 </p>
               </div>
               

@@ -17,6 +17,12 @@ export interface MonthlyRevenue {
   count: number;
 }
 
+export interface MonthlyAmountBreakdown {
+  month: string; // YYYY-MM
+  amounts: Record<string, number>; // key is amount (e.g., '55') -> revenue sum
+  total: number;
+}
+
 export interface LocationData {
   location: string;
   monthlyRevenue: MonthlyRevenue[];
@@ -314,5 +320,46 @@ export function loadMembershipData(filename: string = 'membersbeta.csv'): {
     allData: aggregateMonthlyMemberships(allMembers),
     losGatosData: aggregateMonthlyMemberships(losGatosMembers),
     pleasantonData: aggregateMonthlyMemberships(pleasantonMembers)
+  };
+}
+
+// Aggregate revenue per month, broken down by exact transaction amount value (rounded to nearest integer dollar)
+export function aggregateMonthlyAmountBreakdown(payments: PaymentRecord[]): MonthlyAmountBreakdown[] {
+  const map = new Map<string, { amounts: Record<string, number>; total: number }>();
+  for (const p of payments) {
+    if (!p.transactionAt) continue;
+    const dateStr = p.transactionAt.split(' ')[0];
+    const month = dateStr.slice(0, 7); // YYYY-MM
+    if (month.startsWith('2021')) continue; // keep consistency with other aggregations
+
+    // Use rounded whole dollars to form amount buckets, like '55'
+    const amtKey = String(Math.round(p.paymentAmount));
+    const group = map.get(month) || { amounts: {}, total: 0 };
+    group.amounts[amtKey] = (group.amounts[amtKey] || 0) + p.paymentAmount;
+    group.total += p.paymentAmount;
+    map.set(month, group);
+  }
+  return Array.from(map.entries())
+    .map(([month, { amounts, total }]) => ({ month, amounts, total }))
+    .sort((a, b) => a.month.localeCompare(b.month));
+}
+
+export function loadMonthlyAmountBreakdown(): MonthlyAmountBreakdown[] {
+  const payments = loadPayments();
+  return aggregateMonthlyAmountBreakdown(payments);
+}
+
+export function loadLocationAmountBreakdown(): {
+  allData: MonthlyAmountBreakdown[];
+  losGatosData: MonthlyAmountBreakdown[];
+  pleasantonData: MonthlyAmountBreakdown[];
+} {
+  const allPayments = loadPaymentsFromFile('dataprimo.csv');
+  const losGatosPayments = allPayments.filter(p => p.payerHomeLocation && p.payerHomeLocation.includes('Los Gatos'));
+  const pleasantonPayments = allPayments.filter(p => p.payerHomeLocation && p.payerHomeLocation.includes('Pleasanton'));
+  return {
+    allData: aggregateMonthlyAmountBreakdown(allPayments),
+    losGatosData: aggregateMonthlyAmountBreakdown(losGatosPayments),
+    pleasantonData: aggregateMonthlyAmountBreakdown(pleasantonPayments),
   };
 }

@@ -11,7 +11,15 @@ export interface MonthlyMembership {
   canceledMemberships: number;
 }
 
-function generateMonthRange(startMonth: string, endMonth: string): string[] {
+// Revenue composition by transaction amount for each month
+export interface MonthlyAmountBreakdown {
+  month: string; // YYYY-MM
+  // key is the transaction amount bucket as a string (e.g., '55')
+  amounts: Record<string, number>; // revenue sum contributed by each amount
+  total: number; // total revenue that month (sum of values in amounts)
+}
+
+export function generateMonthRange(startMonth: string, endMonth: string): string[] {
   const result: string[] = [];
   const [startYear, startM] = startMonth.split('-').map(Number);
   const [endYear, endM] = endMonth.split('-').map(Number);
@@ -47,4 +55,17 @@ export function getAvailableMonths(data: MonthlyRevenue[]): string[] {
 
 export function getAvailableMembershipMonths(data: MonthlyMembership[]): string[] {
   return data.map(item => item.month).sort();
+}
+
+// Filter helper that ensures every month in range exists; fills missing months with zero totals
+export function filterAmountBreakdownByDateRange(
+  data: MonthlyAmountBreakdown[],
+  startMonth: string,
+  endMonth: string
+): MonthlyAmountBreakdown[] {
+  const map = new Map(data.filter(d => d.month >= startMonth && d.month <= endMonth).map(d => [d.month, d] as const));
+  return generateMonthRange(startMonth, endMonth).map(m => {
+    const existing = map.get(m);
+    return existing || { month: m, amounts: {}, total: 0 } as MonthlyAmountBreakdown;
+  });
 }

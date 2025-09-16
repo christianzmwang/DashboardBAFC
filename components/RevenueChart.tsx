@@ -89,6 +89,13 @@ export const RevenueChart: React.FC<Props> = ({ data }) => {
   const barData = data.filter(d => d.revenue > 0);
   const bar = g.selectAll('.bar').data(barData).enter().append('g');
 
+    const formatMonthLong = (yyyyMm: string) => {
+      const [y, m] = yyyyMm.split('-').map(Number);
+      // Use UTC to avoid timezone shifting into previous month
+      const dt = new Date(Date.UTC(y, (m || 1) - 1, 1));
+      return new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'long', timeZone: 'UTC' }).format(dt);
+    };
+
     bar.append('rect')
       .attr('class', 'bar')
       .attr('x', d => x(d.month)!)
@@ -102,7 +109,7 @@ export const RevenueChart: React.FC<Props> = ({ data }) => {
         tooltip
           .style('opacity', 1)
           .html(`
-            <div><strong>${new Date(d.month + '-01').toLocaleDateString('en-US', { year: 'numeric', month: 'long' })}</strong></div>
+            <div><strong>${formatMonthLong(d.month)}</strong></div>
             <div>Revenue: $${Math.round(d.revenue).toLocaleString()}</div>
             <div>Transactions: ${d.count}</div>
           `)

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from 'next/image';
 import { useState } from 'react';
 import { signIn } from 'next-auth/react';
 import RedDotWave from './RedDotWave';
@@ -17,14 +18,14 @@ export default function GoogleAuthPage() {
   };
 
   return (
-    <div className="h-[100dvh] overflow-hidden flex items-center justify-center px-4 sm:px-6 lg:px-8 bg-black relative">
-      {/* Optional brand mark bottom-left (replace with your logo or remove) */}
+    <div className="fixed inset-0 bg-black text-white overflow-hidden flex items-center justify-center">
+      {/* Logo in bottom-left (same position/size as the small circle) */}
       <div className="absolute bottom-6 left-6 z-50 pointer-events-none select-none">
-        <div className="w-6 h-6 rounded-full bg-red-600" title="Logo" />
+        <Image src="/blackLogo.svg" alt="BAFC Logo" width={24} height={24} className="w-6 h-6" priority />
       </div>
 
       <div className="flex w-full h-full">
-        {/* Left side - RedDotWave */}
+        {/* Left side - animation */}
         <div className="hidden lg:flex w-1/2 h-full overflow-hidden">
           <RedDotWave
             showControls={false}
@@ -37,7 +38,7 @@ export default function GoogleAuthPage() {
         </div>
 
         {/* Right side - Google-only */}
-        <div className="w-full lg:w-1/2 h-full flex items-center justify-center py-8 overflow-auto">
+        <div className="w-full lg:w-1/2 h-full flex items-center justify-center py-8 overflow-hidden">
           <div className="max-w-lg w-full space-y-6 px-8">
             <div>
               <h2 className="mt-0 text-2xl lg:text-3xl font-extrabold text-white text-left whitespace-nowrap">
@@ -76,10 +77,7 @@ export default function GoogleAuthPage() {
                 <span className="ml-2">{isLoading ? 'Signing in…' : 'Sign in with Google'}</span>
               </button>
 
-              {/* Optional terms/help text */}
-              <p className="text-xs text-gray-400">
-                By continuing, you agree to our Terms and acknowledge our Privacy Policy.
-              </p>
+              {/* Terms/help text removed as requested */}
             </div>
           </div>
         </div>

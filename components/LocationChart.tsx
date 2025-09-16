@@ -95,6 +95,12 @@ export const LocationChart: React.FC<Props> = ({ data, title, color = '#1d4ed8' 
   const barData = data.filter(d => d.revenue > 0);
   const bar = g.selectAll('.bar').data(barData).enter().append('g');
 
+    const formatMonthLong = (yyyyMm: string) => {
+      const [y, m] = yyyyMm.split('-').map(Number);
+      const dt = new Date(Date.UTC(y, (m || 1) - 1, 1));
+      return new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'long', timeZone: 'UTC' }).format(dt);
+    };
+
     bar.append('rect')
       .attr('class', 'bar')
       .attr('x', (d: MonthlyRevenue) => x(d.month)!)
@@ -108,7 +114,7 @@ export const LocationChart: React.FC<Props> = ({ data, title, color = '#1d4ed8' 
         tooltip
           .style('opacity', 1)
           .html(`
-            <div><strong>${new Date(d.month + '-01').toLocaleDateString('en-US', { year: 'numeric', month: 'long' })}</strong></div>
+            <div><strong>${formatMonthLong(d.month)}</strong></div>
             <div>Revenue: $${Math.round(d.revenue).toLocaleString()}</div>
             <div>Transactions: ${d.count}</div>
           `)

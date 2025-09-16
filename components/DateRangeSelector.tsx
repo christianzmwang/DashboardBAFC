@@ -17,8 +17,9 @@ export const DateRangeSelector: React.FC<Props> = ({
   onEndMonthChange
 }) => {
   const formatMonthDisplay = (month: string) => {
-    const date = new Date(month + '-01');
-    return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long' });
+    const [y, m] = month.split('-').map(Number);
+    const dt = new Date(Date.UTC(y, (m || 1) - 1, 1));
+    return new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'long', timeZone: 'UTC' }).format(dt);
   };
 
   const getQuickRangeButtons = () => {
