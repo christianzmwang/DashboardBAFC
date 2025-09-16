@@ -139,11 +139,11 @@ export const RevenueAmountBreakdownChart: React.FC<Props> = ({ data, topN = 6, s
         .attr('width', 10)
         .attr('height', 10)
         .attr('fill', k => color(k))
-        .attr('rx', 2);
+        .attr('rx', 0);
       legendItem.append('text')
         .attr('x', 14)
         .attr('y', 9)
-        .attr('class', 'text-xs fill-gray-700')
+        .attr('class', 'text-xs fill-gray-700 dark:fill-gray-300')
         .text(k => (k === 'Other' ? 'Other' : `$${k}`));
 
       // Add vertical gap below legend for readability
@@ -177,7 +177,7 @@ export const RevenueAmountBreakdownChart: React.FC<Props> = ({ data, topN = 6, s
       .attr('transform', 'rotate(-35)')
       .style('text-anchor', 'end');
 
-    plot.append('g').call(d3.axisLeft(y).tickFormat(d => `$${Number(d).toLocaleString()}` as any));
+  plot.append('g').call(d3.axisLeft(y).tickFormat(d => `$${Number(d).toLocaleString()}` as any));
 
     // Grid lines
     plot.selectAll('.grid-line')
@@ -189,7 +189,7 @@ export const RevenueAmountBreakdownChart: React.FC<Props> = ({ data, topN = 6, s
       .attr('x2', innerWidth)
       .attr('y1', d => y(d))
       .attr('y2', d => y(d))
-      .attr('stroke', '#e5e7eb')
+  .attr('stroke', '#e5e7eb')
       .attr('stroke-width', 1)
       .attr('stroke-dasharray', '4,4');
 

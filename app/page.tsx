@@ -71,6 +71,20 @@ export default function Page() {
   // Toggle between membership data files
   const [membershipFile, setMembershipFile] = useState<'membersbeta.csv' | 'membersalpha.csv'>('membersbeta.csv');
 
+  // Simple theme toggle using documentElement class and localStorage
+  const toggleTheme = () => {
+    if (typeof document === 'undefined') return;
+    const el = document.documentElement;
+    const isDark = el.classList.contains('dark');
+    if (isDark) {
+      el.classList.remove('dark');
+      try { localStorage.setItem('theme', 'light'); } catch {}
+    } else {
+      el.classList.add('dark');
+      try { localStorage.setItem('theme', 'dark'); } catch {}
+    }
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -226,7 +240,7 @@ export default function Page() {
       <main className="w-full px-4">
         <div className="text-center">
           <h1 className="text-3xl font-bold mb-4">Loading...</h1>
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
+          <div className="animate-spin h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
         </div>
       </main>
     );
@@ -252,26 +266,37 @@ export default function Page() {
       <header className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-4">
         <div>
           <h1 className="text-3xl font-bold tracking-tight">BAFC Dashboard</h1>
-          <p className="text-sm text-gray-500 mt-1">MoM visualization</p>
+          <p className="text-sm text-gray-500 dark:text-gray-400 mt-1 flex items-center gap-2">
+            <span>MoM visualization</span>
+            <button
+              type="button"
+              onClick={toggleTheme}
+              className="ml-1 px-2 py-0.5 text-xs border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+              aria-label="Toggle theme"
+            >
+              <span className="inline dark:hidden">Light mode</span>
+              <span className="hidden dark:inline">Dark mode</span>
+            </button>
+          </p>
         </div>
         <div className="flex items-center gap-2">
-          <div className="flex items-center gap-2 bg-white rounded-lg shadow p-1 w-fit">
+          <div className="flex items-center gap-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-1 w-fit">
             <button
               onClick={() => setViewMode('revenue')}
-              className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+              className={`px-4 py-2 text-sm font-medium transition-colors ${
                 viewMode === 'revenue'
                   ? 'bg-blue-600 text-white'
-                  : 'text-gray-700 hover:bg-gray-100'
+                  : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
               }`}
             >
               Revenue
             </button>
             <button
               onClick={() => setViewMode('membership')}
-              className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+              className={`px-4 py-2 text-sm font-medium transition-colors ${
                 viewMode === 'membership'
                   ? 'bg-blue-600 text-white'
-                  : 'text-gray-700 hover:bg-gray-100'
+                  : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
               }`}
             >
               Membership
@@ -279,7 +304,7 @@ export default function Page() {
           </div>
           <button
             onClick={() => signOut({ callbackUrl: '/auth/signin' })}
-            className="px-3 py-1.5 rounded-md text-sm font-medium border border-gray-300 text-gray-700 hover:bg-gray-100"
+            className="px-3 py-1.5 text-sm font-medium border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
             aria-label="Sign out"
           >
             Sign out
@@ -299,32 +324,32 @@ export default function Page() {
       {viewMode === 'revenue' ? (
         <>
           {/* Overall Revenue Chart */}
-          <section className="bg-white rounded-lg shadow-lg p-6">
-            <h2 className="text-2xl font-semibold mb-4 text-gray-800">Overall Monthly Revenue</h2>
+          <section className="bg-white dark:bg-black border border-gray-200 dark:border-gray-700 shadow p-6">
+            <h2 className="text-2xl font-semibold mb-4 text-gray-800 dark:text-gray-100">Overall Monthly Revenue</h2>
             <RevenueChart data={filteredAllData} />
           </section>
 
           
 
           {/* Amount Breakdown by Transaction Value with legend to the right of header */}
-          <section className="bg-white rounded-lg shadow-lg p-6">
+          <section className="bg-white dark:bg-black border border-gray-200 dark:border-gray-700 shadow p-6">
             <div className="mb-2 flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
-              <h3 className="text-xl font-semibold text-gray-800">Revenue Composition by Transaction Amount</h3>
+              <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-100">Revenue Composition by Transaction Amount</h3>
               <div className="sm:w-auto">
                 <div className="grid grid-flow-col grid-rows-2 auto-cols-max gap-x-4 gap-y-2">
                   {overallLegendKeys.map((k, i) => (
                     <div key={k} className="flex items-center gap-1.5">
                       <span
-                        className="inline-block w-3 h-3 rounded-[2px]"
+                        className="inline-block w-3 h-3"
                         style={{ backgroundColor: amountLegendPalette[i % amountLegendPalette.length] }}
                       />
-                      <span className="text-xs text-gray-700">{k === 'Other' ? 'Other' : `$${k}`}</span>
+                      <span className="text-xs text-gray-700 dark:text-gray-300">{k === 'Other' ? 'Other' : `$${k}`}</span>
                     </div>
                   ))}
                 </div>
               </div>
             </div>
-            <p className="text-sm text-gray-500 mb-2">Each bar shows the monthly total, built from segments proportional to common transaction amounts.</p>
+            <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">Each bar shows the monthly total, built from segments proportional to common transaction amounts.</p>
             <RevenueAmountBreakdownChart data={filteredAmountBreakdown} topN={10} showLegend={false} />
           </section>
 
@@ -332,25 +357,25 @@ export default function Page() {
           <section className="grid md:grid-cols-2 gap-8">
             {/* Los Gatos column */}
             <div className="space-y-8">
-              <div className="bg-white rounded-lg shadow-lg p-6">
+              <div className="bg-white dark:bg-black border border-gray-200 dark:border-gray-700 shadow p-6">
                 <LocationChart 
                   data={filteredLosGatosData} 
                   title="Los Gatos Location" 
                   color="#059669" 
                 />
               </div>
-              <div className="bg-white rounded-lg shadow-lg p-6">
+              <div className="bg-white dark:bg-black border border-gray-200 dark:border-gray-700 shadow p-6">
                 <div className="mb-3 flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
-                  <h4 className="text-lg font-semibold text-gray-800">Los Gatos Composition</h4>
+                  <h4 className="text-lg font-semibold text-gray-800 dark:text-gray-100">Los Gatos Composition</h4>
                   <div className="sm:w-auto">
                     <div className="grid grid-flow-col grid-rows-2 auto-cols-max gap-x-4 gap-y-2">
                       {lgLegendKeys.map((k, i) => (
                         <div key={k} className="flex items-center gap-1.5">
                           <span
-                            className="inline-block w-3 h-3 rounded-[2px]"
+                            className="inline-block w-3 h-3"
                             style={{ backgroundColor: amountLegendPalette[i % amountLegendPalette.length] }}
                           />
-                          <span className="text-xs text-gray-700">{k === 'Other' ? 'Other' : `$${k}`}</span>
+                          <span className="text-xs text-gray-700 dark:text-gray-300">{k === 'Other' ? 'Other' : `$${k}`}</span>
                         </div>
                       ))}
                     </div>
@@ -362,25 +387,25 @@ export default function Page() {
 
             {/* Pleasanton column */}
             <div className="space-y-8">
-              <div className="bg-white rounded-lg shadow-lg p-6">
+              <div className="bg-white dark:bg-black border border-gray-200 dark:border-gray-700 shadow p-6">
                 <LocationChart 
                   data={filteredPleasantonData} 
                   title="Pleasanton Location" 
                   color="#dc2626" 
                 />
               </div>
-              <div className="bg-white rounded-lg shadow-lg p-6">
+              <div className="bg-white dark:bg-black border border-gray-200 dark:border-gray-700 shadow p-6">
                 <div className="mb-3 flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
-                  <h4 className="text-lg font-semibold text-gray-800">Pleasanton Composition</h4>
+                  <h4 className="text-lg font-semibold text-gray-800 dark:text-gray-100">Pleasanton Composition</h4>
                   <div className="sm:w-auto">
                     <div className="grid grid-flow-col grid-rows-2 auto-cols-max gap-x-4 gap-y-2">
                       {plLegendKeys.map((k, i) => (
                         <div key={k} className="flex items-center gap-1.5">
                           <span
-                            className="inline-block w-3 h-3 rounded-[2px]"
+                            className="inline-block w-3 h-3"
                             style={{ backgroundColor: amountLegendPalette[i % amountLegendPalette.length] }}
                           />
-                          <span className="text-xs text-gray-700">{k === 'Other' ? 'Other' : `$${k}`}</span>
+                          <span className="text-xs text-gray-700 dark:text-gray-300">{k === 'Other' ? 'Other' : `$${k}`}</span>
                         </div>
                       ))}
                     </div>
@@ -392,12 +417,12 @@ export default function Page() {
           </section>
 
           {/* Data Table */}
-          <section className="bg-white rounded-lg shadow-lg p-6">
-            <h2 className="text-2xl font-semibold mb-4 text-gray-800">Monthly Revenue Breakdown</h2>
+          <section className="bg-white dark:bg-black border border-gray-200 dark:border-gray-700 shadow p-6">
+            <h2 className="text-2xl font-semibold mb-4 text-gray-800 dark:text-gray-100">Monthly Revenue Breakdown</h2>
             <div className="overflow-x-auto">
               <table className="w-full table-auto">
                 <thead>
-                  <tr className="bg-gray-50">
+                  <tr className="bg-gray-50 dark:bg-black">
                     <th className="px-4 py-2 text-left">Month</th>
                     <th className="px-4 py-2 text-right">Total Revenue</th>
                     <th className="px-4 py-2 text-right">Los Gatos</th>
@@ -410,16 +435,16 @@ export default function Page() {
                     const plItem = filteredPleasantonData.find((pl: any) => pl.month === item.month);
                     
                     return (
-                      <tr key={item.month} className={index % 2 === 0 ? 'bg-gray-50' : 'bg-white'}>
+                      <tr key={item.month} className={index % 2 === 0 ? 'bg-gray-50 dark:bg-gray-850' : 'bg-white dark:bg-black'}>
                         <td className="px-4 py-2 font-medium">{item.month}</td>
                         <td className="px-4 py-2 text-right">${Math.round(item.revenue).toLocaleString()}</td>
                         <td className="px-4 py-2 text-right">
                           {lgItem ? `$${Math.round(lgItem.revenue).toLocaleString()}` : 
-                           <span className="text-gray-400 italic">No data</span>}
+                           <span className="text-gray-400 dark:text-gray-500 italic">No data</span>}
                         </td>
                         <td className="px-4 py-2 text-right">
                           {plItem ? `$${Math.round(plItem.revenue).toLocaleString()}` : 
-                           <span className="text-gray-400 italic">No data</span>}
+                           <span className="text-gray-400 dark:text-gray-500 italic">No data</span>}
                         </td>
                       </tr>
                     );
@@ -429,7 +454,7 @@ export default function Page() {
             </div>
             
             {filteredAllData.length === 0 && (
-              <div className="text-center py-8 text-gray-500">
+              <div className="text-center py-8 text-gray-500 dark:text-gray-400">
                 No data available for the selected date range.
               </div>
             )}
@@ -438,33 +463,33 @@ export default function Page() {
       ) : (
         <>
           {/* Overall Membership Chart */}
-          <section className="bg-white rounded-lg shadow-lg p-6">
+          <section className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 shadow p-6">
             <div className="mb-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
               <div>
-                <h2 className="text-2xl font-semibold text-gray-800">Overall Membership Overview</h2>
-                <p className="text-sm text-gray-500">
+                <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-100">Overall Membership Overview</h2>
+                <p className="text-sm text-gray-500 dark:text-gray-400">
                   Data source: {membershipFile === 'membersbeta.csv' ? 'Membership is Yes filter' : 'Client&#39;s First Membership is Yes filter'}
                 </p>
               </div>
               
               {/* Membership File Toggle */}
-              <div className="flex items-center gap-2 bg-gray-50 rounded-lg p-1 w-fit">
+              <div className="flex items-center gap-2 bg-gray-50 dark:bg-black border border-gray-200 dark:border-gray-700 p-1 w-fit">
                 <button
                   onClick={() => setMembershipFile('membersbeta.csv')}
-                  className={`px-3 py-2 rounded-md text-xs font-medium transition-colors ${
+                  className={`px-3 py-2 text-xs font-medium transition-colors ${
                     membershipFile === 'membersbeta.csv'
                       ? 'bg-green-600 text-white'
-                      : 'text-gray-700 hover:bg-gray-100'
+                      : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
                   }`}
                 >
                   All Memberships
                 </button>
                 <button
                   onClick={() => setMembershipFile('membersalpha.csv')}
-                  className={`px-3 py-2 rounded-md text-xs font-medium transition-colors ${
+                  className={`px-3 py-2 text-xs font-medium transition-colors ${
                     membershipFile === 'membersalpha.csv'
                       ? 'bg-green-600 text-white'
-                      : 'text-gray-700 hover:bg-gray-100'
+                      : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
                   }`}
                 >
                   First Memberships Only
@@ -475,11 +500,11 @@ export default function Page() {
           </section>
 
           {/* Membership Composition by Program (Overall) */}
-          <section className="bg-white rounded-lg shadow-lg p-6">
+          <section className="bg-white dark:bg-black border border-gray-200 dark:border-gray-700 shadow p-6">
             <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between">
               <div>
-                <h3 className="text-xl font-semibold text-gray-800">Membership Composition by Program</h3>
-                <p className="text-sm text-gray-500">Each bar shows total active members per month, split by program.</p>
+                <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-100">Membership Composition by Program</h3>
+                <p className="text-sm text-gray-500 dark:text-gray-400">Each bar shows total active members per month, split by program.</p>
               </div>
               <VerticalLegend
                 keys={overallProgramKeys}
@@ -494,7 +519,7 @@ export default function Page() {
 
           {/* Location-specific Membership Charts */}
           <section className="grid md:grid-cols-2 gap-8">
-            <div className="bg-white rounded-lg shadow-lg p-6">
+            <div className="bg-white dark:bg-black border border-gray-200 dark:border-gray-700 shadow p-6">
               <LocationMembershipChart 
                 data={filteredLosGatosMembershipData} 
                 title="Los Gatos Membership" 
@@ -502,9 +527,9 @@ export default function Page() {
               />
             </div>
             
-            <div className="bg-white rounded-lg shadow-lg pl-6 pt-4 pr-6">
+            <div className="bg-white dark:bg-black border border-gray-200 dark:border-gray-700 shadow pl-6 pt-4 pr-6">
               <div className=" flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
-                <h4 className="text-lg font-semibold text-gray-800">Los Gatos Composition</h4>
+                <h4 className="text-lg font-semibold text-gray-800 dark:text-gray-100">Los Gatos Composition</h4>
                 <VerticalLegend
                   keys={lgProgramKeys}
                   palette={programLegendPalette}
@@ -514,16 +539,16 @@ export default function Page() {
               </div>
               <MembershipProgramBreakdownChart data={filteredProgramBreakdownLG} topN={10} showLegend={false} showAllCategories={true} />
             </div>
-            <div className="bg-white rounded-lg shadow-lg p-6">
+            <div className="bg-white dark:bg-black border border-gray-200 dark:border-gray-700 shadow p-6">
               <LocationMembershipChart 
                 data={filteredPleasantonMembershipData} 
                 title="Pleasanton Membership" 
                 color="#dc2626" 
               />
             </div>
-            <div className="bg-white rounded-lg shadow-lg pl-6 pt-4 pr-6">
+            <div className="bg-white dark:bg-black border border-gray-200 dark:border-gray-700 shadow pl-6 pt-4 pr-6">
               <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
-                <h4 className="text-lg font-semibold text-gray-800">Pleasanton Composition</h4>
+                <h4 className="text-lg font-semibold text-gray-800 dark:text-gray-100">Pleasanton Composition</h4>
                 <VerticalLegend
                   keys={plProgramKeys}
                   palette={programLegendPalette}
@@ -536,12 +561,12 @@ export default function Page() {
           </section>
 
           {/* Membership Data Table */}
-          <section className="bg-white rounded-lg shadow-lg p-6">
-            <h2 className="text-2xl font-semibold mb-4 text-gray-800">Monthly Membership Breakdown</h2>
+          <section className="bg-white dark:bg-black border border-gray-200 dark:border-gray-700 shadow p-6">
+            <h2 className="text-2xl font-semibold mb-4 text-gray-800 dark:text-gray-100">Monthly Membership Breakdown</h2>
             <div className="overflow-x-auto">
               <table className="w-full table-auto">
                 <thead>
-                  <tr className="bg-gray-50">
+                  <tr className="bg-gray-50 dark:bg-black">
                     <th className="px-4 py-2 text-left">Month</th>
                     <th className="px-4 py-2 text-right">Total Members</th>
                     <th className="px-4 py-2 text-right">Los Gatos</th>
@@ -556,16 +581,16 @@ export default function Page() {
                     const plItem = filteredPleasantonMembershipData.find((pl: any) => pl.month === item.month);
                     
                     return (
-                      <tr key={item.month} className={index % 2 === 0 ? 'bg-gray-50' : 'bg-white'}>
+                      <tr key={item.month} className={index % 2 === 0 ? 'bg-gray-50 dark:bg-gray-850' : 'bg-white dark:bg-black'}>
                         <td className="px-4 py-2 font-medium">{item.month}</td>
                         <td className="px-4 py-2 text-right">{item.membershipCount}</td>
                         <td className="px-4 py-2 text-right">
                           {lgItem ? lgItem.membershipCount : 
-                           <span className="text-gray-400 italic">No data</span>}
+                           <span className="text-gray-400 dark:text-gray-500 italic">No data</span>}
                         </td>
                         <td className="px-4 py-2 text-right">
                           {plItem ? plItem.membershipCount : 
-                           <span className="text-gray-400 italic">No data</span>}
+                           <span className="text-gray-400 dark:text-gray-500 italic">No data</span>}
                         </td>
                         <td className="px-4 py-2 text-right">{item.newMemberships}</td>
                         <td className="px-4 py-2 text-right">{item.canceledMemberships}</td>
@@ -577,7 +602,7 @@ export default function Page() {
             </div>
             
             {filteredAllMembershipData.length === 0 && (
-              <div className="text-center py-8 text-gray-500">
+              <div className="text-center py-8 text-gray-500 dark:text-gray-400">
                 No membership data available for the selected date range.
               </div>
             )}

@@ -2,4 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Base light/dark body styles */
 body { @apply bg-gray-50 text-gray-900; }
+:root:where(.dark) body { @apply bg-black text-gray-100; }
+
+/* Remove rounded corners globally */
+* { border-radius: 0 !important; }
+
+/* D3/Chart theming for dark mode */
+.dark svg .grid-line { stroke: #374151 !important; }
+.dark svg text { fill: #d1d5db !important; }
+.dark .chart-tooltip,
+.dark .membership-chart-tooltip,
+.dark .location-chart-tooltip,
+.dark .location-membership-chart-tooltip { background: rgba(17, 24, 39, 0.95) !important; color: #e5e7eb !important; }

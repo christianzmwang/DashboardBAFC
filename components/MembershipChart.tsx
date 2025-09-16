@@ -163,9 +163,9 @@ export function MembershipChart({ data, title = 'Membership Overview', color = '
   if (!data || !data.length) {
     return (
       <div className="w-full">
-        <h3 className="text-xl font-semibold mb-4 text-gray-800">{title}</h3>
-        <div className="w-full h-[400px] flex items-center justify-center bg-gray-50 rounded-lg">
-          <p className="text-gray-500">No membership data available for this period.</p>
+        <h3 className="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-100">{title}</h3>
+  <div className="w-full h-[400px] flex items-center justify-center bg-gray-50 dark:bg-black">
+          <p className="text-gray-500 dark:text-gray-400">No membership data available for this period.</p>
         </div>
       </div>
     );
@@ -173,22 +173,22 @@ export function MembershipChart({ data, title = 'Membership Overview', color = '
 
   return (
     <div className="w-full">
-      <h3 className="text-xl font-semibold mb-4 text-gray-800">{title}</h3>
-      <div className="w-full overflow-x-auto bg-gray-50 rounded-lg p-2">
+      <h3 className="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-100">{title}</h3>
+  <div className="w-full overflow-x-auto bg-gray-50 dark:bg-black p-2">
         <svg ref={ref} className="w-full h-[400px]"></svg>
       </div>
       <div className="mt-4 grid grid-cols-3 gap-4 text-center">
-        <div className="bg-blue-50 p-3 rounded-lg">
-          <div className="text-lg font-semibold text-blue-700">{data[data.length - 1]?.membershipCount || 0}</div>
-          <div className="text-sm text-blue-600">Current Members</div>
+        <div className="bg-blue-50 dark:bg-blue-950 p-3">
+          <div className="text-lg font-semibold text-blue-700 dark:text-blue-300">{data[data.length - 1]?.membershipCount || 0}</div>
+          <div className="text-sm text-blue-600 dark:text-blue-400">Current Members</div>
         </div>
-        <div className="bg-green-50 p-3 rounded-lg">
-          <div className="text-lg font-semibold text-green-700">{data.reduce((sum, item) => sum + item.newMemberships, 0)}</div>
-          <div className="text-sm text-green-600">Total New Members</div>
+        <div className="bg-green-50 dark:bg-green-950 p-3">
+          <div className="text-lg font-semibold text-green-700 dark:text-green-300">{data.reduce((sum, item) => sum + item.newMemberships, 0)}</div>
+          <div className="text-sm text-green-600 dark:text-green-400">Total New Members</div>
         </div>
-        <div className="bg-red-50 p-3 rounded-lg">
-          <div className="text-lg font-semibold text-red-700">{data.reduce((sum, item) => sum + item.canceledMemberships, 0)}</div>
-          <div className="text-sm text-red-600">Total Canceled</div>
+        <div className="bg-red-50 dark:bg-red-950 p-3">
+          <div className="text-lg font-semibold text-red-700 dark:text-red-300">{data.reduce((sum, item) => sum + item.canceledMemberships, 0)}</div>
+          <div className="text-sm text-red-600 dark:text-red-400">Total Canceled</div>
         </div>
       </div>
     </div>

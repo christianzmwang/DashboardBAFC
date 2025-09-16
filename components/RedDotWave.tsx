@@ -259,7 +259,7 @@ export default function RedDotWave({
         <>
           <button
             onClick={() => setShowControlPanel(!showControlPanel)}
-            className="absolute top-4 right-4 z-10 rounded-lg bg-black/60 backdrop-blur-sm px-3 py-2 text-white/80 hover:bg-black/80 hover:text-white transition-all duration-200"
+            className="absolute top-4 right-4 z-10 bg-black/60 backdrop-blur-sm px-3 py-2 text-white/80 hover:bg-black/80 hover:text-white transition-all duration-200"
             disabled={isTransitioning}
           >
             🎥 {showControlPanel ? 'Hide' : 'Camera'}
@@ -271,7 +271,7 @@ export default function RedDotWave({
                 key={key}
                 onClick={() => selectPreset(key as CameraPreset)}
                 disabled={isTransitioning}
-                className="rounded-md bg-black/60 backdrop-blur-sm px-2 py-1 text-xs text-white/80 hover:bg-black/80 hover:text-white transition-all duration-200 disabled:opacity-50"
+                className="bg-black/60 backdrop-blur-sm px-2 py-1 text-xs text-white/80 hover:bg-black/80 hover:text-white transition-all duration-200 disabled:opacity-50"
               >
                 {preset.name}
               </button>
@@ -279,7 +279,7 @@ export default function RedDotWave({
           </div>
 
           {showControlPanel && (
-            <div className="absolute bottom-20 right-4 z-10 rounded-lg bg-black/80 backdrop-blur-sm p-4 text-white/90 space-y-4 max-w-xs">
+            <div className="absolute bottom-20 right-4 z-10 bg-black/80 backdrop-blur-sm p-4 text-white/90 space-y-4 max-w-xs">
               <div className="text-sm font-semibold text-center">Manual Controls</div>
               <div className="space-y-2">
                 <div className="text-xs font-medium text-white/70">Camera Position</div>
@@ -288,8 +288,8 @@ export default function RedDotWave({
                     <div key={axis} className="space-y-1">
                       <div className="text-center text-white/60 uppercase">{axis}</div>
                       <div className="flex flex-col gap-1">
-                        <button onClick={() => adjustCamera(axis, axis === 'y' ? 2 : 1, true)} className="bg-white/10 hover:bg-white/20 rounded px-1 py-0.5">+</button>
-                        <button onClick={() => adjustCamera(axis, axis === 'y' ? -2 : -1, true)} className="bg-white/10 hover:bg-white/20 rounded px-1 py-0.5">-</button>
+                        <button onClick={() => adjustCamera(axis, axis === 'y' ? 2 : 1, true)} className="bg-white/10 hover:bg-white/20 px-1 py-0.5">+</button>
+                        <button onClick={() => adjustCamera(axis, axis === 'y' ? -2 : -1, true)} className="bg-white/10 hover:bg-white/20 px-1 py-0.5">-</button>
                       </div>
                     </div>
                   ))}
@@ -303,8 +303,8 @@ export default function RedDotWave({
                     <div key={axis} className="space-y-1">
                       <div className="text-center text-white/60 uppercase">{axis}</div>
                       <div className="flex flex-col gap-1">
-                        <button onClick={() => adjustCamera(axis, 1, false)} className="bg-white/10 hover:bg-white/20 rounded px-1 py-0.5">+</button>
-                        <button onClick={() => adjustCamera(axis, -1, false)} className="bg-white/10 hover:bg-white/20 rounded px-1 py-0.5">-</button>
+                        <button onClick={() => adjustCamera(axis, 1, false)} className="bg-white/10 hover:bg-white/20 px-1 py-0.5">+</button>
+                        <button onClick={() => adjustCamera(axis, -1, false)} className="bg-white/10 hover:bg-white/20 px-1 py-0.5">-</button>
                       </div>
                     </div>
                   ))}
@@ -319,7 +319,7 @@ export default function RedDotWave({
           )}
 
           {isTransitioning && (
-            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20 bg-black/80 backdrop-blur-sm rounded-lg px-4 py-2 text-white/90">
+            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20 bg-black/80 backdrop-blur-sm px-4 py-2 text-white/90">
               🎬 Transitioning view...
             </div>
           )}

@@ -167,8 +167,8 @@ export const LocationChart: React.FC<Props> = ({ data, title, color = '#1d4ed8' 
     return (
       <div className="w-full">
         <h3 className="text-lg font-semibold mb-2 text-center">{title}</h3>
-        <div className="w-full h-[300px] flex items-center justify-center bg-gray-50 rounded-lg">
-          <div className="text-center text-gray-500">
+  <div className="w-full h-[300px] flex items-center justify-center bg-gray-50 dark:bg-black">
+          <div className="text-center text-gray-500 dark:text-gray-400">
             <p className="text-lg font-medium">No data available</p>
             <p className="text-sm">No revenue data for this location in the selected time period</p>
           </div>
