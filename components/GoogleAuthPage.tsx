@@ -11,7 +11,8 @@ export default function GoogleAuthPage() {
   const handleGoogleSignIn = async () => {
     try {
       setIsLoading(true);
-      await signIn('google', { callbackUrl: '/' });
+      // Force the Google account chooser every time
+      await signIn('google', { callbackUrl: '/' }, { prompt: 'select_account' });
     } catch {
       setIsLoading(false);
     }
