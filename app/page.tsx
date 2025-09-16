@@ -1,13 +1,15 @@
 'use client';
 import React, { useState, useEffect, useMemo } from 'react';
 import { signOut } from 'next-auth/react';
-import { filterDataByDateRange, getAvailableMonths, MonthlyRevenue, MonthlyMembership, filterMembershipDataByDateRange, getAvailableMembershipMonths, MonthlyAmountBreakdown, filterAmountBreakdownByDateRange } from '../lib/clientUtils';
+import { filterDataByDateRange, getAvailableMonths, MonthlyRevenue, MonthlyMembership, filterMembershipDataByDateRange, getAvailableMembershipMonths, MonthlyAmountBreakdown, filterAmountBreakdownByDateRange, MonthlyProgramBreakdown, filterProgramBreakdownByDateRange } from '../lib/clientUtils';
 import { RevenueChart } from '../components/RevenueChart';
 import { LocationChart } from '../components/LocationChart';
 import { MembershipChart } from '../components/MembershipChart';
 import { LocationMembershipChart } from '../components/LocationMembershipChart';
 import { DateRangeSelector } from '../components/DateRangeSelector';
 import { RevenueAmountBreakdownChart, computeAmountLegendKeys, amountLegendPalette } from '../components/RevenueAmountBreakdownChart';
+import { MembershipProgramBreakdownChart, programLegendPalette } from '../components/MembershipProgramBreakdownChart';
+import { VerticalLegend } from '../components/VerticalLegend';
 
 interface LocationDataResponse {
   allData: MonthlyRevenue[];
@@ -55,6 +57,13 @@ export default function Page() {
   const [plAmountBreakdown, setPlAmountBreakdown] = useState<MonthlyAmountBreakdown[]>([]);
   const [filteredLgAmountBreakdown, setFilteredLgAmountBreakdown] = useState<MonthlyAmountBreakdown[]>([]);
   const [filteredPlAmountBreakdown, setFilteredPlAmountBreakdown] = useState<MonthlyAmountBreakdown[]>([]);
+  // Membership program breakdown state
+  const [programBreakdownAll, setProgramBreakdownAll] = useState<MonthlyProgramBreakdown[]>([]);
+  const [programBreakdownLG, setProgramBreakdownLG] = useState<MonthlyProgramBreakdown[]>([]);
+  const [programBreakdownPL, setProgramBreakdownPL] = useState<MonthlyProgramBreakdown[]>([]);
+  const [filteredProgramBreakdownAll, setFilteredProgramBreakdownAll] = useState<MonthlyProgramBreakdown[]>([]);
+  const [filteredProgramBreakdownLG, setFilteredProgramBreakdownLG] = useState<MonthlyProgramBreakdown[]>([]);
+  const [filteredProgramBreakdownPL, setFilteredProgramBreakdownPL] = useState<MonthlyProgramBreakdown[]>([]);
   
   // Toggle between revenue and membership view
   const [viewMode, setViewMode] = useState<'revenue' | 'membership'>('revenue');
@@ -66,11 +75,12 @@ export default function Page() {
     const fetchData = async () => {
       try {
         // Fetch both revenue and membership data
-        const [revenueResponse, membershipResponse, amountBreakdownResp, amountBreakdownByLocResp] = await Promise.all([
+        const [revenueResponse, membershipResponse, amountBreakdownResp, amountBreakdownByLocResp, programBreakdownResp] = await Promise.all([
           fetch('/api/revenue-data'),
           fetch(`/api/membership-data?file=${membershipFile}`),
           fetch('/api/revenue-data/amount-breakdown'),
-          fetch('/api/revenue-data/amount-breakdown-by-location')
+          fetch('/api/revenue-data/amount-breakdown-by-location'),
+          fetch(`/api/membership-program-breakdown?file=${membershipFile}`)
         ]);
         
         if (!revenueResponse.ok) {
@@ -85,11 +95,15 @@ export default function Page() {
         if (!amountBreakdownByLocResp.ok) {
           throw new Error(`Amount Breakdown by Location API error! status: ${amountBreakdownByLocResp.status}`);
         }
+        if (!programBreakdownResp.ok) {
+          throw new Error(`Membership Program Breakdown API error! status: ${programBreakdownResp.status}`);
+        }
         
-        const revenueData: LocationDataResponse = await revenueResponse.json();
-  const membershipData: MembershipDataResponse = await membershipResponse.json();
-  const { breakdown } = await amountBreakdownResp.json();
-  const amountByLoc = await amountBreakdownByLocResp.json();
+    const revenueData: LocationDataResponse = await revenueResponse.json();
+    const membershipData: MembershipDataResponse = await membershipResponse.json();
+    const { breakdown } = await amountBreakdownResp.json();
+    const amountByLoc = await amountBreakdownByLocResp.json();
+    const programByData = await programBreakdownResp.json();
         
         // Set revenue data
         setAllData(revenueData.allData);
@@ -104,6 +118,10 @@ export default function Page() {
   setAmountBreakdown(breakdown || []);
   setLgAmountBreakdown(amountByLoc?.losGatosData || []);
   setPlAmountBreakdown(amountByLoc?.pleasantonData || []);
+  // Set membership program breakdown
+  setProgramBreakdownAll(programByData?.allData || []);
+  setProgramBreakdownLG(programByData?.losGatosData || []);
+  setProgramBreakdownPL(programByData?.pleasantonData || []);
         
         // Set available months from revenue data only (previous behavior)
         const months = getAvailableMonths(revenueData.allData);
@@ -146,7 +164,16 @@ export default function Page() {
     if (startMonth && endMonth && plAmountBreakdown.length > 0) {
       setFilteredPlAmountBreakdown(filterAmountBreakdownByDateRange(plAmountBreakdown, startMonth, endMonth));
     }
-  }, [startMonth, endMonth, allData, losGatosData, pleasantonData, allMembershipData, losGatosMembershipData, pleasantonMembershipData, amountBreakdown, lgAmountBreakdown, plAmountBreakdown]);
+    if (startMonth && endMonth && programBreakdownAll.length > 0) {
+      setFilteredProgramBreakdownAll(filterProgramBreakdownByDateRange(programBreakdownAll, startMonth, endMonth));
+    }
+    if (startMonth && endMonth && programBreakdownLG.length > 0) {
+      setFilteredProgramBreakdownLG(filterProgramBreakdownByDateRange(programBreakdownLG, startMonth, endMonth));
+    }
+    if (startMonth && endMonth && programBreakdownPL.length > 0) {
+      setFilteredProgramBreakdownPL(filterProgramBreakdownByDateRange(programBreakdownPL, startMonth, endMonth));
+    }
+  }, [startMonth, endMonth, allData, losGatosData, pleasantonData, allMembershipData, losGatosMembershipData, pleasantonMembershipData, amountBreakdown, lgAmountBreakdown, plAmountBreakdown, programBreakdownAll, programBreakdownLG, programBreakdownPL]);
 
   const handleStartMonthChange = (month: string) => {
     setStartMonth(month);
@@ -164,6 +191,35 @@ export default function Page() {
   const plLegendKeys = useMemo(() => computeAmountLegendKeys(filteredPlAmountBreakdown, 10), [filteredPlAmountBreakdown]);
   // Legend keys for the overall composition chart
   const overallLegendKeys = useMemo(() => computeAmountLegendKeys(filteredAmountBreakdown, 10), [filteredAmountBreakdown]);
+  // Program legend keys
+  // Derive all unique program categories across the filtered data (sorted by total contribution desc)
+  const overallProgramKeys = useMemo(() => {
+    const sum = new Map<string, number>();
+    filteredProgramBreakdownAll.forEach(d => {
+      for (const [k, v] of Object.entries(d.programs)) {
+        sum.set(k, (sum.get(k) || 0) + v);
+      }
+    });
+    return Array.from(sum.entries()).sort((a, b) => b[1] - a[1]).map(([k]) => k);
+  }, [filteredProgramBreakdownAll]);
+  const lgProgramKeys = useMemo(() => {
+    const sum = new Map<string, number>();
+    filteredProgramBreakdownLG.forEach(d => {
+      for (const [k, v] of Object.entries(d.programs)) {
+        sum.set(k, (sum.get(k) || 0) + v);
+      }
+    });
+    return Array.from(sum.entries()).sort((a, b) => b[1] - a[1]).map(([k]) => k);
+  }, [filteredProgramBreakdownLG]);
+  const plProgramKeys = useMemo(() => {
+    const sum = new Map<string, number>();
+    filteredProgramBreakdownPL.forEach(d => {
+      for (const [k, v] of Object.entries(d.programs)) {
+        sum.set(k, (sum.get(k) || 0) + v);
+      }
+    });
+    return Array.from(sum.entries()).sort((a, b) => b[1] - a[1]).map(([k]) => k);
+  }, [filteredProgramBreakdownPL]);
 
   if (loading) {
     return (
@@ -247,6 +303,8 @@ export default function Page() {
             <h2 className="text-2xl font-semibold mb-4 text-gray-800">Overall Monthly Revenue</h2>
             <RevenueChart data={filteredAllData} />
           </section>
+
+          
 
           {/* Amount Breakdown by Transaction Value with legend to the right of header */}
           <section className="bg-white rounded-lg shadow-lg p-6">
@@ -416,6 +474,24 @@ export default function Page() {
             <MembershipChart data={filteredAllMembershipData} />
           </section>
 
+          {/* Membership Composition by Program (Overall) */}
+          <section className="bg-white rounded-lg shadow-lg p-6">
+            <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between">
+              <div>
+                <h3 className="text-xl font-semibold text-gray-800">Membership Composition by Program</h3>
+                <p className="text-sm text-gray-500">Each bar shows total active members per month, split by program.</p>
+              </div>
+              <VerticalLegend
+                keys={overallProgramKeys}
+                palette={programLegendPalette}
+                labelFormatter={(k) => (k === 'Other' ? 'Other' : k)}
+                className="sm:ml-auto w-full sm:w-[32rem]"
+                columns={2}
+              />
+            </div>
+            <MembershipProgramBreakdownChart data={filteredProgramBreakdownAll} topN={10} showLegend={false} showAllCategories={true} />
+          </section>
+
           {/* Location-specific Membership Charts */}
           <section className="grid md:grid-cols-2 gap-8">
             <div className="bg-white rounded-lg shadow-lg p-6">
@@ -426,12 +502,36 @@ export default function Page() {
               />
             </div>
             
+            <div className="bg-white rounded-lg shadow-lg pl-6 pt-4 pr-6">
+              <div className=" flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
+                <h4 className="text-lg font-semibold text-gray-800">Los Gatos Composition</h4>
+                <VerticalLegend
+                  keys={lgProgramKeys}
+                  palette={programLegendPalette}
+                  labelFormatter={(k) => (k === 'Other' ? 'Other' : k)}
+                  className="sm:ml-auto w-full sm:w-64"
+                />
+              </div>
+              <MembershipProgramBreakdownChart data={filteredProgramBreakdownLG} topN={10} showLegend={false} showAllCategories={true} />
+            </div>
             <div className="bg-white rounded-lg shadow-lg p-6">
               <LocationMembershipChart 
                 data={filteredPleasantonMembershipData} 
                 title="Pleasanton Membership" 
                 color="#dc2626" 
               />
+            </div>
+            <div className="bg-white rounded-lg shadow-lg pl-6 pt-4 pr-6">
+              <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
+                <h4 className="text-lg font-semibold text-gray-800">Pleasanton Composition</h4>
+                <VerticalLegend
+                  keys={plProgramKeys}
+                  palette={programLegendPalette}
+                  labelFormatter={(k) => (k === 'Other' ? 'Other' : k)}
+                  className="sm:ml-auto w-full sm:w-64"
+                />
+              </div>
+              <MembershipProgramBreakdownChart data={filteredProgramBreakdownPL} topN={10} showLegend={false} showAllCategories={true} />
             </div>
           </section>
 

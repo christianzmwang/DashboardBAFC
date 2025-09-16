@@ -50,7 +50,13 @@ export interface MonthlyMembership {
   canceledMemberships: number;
 }
 
-const amountToNumber = (raw: string) => Number(raw.replace(/[$,"]/g, ''));
+export interface MonthlyProgramBreakdown {
+  month: string; // YYYY-MM
+  programs: Record<string, number>; // active members count per program
+  total: number; // total active members that month
+}
+
+const amountToNumber = (raw: string) => Number(raw.replace(/[$,\"]/g, ''));
 
 function loadPaymentsFromFile(filename: string): PaymentRecord[] {
   let file: string;
@@ -177,6 +183,7 @@ export function loadPayments(): PaymentRecord[] {
 export function loadMembers(filename: string = 'membersbeta.csv'): MemberRecord[] {
   return loadMembersFromFile(filename);
 }
+
 
 export function aggregateMonthlyMemberships(members: MemberRecord[]): MonthlyMembership[] {
   const monthlyData = new Map<string, { newMemberships: number; canceledMemberships: number }>();
@@ -347,6 +354,74 @@ export function aggregateMonthlyAmountBreakdown(payments: PaymentRecord[]): Mont
 export function loadMonthlyAmountBreakdown(): MonthlyAmountBreakdown[] {
   const payments = loadPayments();
   return aggregateMonthlyAmountBreakdown(payments);
+}
+
+// Aggregate membership active counts by program per month
+export function aggregateMonthlyProgramBreakdown(members: MemberRecord[]): MonthlyProgramBreakdown[] {
+  // Build events by client and program
+  type Event = { month: string; type: 'start' | 'end'; clientId: string; program: string };
+  const events: Event[] = [];
+
+  for (const m of members) {
+    if (!m.membership || !m.startDate) continue;
+    const start = new Date(m.startDate);
+    if (isNaN(start.getTime()) || start.getFullYear() === 2021) continue;
+    const startMonth = `${start.getFullYear()}-${String(start.getMonth() + 1).padStart(2, '0')}`;
+  const program = (m.planName || 'Unknown').trim();
+    events.push({ month: startMonth, type: 'start', clientId: m.clientId, program });
+
+    if (m.endDate && m.canceled) {
+      const end = new Date(m.endDate);
+      if (!isNaN(end.getTime()) && end.getFullYear() > 2021) {
+        const endMonth = `${end.getFullYear()}-${String(end.getMonth() + 1).padStart(2, '0')}`;
+        events.push({ month: endMonth, type: 'end', clientId: m.clientId, program });
+      }
+    }
+  }
+
+  events.sort((a, b) => a.month.localeCompare(b.month));
+
+  // Track active memberships per client per program
+  const activeByProgram = new Map<string, Set<string>>();
+  const monthList = Array.from(new Set(events.map(e => e.month))).sort();
+  const result: MonthlyProgramBreakdown[] = [];
+
+  for (const month of monthList) {
+    // Apply all events for this month
+    const monthEvents = events.filter(e => e.month === month);
+    for (const e of monthEvents) {
+      const set = activeByProgram.get(e.program) || new Set<string>();
+      if (e.type === 'start') set.add(e.clientId);
+      if (e.type === 'end') set.delete(e.clientId);
+      activeByProgram.set(e.program, set);
+    }
+
+    // Snapshot counts by program
+    const programs: Record<string, number> = {};
+    let total = 0;
+    for (const [prog, set] of activeByProgram.entries()) {
+      const n = set.size;
+      if (n > 0) {
+        programs[prog] = n;
+        total += n;
+      }
+    }
+    result.push({ month, programs, total });
+  }
+
+  return result;
+}
+
+export function loadMonthlyProgramBreakdown(filename: string = 'membersbeta.csv') {
+  const allMembers = loadMembersFromFile(filename);
+  const losGatosMembers = allMembers.filter(m => m.clientHomeLocation && m.clientHomeLocation.includes('Los Gatos'));
+  const pleasantonMembers = allMembers.filter(m => m.clientHomeLocation && m.clientHomeLocation.includes('Pleasanton'));
+
+  return {
+    allData: aggregateMonthlyProgramBreakdown(allMembers),
+    losGatosData: aggregateMonthlyProgramBreakdown(losGatosMembers),
+    pleasantonData: aggregateMonthlyProgramBreakdown(pleasantonMembers),
+  };
 }
 
 export function loadLocationAmountBreakdown(): {

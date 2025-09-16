@@ -19,6 +19,13 @@ export interface MonthlyAmountBreakdown {
   total: number; // total revenue that month (sum of values in amounts)
 }
 
+// Membership composition by program type per month
+export interface MonthlyProgramBreakdown {
+  month: string; // YYYY-MM
+  programs: Record<string, number>; // active members count per program
+  total: number; // total active members that month
+}
+
 export function generateMonthRange(startMonth: string, endMonth: string): string[] {
   const result: string[] = [];
   const [startYear, startM] = startMonth.split('-').map(Number);
@@ -67,5 +74,18 @@ export function filterAmountBreakdownByDateRange(
   return generateMonthRange(startMonth, endMonth).map(m => {
     const existing = map.get(m);
     return existing || { month: m, amounts: {}, total: 0 } as MonthlyAmountBreakdown;
+  });
+}
+
+// Filter helper that ensures every month in range exists for program breakdown
+export function filterProgramBreakdownByDateRange(
+  data: MonthlyProgramBreakdown[],
+  startMonth: string,
+  endMonth: string
+): MonthlyProgramBreakdown[] {
+  const map = new Map(data.filter(d => d.month >= startMonth && d.month <= endMonth).map(d => [d.month, d] as const));
+  return generateMonthRange(startMonth, endMonth).map(m => {
+    const existing = map.get(m);
+    return existing || { month: m, programs: {}, total: 0 } as MonthlyProgramBreakdown;
   });
 }

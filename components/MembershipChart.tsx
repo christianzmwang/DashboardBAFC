@@ -63,6 +63,19 @@ export function MembershipChart({ data, title = 'Membership Overview', color = '
       .domain([0, d3.max(data, d => d.membershipCount)!])
       .range([startColor, endColor.formatHex()]);
 
+    // Safe month/year formatter to avoid Date timezone pitfalls
+    const formatMonthYear = (m: string) => {
+      const [yStr, mStr] = m.split('-');
+      const year = Number(yStr);
+      const month = Number(mStr);
+      if (!year || !month || month < 1 || month > 12) return m;
+      const names = [
+        'January','February','March','April','May','June',
+        'July','August','September','October','November','December'
+      ];
+      return `${names[month - 1]} ${year}`;
+    };
+
     const formatMonthLabel = (m: string) => {
       const [year, month] = m.split('-');
       const num = String(parseInt(month));
@@ -112,7 +125,7 @@ export function MembershipChart({ data, title = 'Membership Overview', color = '
         tooltip
           .style('opacity', 1)
           .html(`
-            <div><strong>${new Date(d.month + '-01').toLocaleDateString('en-US', { year: 'numeric', month: 'long' })}</strong></div>
+            <div><strong>${formatMonthYear(d.month)}</strong></div>
             <div>Active Members: ${d.membershipCount}</div>
             <div>New: ${d.newMemberships}</div>
             <div>Canceled: ${d.canceledMemberships}</div>
