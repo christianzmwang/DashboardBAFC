@@ -3,10 +3,20 @@
 import Image from 'next/image';
 import { useState } from 'react';
 import { signIn } from 'next-auth/react';
+import { useSearchParams } from 'next/navigation';
 import RedDotWave from './RedDotWave';
 
 export default function GoogleAuthPage() {
   const [isLoading, setIsLoading] = useState(false);
+  const searchParams = useSearchParams();
+  const error = searchParams.get('error');
+  const errorMessage =
+    error === 'AccessDenied'
+      ? 'Access denied. Please sign in with your bayareafencing.club or allvitr.com email.'
+      : error
+        ? 'Sign-in failed. Please try again.'
+        : null;
+
 
   const handleGoogleSignIn = async () => {
     try {
@@ -17,6 +27,19 @@ export default function GoogleAuthPage() {
       setIsLoading(false);
     }
   };
+
+  const handleTryDifferentAccount = async () => {
+    try {
+      const url = new URL(window.location.href);
+      url.searchParams.delete('error');
+      window.history.replaceState(null, '', url.toString());
+      setIsLoading(true);
+      await signIn('google', { callbackUrl: '/' }, { prompt: 'select_account' });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
 
   return (
     <div className="fixed inset-0 bg-black text-white overflow-hidden flex items-center justify-center">
@@ -51,6 +74,24 @@ export default function GoogleAuthPage() {
             </div>
 
             <div className="space-y-6">
+              {errorMessage && (
+                <div className="rounded-md border border-red-700 bg-red-900/60 text-red-100 p-3 text-sm">
+                  {errorMessage}
+                </div>
+              )}
+
+
+              {errorMessage && (
+                <button
+                  type="button"
+                  onClick={handleTryDifferentAccount}
+                  disabled={isLoading}
+                  className="text-xs text-gray-300 hover:text-white underline underline-offset-2"
+                >
+                  Try a different account
+                </button>
+              )}
+
               <button
                 type="button"
                 onClick={handleGoogleSignIn}

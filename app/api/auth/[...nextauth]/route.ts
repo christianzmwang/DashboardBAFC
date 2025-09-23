@@ -18,6 +18,7 @@ const handler = NextAuth({
       authorization: {
         params: {
           prompt: "select_account",
+          ...(allowedDomains.length === 1 ? { hd: allowedDomains[0] } : {}),
         },
       },
     }),
@@ -26,10 +27,17 @@ const handler = NextAuth({
     signIn: "/auth/signin",
   },
   callbacks: {
-    async signIn({ user }) {
+    async signIn({ user, account, profile }) {
       const email = user?.email?.toLowerCase();
+      const hd = (profile as any)?.hd ? String((profile as any).hd).toLowerCase() : undefined;
+
+      // If Google reports a hosted domain and it's allowed, accept immediately
+      if (account?.provider === "google" && hd && allowedDomains.includes(hd)) {
+        return true;
+      }
+
       if (!email) return false; // no email -> deny
-      // Check if email ends with one of the allowed domains
+      // Allow if the email ends with any allowed domain (covers aliases)
       const isAllowed = allowedDomains.some((domain) => email.endsWith(`@${domain}`));
       return isAllowed;
     },
