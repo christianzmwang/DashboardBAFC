@@ -27,6 +27,7 @@ import { DateRangeSelector } from '../components/DateRangeSelector';
 import { RevenueAmountBreakdownChart, computeAmountLegendKeys, amountLegendPalette } from '../components/RevenueAmountBreakdownChart';
 import { RevenueAmountPieChart } from '../components/RevenueAmountPieChart';
 import { MembershipProgramBreakdownChart, programLegendPalette } from '../components/MembershipProgramBreakdownChart';
+import { MembershipProgramPieChart } from '../components/MembershipProgramPieChart';
 import { VerticalLegend } from '../components/VerticalLegend';
 import { RevenueTransactionsTable } from '../components/RevenueTransactionsTable';
 
@@ -42,6 +43,7 @@ const COLLAPSIBLE_DEFAULTS = {
   membershipLosGatosComposition: false,
   membershipPleasantonChart: false,
   membershipPleasantonComposition: false,
+  membershipLocationProgramPies: false,
 } as const;
 
 type CollapsibleKey = keyof typeof COLLAPSIBLE_DEFAULTS;
@@ -73,7 +75,7 @@ export default function Page() {
   const [filteredAllData, setFilteredAllData] = useState<MonthlyRevenue[]>([]);
   const [filteredLosGatosData, setFilteredLosGatosData] = useState<MonthlyRevenue[]>([]);
   const [filteredPleasantonData, setFilteredPleasantonData] = useState<MonthlyRevenue[]>([]);
-  
+
   // Membership data states
   const [allMembershipData, setAllMembershipData] = useState<MonthlyMembership[]>([]);
   const [losGatosMembershipData, setLosGatosMembershipData] = useState<MonthlyMembership[]>([]);
@@ -81,7 +83,7 @@ export default function Page() {
   const [filteredAllMembershipData, setFilteredAllMembershipData] = useState<MonthlyMembership[]>([]);
   const [filteredLosGatosMembershipData, setFilteredLosGatosMembershipData] = useState<MonthlyMembership[]>([]);
   const [filteredPleasantonMembershipData, setFilteredPleasantonMembershipData] = useState<MonthlyMembership[]>([]);
-  
+
   const [availableMonths, setAvailableMonths] = useState<string[]>([]);
   const [startMonth, setStartMonth] = useState<string>('');
   const [endMonth, setEndMonth] = useState<string>('');
@@ -95,6 +97,8 @@ export default function Page() {
   const [filteredLgAmountBreakdown, setFilteredLgAmountBreakdown] = useState<MonthlyAmountBreakdown[]>([]);
   const [filteredPlAmountBreakdown, setFilteredPlAmountBreakdown] = useState<MonthlyAmountBreakdown[]>([]);
   // Month selection for new pie charts (Los Gatos & Pleasanton)
+  // Month selection for membership pies (Los Gatos & Pleasanton)
+  const [programPieMonth, setProgramPieMonth] = useState<string>('');
   const [amountPieMonth, setAmountPieMonth] = useState<string>('');
   // Membership program breakdown state
   const [programBreakdownAll, setProgramBreakdownAll] = useState<MonthlyProgramBreakdown[]>([]);
@@ -103,7 +107,7 @@ export default function Page() {
   const [filteredProgramBreakdownAll, setFilteredProgramBreakdownAll] = useState<MonthlyProgramBreakdown[]>([]);
   const [filteredProgramBreakdownLG, setFilteredProgramBreakdownLG] = useState<MonthlyProgramBreakdown[]>([]);
   const [filteredProgramBreakdownPL, setFilteredProgramBreakdownPL] = useState<MonthlyProgramBreakdown[]>([]);
-  
+
   // Toggle between revenue and membership view
   const [viewMode, setViewMode] = useState<'revenue' | 'membership'>('revenue');
   // Toggle within membership view between monthly table and raw members list
@@ -121,7 +125,7 @@ export default function Page() {
   const [revenueFilters, setRevenueFilters] = useState<RevenueFilters>({});
   const hasRevenueFilters = Boolean(revenueFilters.month || revenueFilters.location || revenueFilters.amountKey);
   const [revenueDetailMode, setRevenueDetailMode] = useState<'summary' | 'transactions'>('summary');
-  
+
   // Toggle between membership data files
   const [membershipFile, setMembershipFile] = useState<'memberships_all.csv' | 'memberships_first.csv'>('memberships_all.csv');
 
@@ -160,7 +164,7 @@ export default function Page() {
           fetch(`/api/membership-data/raw?file=${membershipFile}`),
           fetch('/api/revenue-data/transactions')
         ]);
-        
+
         if (!revenueResponse.ok) {
           throw new Error(`Revenue API error! status: ${revenueResponse.status}`);
         }
@@ -182,7 +186,7 @@ export default function Page() {
         if (!transactionsResp.ok) {
           throw new Error(`Transactions API error! status: ${transactionsResp.status}`);
         }
-        
+
     const revenueData: LocationDataResponse = await revenueResponse.json();
     const membershipData: MembershipDataResponse = await membershipResponse.json();
     const { breakdown } = await amountBreakdownResp.json();
@@ -190,12 +194,12 @@ export default function Page() {
   const programByData = await programBreakdownResp.json();
   const rawMembersJson = await rawMembersResp.json();
   const transactionsJson = await transactionsResp.json();
-        
+
         // Set revenue data
         setAllData(revenueData.allData);
         setLosGatosData(revenueData.losGatosData);
         setPleasantonData(revenueData.pleasantonData);
-        
+
   // Set membership data
         setAllMembershipData(membershipData.allData);
         setLosGatosMembershipData(membershipData.losGatosData);
@@ -210,16 +214,16 @@ export default function Page() {
   setProgramBreakdownPL(programByData?.pleasantonData || []);
   setRawMembers(rawMembersJson?.members || []);
   setTransactions(transactionsJson?.transactions || []);
-        
+
         // Set available months from revenue data only (previous behavior)
         const months = getAvailableMonths(revenueData.allData);
         setAvailableMonths(months);
-        
+
         if (months.length > 0) {
           setStartMonth(months[0]);
           setEndMonth(months[months.length - 1]);
         }
-        
+
         setLoading(false);
       } catch (err) {
         console.error('Error fetching data:', err);
@@ -282,7 +286,7 @@ export default function Page() {
     programBreakdownPL,
   ]);
 
-  // Initialize / adjust selected month for pie charts when filtered data changes
+  // Initialize / adjust selected month for revenue pies when filtered data changes
   useEffect(() => {
     if (!amountPieMonth) {
       const lastWithData = [...filteredAmountBreakdown].reverse().find(d => d.total > 0);
@@ -296,6 +300,20 @@ export default function Page() {
       }
     }
   }, [filteredAmountBreakdown, amountPieMonth]);
+
+  // Initialize / adjust selected month for membership pies when filtered program breakdown changes
+  useEffect(() => {
+    if (!programPieMonth) {
+      const lastWithData = [...filteredProgramBreakdownAll].reverse().find(d => d.total > 0);
+      if (lastWithData) setProgramPieMonth(lastWithData.month);
+      else if (filteredProgramBreakdownAll.length > 0) setProgramPieMonth(filteredProgramBreakdownAll[filteredProgramBreakdownAll.length - 1].month);
+    } else {
+      if (!filteredProgramBreakdownAll.find(d => d.month === programPieMonth)) {
+        const last = filteredProgramBreakdownAll[filteredProgramBreakdownAll.length - 1];
+        if (last) setProgramPieMonth(last.month);
+      }
+    }
+  }, [filteredProgramBreakdownAll, programPieMonth]);
 
   const filteredTransactions = useMemo(() => {
     if (!startMonth || !endMonth) return [];
@@ -417,6 +435,7 @@ export default function Page() {
     revenuePleasantonComposition: isRevenuePleasantonCompositionCollapsed,
   revenueLocationAmountPies: isRevenueLocationAmountPiesCollapsed,
     membershipProgram: isMembershipProgramCollapsed,
+    membershipLocationProgramPies: isMembershipLocationProgramPiesCollapsed,
     membershipLosGatosChart: isMembershipLosGatosChartCollapsed,
     membershipLosGatosComposition: isMembershipLosGatosCompositionCollapsed,
     membershipPleasantonChart: isMembershipPleasantonChartCollapsed,
@@ -499,7 +518,7 @@ export default function Page() {
           </button>
         </div>
       </header>
-      
+
       {/* Date Range Selector */}
       <DateRangeSelector
         startMonth={startMonth}
@@ -508,7 +527,7 @@ export default function Page() {
         onStartMonthChange={handleStartMonthChange}
         onEndMonthChange={handleEndMonthChange}
       />
-      
+
       {viewMode === 'revenue' ? (
         <>
           {/* Overall Revenue Chart */}
@@ -524,7 +543,7 @@ export default function Page() {
             />
           </section>
 
-          
+
 
           {/* Amount Breakdown by Transaction Value with legend to the right of header */}
           <section className="relative bg-white dark:bg-black border border-gray-200 dark:border-gray-700 shadow p-6">
@@ -569,7 +588,7 @@ export default function Page() {
           </section>
 
           {/* Location Composition Pie Charts (separate collapsible section) */}
-          <section className="relative bg-white dark:bg-black border border-gray-200 dark:border-gray-700 shadow p-6 mt-8">
+          <section className="relative bg-white dark:bg-black border border-gray-200 dark:border-gray-700 shadow p-6 mt-8 overflow-hidden">
             {renderCollapseToggle('revenueLocationAmountPies', isRevenueLocationAmountPiesCollapsed, 'location composition pies section')}
             <div className="pr-12 sm:pr-16">
               <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-4">
@@ -593,19 +612,33 @@ export default function Page() {
                 )}
               </div>
               {!isRevenueLocationAmountPiesCollapsed && (
-                <div className="grid md:grid-cols-2 gap-8">
-                  <RevenueAmountPieChart
-                    breakdown={filteredLgAmountBreakdown.find(d => d.month === amountPieMonth)}
-                    legendKeys={lgLegendKeys}
-                    title={`Los Gatos – ${amountPieMonth || ''}`}
-                    showTotalBelowTitle
-                  />
-                  <RevenueAmountPieChart
-                    breakdown={filteredPlAmountBreakdown.find(d => d.month === amountPieMonth)}
-                    legendKeys={plLegendKeys}
-                    title={`Pleasanton – ${amountPieMonth || ''}`}
-                    showTotalBelowTitle
-                  />
+                <div className="grid md:grid-cols-2 gap-8 pb-4">
+                  <div className="overflow-hidden">
+                    <RevenueAmountPieChart
+                      breakdown={filteredLgAmountBreakdown.find(d => d.month === amountPieMonth)}
+                      legendKeys={lgLegendKeys}
+                      title={`Los Gatos – ${amountPieMonth || ''}`}
+                      showTotalBelowTitle
+                      onSliceClick={({ amountKey, month }) => {
+                        setRevenueDetailMode('transactions');
+                        setRevenueFilters(prev => ({ ...prev, month, amountKey, location: 'Los Gatos' }));
+                        focusRevenueDetails();
+                      }}
+                    />
+                  </div>
+                  <div className="overflow-hidden">
+                    <RevenueAmountPieChart
+                      breakdown={filteredPlAmountBreakdown.find(d => d.month === amountPieMonth)}
+                      legendKeys={plLegendKeys}
+                      title={`Pleasanton – ${amountPieMonth || ''}`}
+                      showTotalBelowTitle
+                      onSliceClick={({ amountKey, month }) => {
+                        setRevenueDetailMode('transactions');
+                        setRevenueFilters(prev => ({ ...prev, month, amountKey, location: 'Pleasanton' }));
+                        focusRevenueDetails();
+                      }}
+                    />
+                  </div>
                 </div>
               )}
             </div>
@@ -821,7 +854,7 @@ export default function Page() {
                   Data source: {membershipFile === 'memberships_all.csv' ? 'All Memberships' : 'First Memberships Only'}
                 </p>
               </div>
-              
+
               {/* Membership File Toggle */}
               <div className="flex items-center gap-2 bg-gray-50 dark:bg-black border border-gray-200 dark:border-gray-700 p-1 w-fit">
                 <button
@@ -903,6 +936,64 @@ export default function Page() {
               )}
             </div>
           </section>
+
+          {/* Membership Location Composition Pie Charts (separate collapsible section) */}
+          <section className="relative bg-white dark:bg-black border border-gray-200 dark:border-gray-700 shadow p-6 mt-8 overflow-hidden">
+            {renderCollapseToggle('membershipLocationProgramPies', isMembershipLocationProgramPiesCollapsed, 'membership location composition pies section')}
+            <div className="pr-12 sm:pr-16">
+              <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-4">
+                <div>
+                  <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-100">Location Composition</h3>
+                </div>
+                {!isMembershipLocationProgramPiesCollapsed && (
+                  <div className="flex items-center gap-2">
+                    <label htmlFor="programPieMonth" className="text-xs font-medium text-gray-600 dark:text-gray-300">Month:</label>
+                    <select
+                      id="programPieMonth"
+                      value={programPieMonth}
+                      onChange={e => setProgramPieMonth(e.target.value)}
+                      className="text-sm border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 px-2 py-1 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                    >
+                      {filteredProgramBreakdownAll.map(d => (
+                        <option key={d.month} value={d.month}>{d.month}</option>
+                      ))}
+                    </select>
+                  </div>
+                )}
+              </div>
+              {!isMembershipLocationProgramPiesCollapsed && (
+                <div className="grid md:grid-cols-2 gap-8 pb-4">
+                  <div className="overflow-hidden">
+                    <MembershipProgramPieChart
+                      breakdown={filteredProgramBreakdownLG.find(d => d.month === programPieMonth)}
+                      legendKeys={lgProgramKeys}
+                      title={`Los Gatos  ${programPieMonth || ''}`}
+                      showTotalBelowTitle
+                      onSliceClick={({ program, month }) => {
+                        setMembershipDetailMode('members');
+                        setMembershipFilters(prev => ({ ...prev, month, program, location: 'Los Gatos' }));
+                        focusMembershipDetails();
+                      }}
+                    />
+                  </div>
+                  <div className="overflow-hidden">
+                    <MembershipProgramPieChart
+                      breakdown={filteredProgramBreakdownPL.find(d => d.month === programPieMonth)}
+                      legendKeys={plProgramKeys}
+                      title={`Pleasanton  ${programPieMonth || ''}`}
+                      showTotalBelowTitle
+                      onSliceClick={({ program, month }) => {
+                        setMembershipDetailMode('members');
+                        setMembershipFilters(prev => ({ ...prev, month, program, location: 'Pleasanton' }));
+                        focusMembershipDetails();
+                      }}
+                    />
+                  </div>
+                </div>
+              )}
+            </div>
+          </section>
+
 
           {/* Location-specific Membership Charts (refactored to two-column grid to avoid large gaps when collapsing) */}
           <section className="grid md:grid-cols-2 gap-8">
@@ -1069,17 +1160,17 @@ export default function Page() {
                   {filteredAllMembershipData.map((item: any, index: number) => {
                     const lgItem = filteredLosGatosMembershipData.find((lg: any) => lg.month === item.month);
                     const plItem = filteredPleasantonMembershipData.find((pl: any) => pl.month === item.month);
-                    
+
                     return (
                       <tr key={item.month} className={index % 2 === 0 ? 'bg-gray-50 dark:bg-gray-850' : 'bg-white dark:bg-black'}>
                         <td className="px-4 py-2 font-medium">{item.month}</td>
                         <td className="px-4 py-2 text-right">{item.membershipCount}</td>
                         <td className="px-4 py-2 text-right">
-                          {lgItem ? lgItem.membershipCount : 
+                          {lgItem ? lgItem.membershipCount :
                            <span className="text-gray-400 dark:text-gray-500 italic">No data</span>}
                         </td>
                         <td className="px-4 py-2 text-right">
-                          {plItem ? plItem.membershipCount : 
+                          {plItem ? plItem.membershipCount :
                            <span className="text-gray-400 dark:text-gray-500 italic">No data</span>}
                         </td>
                         <td className="px-4 py-2 text-right">{item.newMemberships}</td>

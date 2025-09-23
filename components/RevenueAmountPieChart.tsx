@@ -10,6 +10,7 @@ interface RevenueAmountPieChartProps {
   title: string;
   height?: number;
   showTotalBelowTitle?: boolean; // if true, render total under title instead of inside pie center
+  onSliceClick?: (info: { amountKey: string; value: number; month: string }) => void;
 }
 
 // Pie chart to show composition of revenue by transaction amount for a single month.
@@ -19,6 +20,7 @@ export const RevenueAmountPieChart: React.FC<RevenueAmountPieChartProps> = ({
   title,
   height = 260,
   showTotalBelowTitle = false,
+  onSliceClick,
 }) => {
   const ref = useRef<SVGSVGElement | null>(null);
 
@@ -82,7 +84,7 @@ export const RevenueAmountPieChart: React.FC<RevenueAmountPieChartProps> = ({
       .attr('fill', d => color(d.data.key))
       .attr('stroke', '#fff')
       .attr('stroke-width', 1)
-      .style('cursor', 'default');
+      .style('cursor', 'pointer');
 
     // Tooltip
     const tooltip = d3.select('body')
@@ -118,6 +120,11 @@ export const RevenueAmountPieChart: React.FC<RevenueAmountPieChartProps> = ({
       .on('mouseout', function () {
         d3.select(this).style('opacity', 1);
         tooltip.style('opacity', 0);
+      })
+      .on('click', function (_, d) {
+        if (!onSliceClick) return;
+        const month = breakdown?.month || '';
+        onSliceClick({ amountKey: d.data.key, value: d.data.value, month });
       });
 
     if (!showTotalBelowTitle) {
@@ -127,10 +134,10 @@ export const RevenueAmountPieChart: React.FC<RevenueAmountPieChartProps> = ({
         .attr('class', 'fill-gray-700 dark:fill-gray-300 text-sm font-medium')
         .text(`$${Math.round(total).toLocaleString()}`);
     }
-  }, [data, legendKeys, total, height, showTotalBelowTitle]);
+  }, [data, legendKeys, total, height, showTotalBelowTitle, onSliceClick, breakdown]);
 
   return (
-    <div className="w-full">
+    <div className="w-full overflow-hidden">
       <div className="mb-2">
         <h5 className="text-sm font-semibold text-gray-700 dark:text-gray-300">{title}</h5>
         {showTotalBelowTitle && (
@@ -143,19 +150,28 @@ export const RevenueAmountPieChart: React.FC<RevenueAmountPieChartProps> = ({
         <svg ref={ref} className="w-full" style={{ height }} />
       </div>
       {data.length > 0 && (
-        <ul className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-xs">
-          {legendKeys.map((k, i) => {
-            const row = data.find(d => d.key === k);
-            if (!row) return null; // Only show keys present for this month
-            const pct = total > 0 ? (row.value / total) * 100 : 0;
-            return (
-              <li key={k} className="flex items-center gap-1">
-                <span className="inline-block w-3 h-3 rounded-sm" style={{ backgroundColor: amountLegendPalette[i % amountLegendPalette.length] }} />
-                <span>{k === 'Other' ? 'Other' : `$${k}`} {pct >= 3 ? `(${pct.toFixed(1)}%)` : ''}</span>
-              </li>
-            );
-          })}
-        </ul>
+        <div className="mt-4 overflow-hidden">
+          <ul className="flex flex-wrap gap-x-4 gap-y-1 text-xs">
+            {legendKeys.map((k, i) => {
+              const row = data.find(d => d.key === k);
+              if (!row) return null; // Only show keys present for this month
+              const pct = total > 0 ? (row.value / total) * 100 : 0;
+              return (
+                <li
+                  key={k}
+                  className="flex items-center gap-1 cursor-pointer"
+                  onClick={() => {
+                    if (onSliceClick && breakdown) onSliceClick({ amountKey: k, value: row.value, month: breakdown.month });
+                  }}
+                  title="Filter by this amount"
+                >
+                  <span className="inline-block w-3 h-3 rounded-sm" style={{ backgroundColor: amountLegendPalette[i % amountLegendPalette.length] }} />
+                  <span>{k === 'Other' ? 'Other' : `$${k}`} {pct >= 3 ? `(${pct.toFixed(1)}%)` : ''}</span>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
       )}
     </div>
   );

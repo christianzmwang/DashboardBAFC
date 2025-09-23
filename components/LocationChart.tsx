@@ -13,6 +13,7 @@ interface Props {
 
 export const LocationChart: React.FC<Props> = ({ data, title, color = '#1d4ed8', onBarClick, showTitle = true }) => {
   const ref = useRef<SVGSVGElement | null>(null);
+  const chartContainerRef = useRef<HTMLDivElement | null>(null);
   
   useEffect(() => {
     if (!ref.current) return;
@@ -30,7 +31,7 @@ export const LocationChart: React.FC<Props> = ({ data, title, color = '#1d4ed8',
     const innerHeight = height - margin.top - margin.bottom;
 
     // Create tooltip
-    const tooltip = d3.select('body')
+    const tooltip = d3.select(chartContainerRef.current)
       .selectAll('.location-chart-tooltip')
       .data([1])
       .join('div')
@@ -113,6 +114,7 @@ export const LocationChart: React.FC<Props> = ({ data, title, color = '#1d4ed8',
       .style('cursor', 'pointer')
       .on('mouseover', function(event, d: MonthlyRevenue) {
         d3.select(this).style('opacity', 0.8);
+        const rect = chartContainerRef.current!.getBoundingClientRect();
         tooltip
           .style('opacity', 1)
           .html(`
@@ -120,13 +122,14 @@ export const LocationChart: React.FC<Props> = ({ data, title, color = '#1d4ed8',
             <div>Revenue: $${Math.round(d.revenue).toLocaleString()}</div>
             <div>Transactions: ${d.count}</div>
           `)
-          .style('left', (event.pageX + 10) + 'px')
-          .style('top', (event.pageY - 10) + 'px');
+          .style('left', (event.clientX - rect.left + 10) + 'px')
+          .style('top', (event.clientY - rect.top - 10) + 'px');
       })
       .on('mousemove', function(event) {
+        const rect = chartContainerRef.current!.getBoundingClientRect();
         tooltip
-          .style('left', (event.pageX + 10) + 'px')
-          .style('top', (event.pageY - 10) + 'px');
+          .style('left', (event.clientX - rect.left + 10) + 'px')
+          .style('top', (event.clientY - rect.top - 10) + 'px');
       })
       .on('mouseout', function() {
         d3.select(this).style('opacity', 1);
@@ -187,7 +190,7 @@ export const LocationChart: React.FC<Props> = ({ data, title, color = '#1d4ed8',
   return (
     <div className="w-full">
       {showTitle && <h3 className="text-lg font-semibold mb-2 text-center">{title}</h3>}
-      <div className="w-full overflow-x-auto">
+      <div className="w-full overflow-x-auto relative" ref={chartContainerRef}>
         <svg ref={ref} className="w-full h-[300px]"></svg>
       </div>
     </div>
