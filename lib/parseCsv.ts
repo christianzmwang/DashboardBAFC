@@ -4,11 +4,17 @@ import path from 'path';
 export interface PaymentRecord {
   invoiceNumber: string;
   invoiceDueDate: string; // ISO date
+  invoiceStatus: string;
   transactionAt: string;  // date time
+  transactionStatus: string;
+  transactionType: string;
   transactionAmount: number;
   paymentAmount: number;
   currency: string;
+  payer: string;
   payerHomeLocation: string; // Added location field
+  paymentMethod: string;
+  invoiceId: string;
 }
 
 export interface MonthlyRevenue {
@@ -58,6 +64,20 @@ export interface MonthlyProgramBreakdown {
 
 const amountToNumber = (raw: string) => Number(raw.replace(/[$,\"]/g, ''));
 
+// Convert a date string into a Pacific Time month key without relying on host TZ.
+function parseMonthPacific(raw: string | undefined | null): { month: string; year: number } | null {
+  if (!raw) return null;
+  const trimmed = raw.trim();
+  if (!trimmed) return null;
+  const match = trimmed.match(/^(\d{4})-(\d{1,2})(?:-(\d{1,2}))?/);
+  if (!match) return null;
+  const year = Number(match[1]);
+  const month = Number(match[2]);
+  if (!Number.isFinite(year) || !Number.isFinite(month) || month < 1 || month > 12) return null;
+  const monthKey = `${year.toString().padStart(4, '0')}-${month.toString().padStart(2, '0')}`;
+  return { month: monthKey, year };
+}
+
 function loadPaymentsFromFile(filename: string): PaymentRecord[] {
   let file: string;
   
@@ -92,6 +112,13 @@ function loadPaymentsFromFile(filename: string): PaymentRecord[] {
   const headers = headerLine.split(',');
   const idx = (h: string) => headers.indexOf(h);
   const out: PaymentRecord[] = [];
+  const invoiceStatusIdx = idx('Invoice Status');
+  const transactionStatusIdx = idx('Transaction Status');
+  const transactionTypeIdx = idx('Transaction Type');
+  const payerIdx = idx('Payer');
+  const paymentMethodIdx = idx('Payment Method');
+  const invoiceIdIdx = idx('Invoice ID');
+
   for (const l of lines) {
     if (!l.trim()) continue;
     // naive CSV split that works for this dataset (no embedded commas except with quotes around numbers we handle above)
@@ -99,11 +126,17 @@ function loadPaymentsFromFile(filename: string): PaymentRecord[] {
     out.push({
       invoiceNumber: parts[idx('Invoice Number')],
       invoiceDueDate: parts[idx('Invoice Due Date')],
+      invoiceStatus: invoiceStatusIdx !== -1 ? parts[invoiceStatusIdx] : '',
       transactionAt: parts[idx('Transaction At')],
+      transactionStatus: transactionStatusIdx !== -1 ? parts[transactionStatusIdx] : '',
+      transactionType: transactionTypeIdx !== -1 ? parts[transactionTypeIdx] : '',
       transactionAmount: amountToNumber(parts[idx('Transaction Amount')]),
       paymentAmount: amountToNumber(parts[idx('Payment Amount')]),
       currency: parts[idx('Currency Code')],
+      payer: payerIdx !== -1 ? parts[payerIdx] : '',
       payerHomeLocation: parts[idx('Payer Home Location')],
+      paymentMethod: paymentMethodIdx !== -1 ? parts[paymentMethodIdx] : '',
+      invoiceId: invoiceIdIdx !== -1 ? parts[invoiceIdIdx] : '',
     });
   }
   return out;
@@ -177,10 +210,10 @@ function loadMembersFromFile(filename: string): MemberRecord[] {
 }
 
 export function loadPayments(): PaymentRecord[] {
-  return loadPaymentsFromFile('dataprimo.csv');
+  return loadPaymentsFromFile('payments.csv');
 }
 
-export function loadMembers(filename: string = 'membersbeta.csv'): MemberRecord[] {
+export function loadMembers(filename: string = 'memberships_all.csv'): MemberRecord[] {
   return loadMembersFromFile(filename);
 }
 
@@ -194,20 +227,16 @@ export function aggregateMonthlyMemberships(members: MemberRecord[]): MonthlyMem
   
   for (const member of members) {
     if (!member.membership || !member.startDate) continue;
-    
-    // Parse start date
-    const startDate = new Date(member.startDate);
-    if (isNaN(startDate.getTime()) || startDate.getFullYear() === 2021) continue;
-    
-    const startMonth = `${startDate.getFullYear()}-${String(startDate.getMonth() + 1).padStart(2, '0')}`;
-    events.push({ month: startMonth, type: 'start', clientId: member.clientId });
-    
-    // Handle end date for canceled memberships
+
+    const start = parseMonthPacific(member.startDate);
+    if (!start || start.year === 2021) continue;
+
+    events.push({ month: start.month, type: 'start', clientId: member.clientId });
+
     if (member.endDate && member.canceled) {
-      const endDate = new Date(member.endDate);
-      if (!isNaN(endDate.getTime()) && endDate.getFullYear() > 2021) {
-        const endMonth = `${endDate.getFullYear()}-${String(endDate.getMonth() + 1).padStart(2, '0')}`;
-        events.push({ month: endMonth, type: 'end', clientId: member.clientId });
+      const end = parseMonthPacific(member.endDate);
+      if (end && end.year > 2021) {
+        events.push({ month: end.month, type: 'end', clientId: member.clientId });
       }
     }
   }
@@ -289,7 +318,7 @@ export function loadLocationData(): {
   losGatosData: MonthlyRevenue[];
   pleasantonData: MonthlyRevenue[];
 } {
-  const allPayments = loadPaymentsFromFile('dataprimo.csv');
+  const allPayments = loadPaymentsFromFile('payments.csv');
   
   // Filter payments by location
   const losGatosPayments = allPayments.filter(p => 
@@ -307,7 +336,7 @@ export function loadLocationData(): {
   };
 }
 
-export function loadMembershipData(filename: string = 'membersbeta.csv'): {
+export function loadMembershipData(filename: string = 'memberships_all.csv'): {
   allData: MonthlyMembership[];
   losGatosData: MonthlyMembership[];
   pleasantonData: MonthlyMembership[];
@@ -364,17 +393,15 @@ export function aggregateMonthlyProgramBreakdown(members: MemberRecord[]): Month
 
   for (const m of members) {
     if (!m.membership || !m.startDate) continue;
-    const start = new Date(m.startDate);
-    if (isNaN(start.getTime()) || start.getFullYear() === 2021) continue;
-    const startMonth = `${start.getFullYear()}-${String(start.getMonth() + 1).padStart(2, '0')}`;
-  const program = (m.planName || 'Unknown').trim();
-    events.push({ month: startMonth, type: 'start', clientId: m.clientId, program });
+    const start = parseMonthPacific(m.startDate);
+    if (!start || start.year === 2021) continue;
+    const program = (m.planName || 'Unknown').trim();
+    events.push({ month: start.month, type: 'start', clientId: m.clientId, program });
 
     if (m.endDate && m.canceled) {
-      const end = new Date(m.endDate);
-      if (!isNaN(end.getTime()) && end.getFullYear() > 2021) {
-        const endMonth = `${end.getFullYear()}-${String(end.getMonth() + 1).padStart(2, '0')}`;
-        events.push({ month: endMonth, type: 'end', clientId: m.clientId, program });
+      const end = parseMonthPacific(m.endDate);
+      if (end && end.year > 2021) {
+        events.push({ month: end.month, type: 'end', clientId: m.clientId, program });
       }
     }
   }
@@ -412,7 +439,7 @@ export function aggregateMonthlyProgramBreakdown(members: MemberRecord[]): Month
   return result;
 }
 
-export function loadMonthlyProgramBreakdown(filename: string = 'membersbeta.csv') {
+export function loadMonthlyProgramBreakdown(filename: string = 'memberships_all.csv') {
   const allMembers = loadMembersFromFile(filename);
   const losGatosMembers = allMembers.filter(m => m.clientHomeLocation && m.clientHomeLocation.includes('Los Gatos'));
   const pleasantonMembers = allMembers.filter(m => m.clientHomeLocation && m.clientHomeLocation.includes('Pleasanton'));
@@ -429,7 +456,7 @@ export function loadLocationAmountBreakdown(): {
   losGatosData: MonthlyAmountBreakdown[];
   pleasantonData: MonthlyAmountBreakdown[];
 } {
-  const allPayments = loadPaymentsFromFile('dataprimo.csv');
+  const allPayments = loadPaymentsFromFile('payments.csv');
   const losGatosPayments = allPayments.filter(p => p.payerHomeLocation && p.payerHomeLocation.includes('Los Gatos'));
   const pleasantonPayments = allPayments.filter(p => p.payerHomeLocation && p.payerHomeLocation.includes('Pleasanton'));
   return {

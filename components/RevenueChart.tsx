@@ -5,9 +5,10 @@ import { MonthlyRevenue } from '../lib/clientUtils';
 
 interface Props {
   data: MonthlyRevenue[];
+  onBarClick?: (info: { month: string; revenue: number; count: number }) => void;
 }
 
-export const RevenueChart: React.FC<Props> = ({ data }) => {
+export const RevenueChart: React.FC<Props> = ({ data, onBarClick }) => {
   const ref = useRef<SVGSVGElement | null>(null);
   useEffect(() => {
     if (!ref.current) return;
@@ -98,13 +99,13 @@ export const RevenueChart: React.FC<Props> = ({ data }) => {
 
     bar.append('rect')
       .attr('class', 'bar')
-      .attr('x', d => x(d.month)!)
-      .attr('y', d => y(d.revenue))
+      .attr('x', (d: MonthlyRevenue) => x(d.month)!)
+      .attr('y', (d: MonthlyRevenue) => y(d.revenue))
       .attr('width', x.bandwidth())
-      .attr('height', d => innerHeight - y(d.revenue))
-      .attr('fill', d => color(d.revenue))
+      .attr('height', (d: MonthlyRevenue) => innerHeight - y(d.revenue))
+      .attr('fill', (d: MonthlyRevenue) => color(d.revenue))
       .style('cursor', 'pointer')
-      .on('mouseover', function(event, d) {
+      .on('mouseover', function(event, d: MonthlyRevenue) {
         d3.select(this).style('opacity', 0.8);
         tooltip
           .style('opacity', 1)
@@ -124,6 +125,11 @@ export const RevenueChart: React.FC<Props> = ({ data }) => {
       .on('mouseout', function() {
         d3.select(this).style('opacity', 1);
         tooltip.style('opacity', 0);
+      })
+      .on('click', function(_, d: MonthlyRevenue) {
+        if (onBarClick) {
+          onBarClick({ month: d.month, revenue: d.revenue, count: d.count });
+        }
       });
 
     // Add text labels that are hidden by default, shown on hover
@@ -158,7 +164,7 @@ export const RevenueChart: React.FC<Props> = ({ data }) => {
         .text('No revenue for selected range');
     }
 
-  }, [data]);
+  }, [data, onBarClick]);
 
   return (
     <div className="w-full overflow-x-auto">

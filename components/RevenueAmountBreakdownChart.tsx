@@ -7,6 +7,7 @@ interface Props {
   data: MonthlyAmountBreakdown[];
   topN?: number; // number of top amount categories to display, rest grouped as Other
   showLegend?: boolean; // whether to render internal legend inside the SVG
+  onSegmentClick?: (info: { month: string; amountKey: string; value: number; topKeys: string[] }) => void;
 }
 
 // Shared palette for amount categories. Exported for external legends to match chart colors.
@@ -58,18 +59,13 @@ export function computeAmountLegendKeys(
   return hasOther ? [...topKeys, 'Other'] : topKeys;
 }
 
-export const RevenueAmountBreakdownChart: React.FC<Props> = ({ data, topN = 6, showLegend = true }) => {
+export const RevenueAmountBreakdownChart: React.FC<Props> = ({ data, topN = 6, showLegend = true, onSegmentClick }) => {
   const ref = useRef<SVGSVGElement | null>(null);
 
-  const { months, keys, stackedData, totals } = useMemo(() => {
+  const { months, keys, stackedData, totals, topKeysWithoutOther } = useMemo(() => {
     const months = data.map(d => d.month);
-
-    // Collect all unique amount keys
-    const allKeysSet = new Set<string>();
-    data.forEach(d => Object.keys(d.amounts).forEach(k => allKeysSet.add(k)));
-
-    // Pick topN by total contribution across all months
-    const topKeys = computeAmountLegendKeys(data, topN).filter(k => k !== 'Other');
+    const legendKeys = computeAmountLegendKeys(data, topN);
+    const topKeys = legendKeys.filter(k => k !== 'Other');
 
     // Build rows aligned to months with chosen keys plus 'Other' if present
     const rows = data.map(d => {
@@ -88,7 +84,7 @@ export const RevenueAmountBreakdownChart: React.FC<Props> = ({ data, topN = 6, s
     });
 
     // Final list of keys shown in legend (stable order by contribution, with 'Other' last if present)
-    const keys = computeAmountLegendKeys(data, topN);
+    const keys = legendKeys;
 
     // Use d3.stack to compute stacked series
     const stacked = d3.stack<Record<string, number>>()
@@ -97,7 +93,7 @@ export const RevenueAmountBreakdownChart: React.FC<Props> = ({ data, topN = 6, s
       .offset(d3.stackOffsetNone)(rows);
 
     const totals = data.map(d => d.total);
-    return { months, keys, stackedData: stacked, totals };
+    return { months, keys, stackedData: stacked, totals, topKeysWithoutOther: topKeys };
   }, [data, topN]);
 
   useEffect(() => {
@@ -246,6 +242,13 @@ export const RevenueAmountBreakdownChart: React.FC<Props> = ({ data, topN = 6, s
       .on('mouseout', function () {
         d3.select(this).style('opacity', 1);
         tooltip.style('opacity', 0);
+      })
+      .on('click', function (_, d) {
+        if (!onSegmentClick) return;
+        const monthIdx = (d as any).index ?? 0;
+        const month = months[monthIdx] || '';
+        const value = d.data[1] - d.data[0];
+        onSegmentClick({ month, amountKey: d.key, value, topKeys: topKeysWithoutOther });
       });
 
     if (maxTotal === 0) {
@@ -256,7 +259,7 @@ export const RevenueAmountBreakdownChart: React.FC<Props> = ({ data, topN = 6, s
         .attr('class', 'fill-gray-500 text-sm')
         .text('No revenue for selected range');
     }
-  }, [months, keys, stackedData, totals, showLegend]);
+  }, [months, keys, stackedData, totals, showLegend, onSegmentClick, topKeysWithoutOther]);
 
   return (
     <div className="w-full overflow-x-auto">

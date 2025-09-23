@@ -22,7 +22,7 @@ export default function GoogleAuthPage() {
     <div className="fixed inset-0 bg-black text-white overflow-hidden flex items-center justify-center">
       {/* Logo in bottom-left (same position/size as the small circle) */}
       <div className="absolute bottom-6 left-6 z-50 pointer-events-none select-none">
-        <Image src="/blackLogo.svg" alt="BAFC Logo" width={32} height={32} className="w-10 h-10" priority />
+        <Image src="/blackLogo.svg" alt="BAFC Logo" width={32} height={32} className="w-8 h-8" priority />
       </div>
 
       <div className="flex w-full h-full">

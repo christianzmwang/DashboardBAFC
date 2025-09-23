@@ -7,9 +7,11 @@ interface LocationMembershipChartProps {
   data: MonthlyMembership[];
   title: string;
   color?: string;
+  onBarClick?: (info: { month: string; membershipCount: number }) => void;
+  showTitle?: boolean;
 }
 
-export function LocationMembershipChart({ data, title, color = '#1d4ed8' }: LocationMembershipChartProps) {
+export function LocationMembershipChart({ data, title, color = '#1d4ed8', onBarClick, showTitle = true }: LocationMembershipChartProps) {
   const ref = useRef<SVGSVGElement | null>(null);
 
   useEffect(() => {
@@ -139,6 +141,9 @@ export function LocationMembershipChart({ data, title, color = '#1d4ed8' }: Loca
       .on('mouseout', function() {
         d3.select(this).style('opacity', 1);
         tooltip.style('opacity', 0);
+      })
+      .on('click', function(event, d) {
+        if (onBarClick) onBarClick({ month: d.month, membershipCount: d.membershipCount });
       });
 
     bar.append('text')
@@ -156,13 +161,14 @@ export function LocationMembershipChart({ data, title, color = '#1d4ed8' }: Loca
         textElement.style('opacity', 1);
       }
     });
-  }, [data, color]);
+
+  }, [data, color, onBarClick]);
 
   if (!data.length) {
     return (
       <div className="w-full">
-        <h3 className="text-lg font-semibold mb-6 text-center">{title}</h3>
-  <div className="w-full h-[300px] flex items-center justify-center bg-gray-50 dark:bg-black">
+        {showTitle && <h3 className="text-lg font-semibold mb-6 text-center">{title}</h3>}
+        <div className="w-full h-[300px] flex items-center justify-center bg-gray-50 dark:bg-black">
           <p className="text-gray-500 dark:text-gray-400 text-sm">No membership data for this location.</p>
         </div>
       </div>
@@ -171,8 +177,8 @@ export function LocationMembershipChart({ data, title, color = '#1d4ed8' }: Loca
 
   return (
     <div className="w-full">
-      <h3 className="text-lg font-semibold mb-6 text-center">{title}</h3>
-  <div className="w-full overflow-x-auto bg-gray-50 dark:bg-black p-2">
+      {showTitle && <h3 className="text-lg font-semibold mb-6 text-center">{title}</h3>}
+      <div className="w-full overflow-x-auto bg-gray-50 dark:bg-black p-2">
         <svg ref={ref} className="w-full h-[300px]"></svg>
       </div>
       <div className="mt-4 grid grid-cols-3 gap-2 text-center text-sm">

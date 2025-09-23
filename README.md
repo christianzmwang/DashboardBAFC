@@ -41,11 +41,10 @@ Notes:
 ## Data Files
 CSV files are read server-side from the `public/` folder. Ensure these exist:
 
-- `public/dataprimo.csv` — payments with columns (sample headers):
+- `public/payments.csv` — payments with columns (sample headers):
 	- `Invoice Number, Invoice Due Date, Transaction At, Transaction Amount, Payment Amount, Currency Code, Payer Home Location`
-- `public/membersbeta.csv` — memberships; expects columns like:
-	- `Client, Plan Name, Start Date, End Date, Used for Client's First Visit?, Membership?, Canceled?, Client's First Pass/Plan?, Client's First Membership?, Client's Home Location, Client ID, Plan ID`
-- `public/membersalpha.csv` — alternative memberships source; may omit some boolean columns. The parser handles missing fields (assumes membership rows and infers cancellations from `End Date`).
+- `public/memberships_all.csv` — all memberships; expects full columns. When boolean columns like `Membership?` or `Canceled?` are absent the parser infers sensible defaults.
+- `public/memberships_first.csv` — subset: only rows where `Client's First Membership? = Yes` (first-time memberships cohort).
 
 File lookup tries multiple locations for serverless/container environments, but the simplest is to keep CSVs in `public/` during development and deployment.
 
@@ -66,16 +65,16 @@ Sign in with Google on the `/auth/signin` page. Middleware protects `/`.
 - `pnpm lint` — run ESLint
 
 ## What the APIs Do
-- `GET /api/revenue-data` — overall and per‑location monthly revenue aggregates from `dataprimo.csv`
+- `GET /api/revenue-data` — overall and per‑location monthly revenue aggregates from `payments.csv`
 - `GET /api/revenue-data/amount-breakdown` — monthly revenue composition by rounded transaction amount
 - `GET /api/revenue-data/amount-breakdown-by-location` — composition per location
-- `GET /api/membership-data?file=membersbeta.csv|membersalpha.csv` — active totals/new/canceled per month
+- `GET /api/membership-data?file=memberships_all.csv|memberships_first.csv` — active totals/new/canceled per month
 - `GET /api/membership-program-breakdown?file=...` — monthly active counts split by program
 
 ## Membership Sources Toggle
 On the dashboard you can toggle between:
-- `All Memberships` → uses `membersbeta.csv` (rows with `Membership? = Yes` or treated as memberships if column is absent)
-- `First Memberships Only` → uses `membersalpha.csv` (rows where `Client's First Membership? = Yes`)
+- `All Memberships` → uses `memberships_all.csv` (rows considered memberships; inference applied if some columns missing)
+- `First Memberships Only` → uses `memberships_first.csv` (rows where `Client's First Membership? = Yes`)
 
 ## Build & Run in Production
 ```bash

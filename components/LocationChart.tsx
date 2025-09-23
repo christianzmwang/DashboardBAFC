@@ -7,9 +7,11 @@ interface Props {
   data: MonthlyRevenue[];
   title: string;
   color?: string;
+  onBarClick?: (info: { month: string; revenue: number; count: number }) => void;
+  showTitle?: boolean;
 }
 
-export const LocationChart: React.FC<Props> = ({ data, title, color = '#1d4ed8' }) => {
+export const LocationChart: React.FC<Props> = ({ data, title, color = '#1d4ed8', onBarClick, showTitle = true }) => {
   const ref = useRef<SVGSVGElement | null>(null);
   
   useEffect(() => {
@@ -109,7 +111,7 @@ export const LocationChart: React.FC<Props> = ({ data, title, color = '#1d4ed8' 
       .attr('height', (d: MonthlyRevenue) => innerHeight - y(d.revenue))
       .attr('fill', (d: MonthlyRevenue) => colorScale(d.revenue))
       .style('cursor', 'pointer')
-      .on('mouseover', function(event, d) {
+      .on('mouseover', function(event, d: MonthlyRevenue) {
         d3.select(this).style('opacity', 0.8);
         tooltip
           .style('opacity', 1)
@@ -129,6 +131,11 @@ export const LocationChart: React.FC<Props> = ({ data, title, color = '#1d4ed8' 
       .on('mouseout', function() {
         d3.select(this).style('opacity', 1);
         tooltip.style('opacity', 0);
+      })
+      .on('click', function(_, d: MonthlyRevenue) {
+        if (onBarClick) {
+          onBarClick({ month: d.month, revenue: d.revenue, count: d.count });
+        }
       });
 
     // Add text labels that are conditionally shown based on space
@@ -161,13 +168,13 @@ export const LocationChart: React.FC<Props> = ({ data, title, color = '#1d4ed8' 
         .text('No revenue for selected range');
     }
 
-  }, [data, color]);
+  }, [data, color, onBarClick]);
 
   if (!data.length) {
     return (
       <div className="w-full">
-        <h3 className="text-lg font-semibold mb-2 text-center">{title}</h3>
-  <div className="w-full h-[300px] flex items-center justify-center bg-gray-50 dark:bg-black">
+        {showTitle && <h3 className="text-lg font-semibold mb-2 text-center">{title}</h3>}
+        <div className="w-full h-[300px] flex items-center justify-center bg-gray-50 dark:bg-black">
           <div className="text-center text-gray-500 dark:text-gray-400">
             <p className="text-lg font-medium">No data available</p>
             <p className="text-sm">No revenue data for this location in the selected time period</p>
@@ -179,7 +186,7 @@ export const LocationChart: React.FC<Props> = ({ data, title, color = '#1d4ed8' 
 
   return (
     <div className="w-full">
-      <h3 className="text-lg font-semibold mb-2 text-center">{title}</h3>
+      {showTitle && <h3 className="text-lg font-semibold mb-2 text-center">{title}</h3>}
       <div className="w-full overflow-x-auto">
         <svg ref={ref} className="w-full h-[300px]"></svg>
       </div>

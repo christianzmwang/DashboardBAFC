@@ -8,6 +8,7 @@ interface Props {
   topN?: number; // number of top program categories to display, rest grouped as Other (ignored when showAllCategories=true)
   showLegend?: boolean; // whether to render internal legend inside the SVG
   showAllCategories?: boolean; // when true, label all categories explicitly and never group into 'Other'
+  onSegmentClick?: (info: { month: string; program: string; value: number }) => void; // callback when user clicks a stacked segment
 }
 
 export const programLegendPalette = d3.schemeTableau10.concat([
@@ -44,7 +45,7 @@ export function computeProgramLegendKeys(
   return hasOther ? [...topKeys, 'Other'] : topKeys;
 }
 
-export const MembershipProgramBreakdownChart: React.FC<Props> = ({ data, topN = 6, showLegend = true, showAllCategories = true }) => {
+export const MembershipProgramBreakdownChart: React.FC<Props> = ({ data, topN = 6, showLegend = true, showAllCategories = true, onSegmentClick }) => {
   const ref = useRef<SVGSVGElement | null>(null);
 
   const { months, keys, stackedData, totals } = useMemo(() => {
@@ -238,6 +239,13 @@ export const MembershipProgramBreakdownChart: React.FC<Props> = ({ data, topN = 
       .on('mouseout', function () {
         d3.select(this).style('opacity', 1);
         tooltip.style('opacity', 0);
+      })
+      .on('click', function(event, d) {
+        if (!onSegmentClick) return;
+        const monthIdx = (d as any).index ?? 0;
+        const month = months[monthIdx] || '';
+        const value = Math.round(d.data[1] - d.data[0]);
+        onSegmentClick({ month, program: d.key, value });
       });
 
     if (maxTotal === 0) {
@@ -248,10 +256,10 @@ export const MembershipProgramBreakdownChart: React.FC<Props> = ({ data, topN = 
         .attr('class', 'fill-gray-500 text-sm')
         .text('No memberships for selected range');
     }
-  }, [months, keys, stackedData, totals, showLegend, showAllCategories]);
+  }, [months, keys, stackedData, totals, showLegend, showAllCategories, onSegmentClick]);
 
   return (
-    <div className="w-full overflow-x-auto">
+    <div className="w-full overflow-hidden">{/* overflow-hidden to prevent sporadic horizontal scrollbar */}
       <svg ref={ref} className="w-full h-[420px]"></svg>
     </div>
   );

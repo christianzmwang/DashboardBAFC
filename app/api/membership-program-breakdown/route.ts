@@ -4,12 +4,11 @@ import { loadMonthlyProgramBreakdown } from '../../../lib/parseCsv';
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
-    const file = searchParams.get('file') || 'membersbeta.csv';
-
-    if (!['membersbeta.csv', 'membersalpha.csv'].includes(file)) {
-      return NextResponse.json({ error: 'Invalid file parameter. Must be membersbeta.csv or membersalpha.csv' }, { status: 400 });
+  const file = searchParams.get('file') || 'memberships_all.csv';
+  const allowed = ['memberships_all.csv','memberships_first.csv'];
+    if (!allowed.includes(file)) {
+      return NextResponse.json({ error: 'Invalid file parameter.' }, { status: 400 });
     }
-
     const data = loadMonthlyProgramBreakdown(file);
     return NextResponse.json(data);
   } catch (error) {

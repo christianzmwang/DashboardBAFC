@@ -1,15 +1,50 @@
 'use client';
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { signOut } from 'next-auth/react';
-import { filterDataByDateRange, getAvailableMonths, MonthlyRevenue, MonthlyMembership, filterMembershipDataByDateRange, getAvailableMembershipMonths, MonthlyAmountBreakdown, filterAmountBreakdownByDateRange, MonthlyProgramBreakdown, filterProgramBreakdownByDateRange } from '../lib/clientUtils';
+import {
+  filterDataByDateRange,
+  getAvailableMonths,
+  MonthlyRevenue,
+  MonthlyMembership,
+  filterMembershipDataByDateRange,
+  MonthlyAmountBreakdown,
+  filterAmountBreakdownByDateRange,
+  MonthlyProgramBreakdown,
+  filterProgramBreakdownByDateRange,
+  MemberRow,
+  MembershipFilters,
+  PaymentRow,
+  RevenueFilters,
+  filterTransactionsByDateRange,
+  filterTransactionsByFilters,
+} from '../lib/clientUtils';
 import { RevenueChart } from '../components/RevenueChart';
 import { LocationChart } from '../components/LocationChart';
 import { MembershipChart } from '../components/MembershipChart';
+import { MembershipMembersTable } from '../components/MembershipMembersTable';
 import { LocationMembershipChart } from '../components/LocationMembershipChart';
 import { DateRangeSelector } from '../components/DateRangeSelector';
 import { RevenueAmountBreakdownChart, computeAmountLegendKeys, amountLegendPalette } from '../components/RevenueAmountBreakdownChart';
+import { RevenueAmountPieChart } from '../components/RevenueAmountPieChart';
 import { MembershipProgramBreakdownChart, programLegendPalette } from '../components/MembershipProgramBreakdownChart';
 import { VerticalLegend } from '../components/VerticalLegend';
+import { RevenueTransactionsTable } from '../components/RevenueTransactionsTable';
+
+const COLLAPSIBLE_DEFAULTS = {
+  revenueAmount: false,
+  revenueLosGatosChart: false,
+  revenueLosGatosComposition: false,
+  revenuePleasantonChart: false,
+  revenuePleasantonComposition: false,
+  revenueLocationAmountPies: false,
+  membershipProgram: false,
+  membershipLosGatosChart: false,
+  membershipLosGatosComposition: false,
+  membershipPleasantonChart: false,
+  membershipPleasantonComposition: false,
+} as const;
+
+type CollapsibleKey = keyof typeof COLLAPSIBLE_DEFAULTS;
 
 interface LocationDataResponse {
   allData: MonthlyRevenue[];
@@ -28,6 +63,8 @@ interface LocationDataResponse {
   losGatosData: MonthlyRevenue[];
   pleasantonData: MonthlyRevenue[];
 }
+
+const TRANSACTIONS_PAGE_SIZE = 1000;
 
 export default function Page() {
   const [allData, setAllData] = useState<MonthlyRevenue[]>([]);
@@ -57,6 +94,8 @@ export default function Page() {
   const [plAmountBreakdown, setPlAmountBreakdown] = useState<MonthlyAmountBreakdown[]>([]);
   const [filteredLgAmountBreakdown, setFilteredLgAmountBreakdown] = useState<MonthlyAmountBreakdown[]>([]);
   const [filteredPlAmountBreakdown, setFilteredPlAmountBreakdown] = useState<MonthlyAmountBreakdown[]>([]);
+  // Month selection for new pie charts (Los Gatos & Pleasanton)
+  const [amountPieMonth, setAmountPieMonth] = useState<string>('');
   // Membership program breakdown state
   const [programBreakdownAll, setProgramBreakdownAll] = useState<MonthlyProgramBreakdown[]>([]);
   const [programBreakdownLG, setProgramBreakdownLG] = useState<MonthlyProgramBreakdown[]>([]);
@@ -67,9 +106,32 @@ export default function Page() {
   
   // Toggle between revenue and membership view
   const [viewMode, setViewMode] = useState<'revenue' | 'membership'>('revenue');
+  // Toggle within membership view between monthly table and raw members list
+  // Secondary toggle inside membership view: show aggregated monthly table or raw members list
+  const [membershipDetailMode, setMembershipDetailMode] = useState<'monthly' | 'members'>('monthly');
+  // Raw members (returned without planId via new API route) for drill-down display
+  const [rawMembers, setRawMembers] = useState<MemberRow[]>([]);
+  // Drill-down filters applied across membership visuals
+  const [membershipFilters, setMembershipFilters] = useState<MembershipFilters>({});
+  const hasMembershipFilters = Boolean(membershipFilters.month || membershipFilters.program || membershipFilters.location);
+
+  // Revenue transactions and filters
+  const [transactions, setTransactions] = useState<PaymentRow[]>([]);
+  const [visibleTransactionsCount, setVisibleTransactionsCount] = useState<number>(TRANSACTIONS_PAGE_SIZE);
+  const [revenueFilters, setRevenueFilters] = useState<RevenueFilters>({});
+  const hasRevenueFilters = Boolean(revenueFilters.month || revenueFilters.location || revenueFilters.amountKey);
+  const [revenueDetailMode, setRevenueDetailMode] = useState<'summary' | 'transactions'>('summary');
   
   // Toggle between membership data files
-  const [membershipFile, setMembershipFile] = useState<'membersbeta.csv' | 'membersalpha.csv'>('membersbeta.csv');
+  const [membershipFile, setMembershipFile] = useState<'memberships_all.csv' | 'memberships_first.csv'>('memberships_all.csv');
+
+  const [collapsedSections, setCollapsedSections] = useState<Record<CollapsibleKey, boolean>>(
+    () => ({ ...COLLAPSIBLE_DEFAULTS })
+  );
+
+  const toggleSection = (key: CollapsibleKey) => {
+    setCollapsedSections(prev => ({ ...prev, [key]: !prev[key] }));
+  };
 
   // Simple theme toggle using documentElement class and localStorage
   const toggleTheme = () => {
@@ -89,12 +151,14 @@ export default function Page() {
     const fetchData = async () => {
       try {
         // Fetch both revenue and membership data
-        const [revenueResponse, membershipResponse, amountBreakdownResp, amountBreakdownByLocResp, programBreakdownResp] = await Promise.all([
+        const [revenueResponse, membershipResponse, amountBreakdownResp, amountBreakdownByLocResp, programBreakdownResp, rawMembersResp, transactionsResp] = await Promise.all([
           fetch('/api/revenue-data'),
           fetch(`/api/membership-data?file=${membershipFile}`),
           fetch('/api/revenue-data/amount-breakdown'),
           fetch('/api/revenue-data/amount-breakdown-by-location'),
-          fetch(`/api/membership-program-breakdown?file=${membershipFile}`)
+          fetch(`/api/membership-program-breakdown?file=${membershipFile}`),
+          fetch(`/api/membership-data/raw?file=${membershipFile}`),
+          fetch('/api/revenue-data/transactions')
         ]);
         
         if (!revenueResponse.ok) {
@@ -112,12 +176,20 @@ export default function Page() {
         if (!programBreakdownResp.ok) {
           throw new Error(`Membership Program Breakdown API error! status: ${programBreakdownResp.status}`);
         }
+        if (!rawMembersResp.ok) {
+          throw new Error(`Raw Members API error! status: ${rawMembersResp.status}`);
+        }
+        if (!transactionsResp.ok) {
+          throw new Error(`Transactions API error! status: ${transactionsResp.status}`);
+        }
         
     const revenueData: LocationDataResponse = await revenueResponse.json();
     const membershipData: MembershipDataResponse = await membershipResponse.json();
     const { breakdown } = await amountBreakdownResp.json();
     const amountByLoc = await amountBreakdownByLocResp.json();
-    const programByData = await programBreakdownResp.json();
+  const programByData = await programBreakdownResp.json();
+  const rawMembersJson = await rawMembersResp.json();
+  const transactionsJson = await transactionsResp.json();
         
         // Set revenue data
         setAllData(revenueData.allData);
@@ -136,6 +208,8 @@ export default function Page() {
   setProgramBreakdownAll(programByData?.allData || []);
   setProgramBreakdownLG(programByData?.losGatosData || []);
   setProgramBreakdownPL(programByData?.pleasantonData || []);
+  setRawMembers(rawMembersJson?.members || []);
+  setTransactions(transactionsJson?.transactions || []);
         
         // Set available months from revenue data only (previous behavior)
         const months = getAvailableMonths(revenueData.allData);
@@ -158,36 +232,136 @@ export default function Page() {
   }, [membershipFile]);
 
   useEffect(() => {
-    if (startMonth && endMonth && allData.length > 0) {
+    if (!startMonth || !endMonth) return;
+
+    if (allData.length > 0) {
       setFilteredAllData(filterDataByDateRange(allData, startMonth, endMonth));
       setFilteredLosGatosData(filterDataByDateRange(losGatosData, startMonth, endMonth));
       setFilteredPleasantonData(filterDataByDateRange(pleasantonData, startMonth, endMonth));
     }
-    
-    if (startMonth && endMonth && allMembershipData.length > 0) {
+
+    if (allMembershipData.length > 0) {
       setFilteredAllMembershipData(filterMembershipDataByDateRange(allMembershipData, startMonth, endMonth));
       setFilteredLosGatosMembershipData(filterMembershipDataByDateRange(losGatosMembershipData, startMonth, endMonth));
       setFilteredPleasantonMembershipData(filterMembershipDataByDateRange(pleasantonMembershipData, startMonth, endMonth));
     }
-    if (startMonth && endMonth && amountBreakdown.length > 0) {
+
+    if (amountBreakdown.length > 0) {
       setFilteredAmountBreakdown(filterAmountBreakdownByDateRange(amountBreakdown, startMonth, endMonth));
     }
-    if (startMonth && endMonth && lgAmountBreakdown.length > 0) {
+    if (lgAmountBreakdown.length > 0) {
       setFilteredLgAmountBreakdown(filterAmountBreakdownByDateRange(lgAmountBreakdown, startMonth, endMonth));
     }
-    if (startMonth && endMonth && plAmountBreakdown.length > 0) {
+    if (plAmountBreakdown.length > 0) {
       setFilteredPlAmountBreakdown(filterAmountBreakdownByDateRange(plAmountBreakdown, startMonth, endMonth));
     }
-    if (startMonth && endMonth && programBreakdownAll.length > 0) {
+
+    if (programBreakdownAll.length > 0) {
       setFilteredProgramBreakdownAll(filterProgramBreakdownByDateRange(programBreakdownAll, startMonth, endMonth));
     }
-    if (startMonth && endMonth && programBreakdownLG.length > 0) {
+    if (programBreakdownLG.length > 0) {
       setFilteredProgramBreakdownLG(filterProgramBreakdownByDateRange(programBreakdownLG, startMonth, endMonth));
     }
-    if (startMonth && endMonth && programBreakdownPL.length > 0) {
+    if (programBreakdownPL.length > 0) {
       setFilteredProgramBreakdownPL(filterProgramBreakdownByDateRange(programBreakdownPL, startMonth, endMonth));
     }
-  }, [startMonth, endMonth, allData, losGatosData, pleasantonData, allMembershipData, losGatosMembershipData, pleasantonMembershipData, amountBreakdown, lgAmountBreakdown, plAmountBreakdown, programBreakdownAll, programBreakdownLG, programBreakdownPL]);
+  }, [
+    startMonth,
+    endMonth,
+    allData,
+    losGatosData,
+    pleasantonData,
+    allMembershipData,
+    losGatosMembershipData,
+    pleasantonMembershipData,
+    amountBreakdown,
+    lgAmountBreakdown,
+    plAmountBreakdown,
+    programBreakdownAll,
+    programBreakdownLG,
+    programBreakdownPL,
+  ]);
+
+  // Initialize / adjust selected month for pie charts when filtered data changes
+  useEffect(() => {
+    if (!amountPieMonth) {
+      const lastWithData = [...filteredAmountBreakdown].reverse().find(d => d.total > 0);
+      if (lastWithData) setAmountPieMonth(lastWithData.month);
+      else if (filteredAmountBreakdown.length > 0) setAmountPieMonth(filteredAmountBreakdown[filteredAmountBreakdown.length - 1].month);
+    } else {
+      // If current selected month falls outside range after filters change, reset
+      if (!filteredAmountBreakdown.find(d => d.month === amountPieMonth)) {
+        const last = filteredAmountBreakdown[filteredAmountBreakdown.length - 1];
+        if (last) setAmountPieMonth(last.month);
+      }
+    }
+  }, [filteredAmountBreakdown, amountPieMonth]);
+
+  const filteredTransactions = useMemo(() => {
+    if (!startMonth || !endMonth) return [];
+    const base = filterTransactionsByDateRange(transactions, startMonth, endMonth);
+    const amountKeys = computeAmountLegendKeys(
+      filterAmountBreakdownByDateRange(amountBreakdown, startMonth, endMonth),
+      10,
+    ).filter(k => k !== 'Other');
+    return filterTransactionsByFilters(base, revenueFilters, amountKeys);
+  }, [transactions, startMonth, endMonth, revenueFilters, amountBreakdown]);
+
+  const prevHasRevenueFiltersRef = useRef(hasRevenueFilters);
+  const revenueDetailsRef = useRef<HTMLDivElement | null>(null);
+  const membershipDetailsRef = useRef<HTMLDivElement | null>(null);
+
+  const scrollSectionIntoView = (element: HTMLElement | null) => {
+    if (typeof window === 'undefined' || !element) return;
+    window.requestAnimationFrame(() => {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  };
+
+  const focusRevenueDetails = () => scrollSectionIntoView(revenueDetailsRef.current);
+  const focusMembershipDetails = () => scrollSectionIntoView(membershipDetailsRef.current);
+
+  const renderCollapseToggle = (key: CollapsibleKey, isCollapsed: boolean, label: string) => (
+    <button
+      type="button"
+      onClick={() => toggleSection(key)}
+      className="absolute top-4 right-4 flex h-8 w-8 items-center justify-center rounded-full border border-gray-300 text-gray-600 transition-colors hover:bg-gray-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-800"
+      aria-label={`${isCollapsed ? 'Expand' : 'Collapse'} ${label}`}
+    >
+      <span aria-hidden="true" className="text-lg leading-none">
+        {isCollapsed ? '↓' : '—'}
+      </span>
+    </button>
+  );
+
+  useEffect(() => {
+    setVisibleTransactionsCount(prev => {
+      if (hasRevenueFilters) {
+        return filteredTransactions.length;
+      }
+      const base = prevHasRevenueFiltersRef.current ? TRANSACTIONS_PAGE_SIZE : prev;
+      const next = Math.max(base, TRANSACTIONS_PAGE_SIZE);
+      return Math.min(next, filteredTransactions.length);
+    });
+    prevHasRevenueFiltersRef.current = hasRevenueFilters;
+  }, [filteredTransactions.length, hasRevenueFilters]);
+
+  const isViewingTransactions = viewMode === 'revenue' && revenueDetailMode === 'transactions';
+
+  useEffect(() => {
+    if (!isViewingTransactions && !hasRevenueFilters) {
+      setVisibleTransactionsCount(TRANSACTIONS_PAGE_SIZE);
+    }
+  }, [isViewingTransactions, hasRevenueFilters]);
+
+  const canLoadMoreTransactions =
+    !hasRevenueFilters &&
+    isViewingTransactions &&
+    visibleTransactionsCount < filteredTransactions.length;
+
+  const handleLoadMoreTransactions = () => {
+    setVisibleTransactionsCount(count => Math.min(count + TRANSACTIONS_PAGE_SIZE, filteredTransactions.length));
+  };
 
   const handleStartMonthChange = (month: string) => {
     setStartMonth(month);
@@ -234,6 +408,20 @@ export default function Page() {
     });
     return Array.from(sum.entries()).sort((a, b) => b[1] - a[1]).map(([k]) => k);
   }, [filteredProgramBreakdownPL]);
+
+  const {
+    revenueAmount: isRevenueAmountCollapsed,
+    revenueLosGatosChart: isRevenueLosGatosChartCollapsed,
+    revenueLosGatosComposition: isRevenueLosGatosCompositionCollapsed,
+    revenuePleasantonChart: isRevenuePleasantonChartCollapsed,
+    revenuePleasantonComposition: isRevenuePleasantonCompositionCollapsed,
+  revenueLocationAmountPies: isRevenueLocationAmountPiesCollapsed,
+    membershipProgram: isMembershipProgramCollapsed,
+    membershipLosGatosChart: isMembershipLosGatosChartCollapsed,
+    membershipLosGatosComposition: isMembershipLosGatosCompositionCollapsed,
+    membershipPleasantonChart: isMembershipPleasantonChartCollapsed,
+    membershipPleasantonComposition: isMembershipPleasantonCompositionCollapsed,
+  } = collapsedSections;
 
   if (loading) {
     return (
@@ -326,134 +514,296 @@ export default function Page() {
           {/* Overall Revenue Chart */}
           <section className="bg-white dark:bg-black border border-gray-200 dark:border-gray-700 shadow p-6">
             <h2 className="text-2xl font-semibold mb-4 text-gray-800 dark:text-gray-100">Overall Monthly Revenue</h2>
-            <RevenueChart data={filteredAllData} />
+            <RevenueChart
+              data={filteredAllData}
+              onBarClick={({ month }) => {
+                setRevenueDetailMode('transactions');
+                setRevenueFilters(prev => ({ ...prev, month, location: undefined, amountKey: undefined }));
+                focusRevenueDetails();
+              }}
+            />
           </section>
 
           
 
           {/* Amount Breakdown by Transaction Value with legend to the right of header */}
-          <section className="bg-white dark:bg-black border border-gray-200 dark:border-gray-700 shadow p-6">
-            <div className="mb-2 flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
-              <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-100">Revenue Composition by Transaction Amount</h3>
-              <div className="sm:w-auto">
-                <div className="grid grid-flow-col grid-rows-2 auto-cols-max gap-x-4 gap-y-2">
-                  {overallLegendKeys.map((k, i) => (
-                    <div key={k} className="flex items-center gap-1.5">
-                      <span
-                        className="inline-block w-3 h-3"
-                        style={{ backgroundColor: amountLegendPalette[i % amountLegendPalette.length] }}
-                      />
-                      <span className="text-xs text-gray-700 dark:text-gray-300">{k === 'Other' ? 'Other' : `$${k}`}</span>
+          <section className="relative bg-white dark:bg-black border border-gray-200 dark:border-gray-700 shadow p-6">
+            {renderCollapseToggle('revenueAmount', isRevenueAmountCollapsed, 'revenue composition section')}
+            <div className="pr-12 sm:pr-16">
+              <div className="mb-2 flex flex-col gap-3">
+                <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
+                  <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-100">Revenue Composition by Transaction Amount</h3>
+                  {!isRevenueAmountCollapsed && (
+                    <div className="sm:w-auto">
+                      <div className="grid grid-flow-col grid-rows-2 auto-cols-max gap-x-4 gap-y-2">
+                        {overallLegendKeys.map((k, i) => (
+                          <div key={k} className="flex items-center gap-1.5">
+                            <span
+                              className="inline-block w-3 h-3"
+                              style={{ backgroundColor: amountLegendPalette[i % amountLegendPalette.length] }}
+                            />
+                            <span className="text-xs text-gray-700 dark:text-gray-300">{k === 'Other' ? 'Other' : `$${k}`}</span>
+                          </div>
+                        ))}
+                      </div>
                     </div>
-                  ))}
+                  )}
                 </div>
               </div>
+              {!isRevenueAmountCollapsed && (
+                <>
+                  <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">Each bar shows the monthly total, built from segments proportional to common transaction amounts.</p>
+                  <RevenueAmountBreakdownChart
+                    data={filteredAmountBreakdown}
+                    topN={10}
+                    showLegend={false}
+                    onSegmentClick={({ month, amountKey }) => {
+                      setRevenueDetailMode('transactions');
+                      setRevenueFilters(prev => ({ ...prev, month, amountKey }));
+                      focusRevenueDetails();
+                    }}
+                  />
+                </>
+              )}
             </div>
-            <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">Each bar shows the monthly total, built from segments proportional to common transaction amounts.</p>
-            <RevenueAmountBreakdownChart data={filteredAmountBreakdown} topN={10} showLegend={false} />
+          </section>
+
+          {/* Location Composition Pie Charts (separate collapsible section) */}
+          <section className="relative bg-white dark:bg-black border border-gray-200 dark:border-gray-700 shadow p-6 mt-8">
+            {renderCollapseToggle('revenueLocationAmountPies', isRevenueLocationAmountPiesCollapsed, 'location composition pies section')}
+            <div className="pr-12 sm:pr-16">
+              <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-4">
+                <div>
+                  <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-100">Location Composition</h3>
+                </div>
+                {!isRevenueLocationAmountPiesCollapsed && (
+                  <div className="flex items-center gap-2">
+                    <label htmlFor="amountPieMonth" className="text-xs font-medium text-gray-600 dark:text-gray-300">Month:</label>
+                    <select
+                      id="amountPieMonth"
+                      value={amountPieMonth}
+                      onChange={e => setAmountPieMonth(e.target.value)}
+                      className="text-sm border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 px-2 py-1 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                    >
+                      {filteredAmountBreakdown.map(d => (
+                        <option key={d.month} value={d.month}>{d.month}</option>
+                      ))}
+                    </select>
+                  </div>
+                )}
+              </div>
+              {!isRevenueLocationAmountPiesCollapsed && (
+                <div className="grid md:grid-cols-2 gap-8">
+                  <RevenueAmountPieChart
+                    breakdown={filteredLgAmountBreakdown.find(d => d.month === amountPieMonth)}
+                    legendKeys={lgLegendKeys}
+                    title={`Los Gatos – ${amountPieMonth || ''}`}
+                    showTotalBelowTitle
+                  />
+                  <RevenueAmountPieChart
+                    breakdown={filteredPlAmountBreakdown.find(d => d.month === amountPieMonth)}
+                    legendKeys={plLegendKeys}
+                    title={`Pleasanton – ${amountPieMonth || ''}`}
+                    showTotalBelowTitle
+                  />
+                </div>
+              )}
+            </div>
           </section>
 
           {/* Location-specific Charts with Composition below each */}
           <section className="grid md:grid-cols-2 gap-8">
             {/* Los Gatos column */}
             <div className="space-y-8">
-              <div className="bg-white dark:bg-black border border-gray-200 dark:border-gray-700 shadow p-6">
-                <LocationChart 
-                  data={filteredLosGatosData} 
-                  title="Los Gatos Location" 
-                  color="#059669" 
-                />
-              </div>
-              <div className="bg-white dark:bg-black border border-gray-200 dark:border-gray-700 shadow p-6">
-                <div className="mb-3 flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
-                  <h4 className="text-lg font-semibold text-gray-800 dark:text-gray-100">Los Gatos Composition</h4>
-                  <div className="sm:w-auto">
-                    <div className="grid grid-flow-col grid-rows-2 auto-cols-max gap-x-4 gap-y-2">
-                      {lgLegendKeys.map((k, i) => (
-                        <div key={k} className="flex items-center gap-1.5">
-                          <span
-                            className="inline-block w-3 h-3"
-                            style={{ backgroundColor: amountLegendPalette[i % amountLegendPalette.length] }}
-                          />
-                          <span className="text-xs text-gray-700 dark:text-gray-300">{k === 'Other' ? 'Other' : `$${k}`}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
+              <div className="relative bg-white dark:bg-black border border-gray-200 dark:border-gray-700 shadow p-6">
+                {renderCollapseToggle('revenueLosGatosChart', isRevenueLosGatosChartCollapsed, 'Los Gatos revenue chart')}
+                <div className="pr-12 sm:pr-16">
+                  <h3 className="mb-4 text-lg font-semibold text-gray-800 dark:text-gray-100">Los Gatos Location</h3>
+                  {!isRevenueLosGatosChartCollapsed && (
+                    <LocationChart
+                      data={filteredLosGatosData}
+                      title="Los Gatos Location"
+                      color="#059669"
+                      onBarClick={({ month }) => {
+                        setRevenueDetailMode('transactions');
+                        setRevenueFilters(prev => ({ ...prev, month, location: 'Los Gatos' }));
+                        focusRevenueDetails();
+                      }}
+                      showTitle={false}
+                    />
+                  )}
                 </div>
-                <RevenueAmountBreakdownChart data={filteredLgAmountBreakdown} topN={10} showLegend={false} />
+              </div>
+              <div className="relative bg-white dark:bg-black border border-gray-200 dark:border-gray-700 shadow p-6">
+                {renderCollapseToggle('revenueLosGatosComposition', isRevenueLosGatosCompositionCollapsed, 'Los Gatos revenue composition section')}
+                <div className="pr-12 sm:pr-16">
+                  <div className="mb-3 flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
+                    <h4 className="text-lg font-semibold text-gray-800 dark:text-gray-100">Los Gatos Composition</h4>
+                    {!isRevenueLosGatosCompositionCollapsed && (
+                      <div className="sm:w-auto">
+                        <div className="grid grid-flow-col grid-rows-2 auto-cols-max gap-x-4 gap-y-2">
+                          {lgLegendKeys.map((k, i) => (
+                            <div key={k} className="flex items-center gap-1.5">
+                              <span
+                                className="inline-block w-3 h-3"
+                                style={{ backgroundColor: amountLegendPalette[i % amountLegendPalette.length] }}
+                              />
+                              <span className="text-xs text-gray-700 dark:text-gray-300">{k === 'Other' ? 'Other' : `$${k}`}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                  {!isRevenueLosGatosCompositionCollapsed && (
+                    <RevenueAmountBreakdownChart
+                      data={filteredLgAmountBreakdown}
+                      topN={10}
+                      showLegend={false}
+                      onSegmentClick={({ month, amountKey }) => {
+                        setRevenueDetailMode('transactions');
+                        setRevenueFilters(prev => ({ ...prev, month, amountKey, location: 'Los Gatos' }));
+                        focusRevenueDetails();
+                      }}
+                    />
+                  )}
+                </div>
               </div>
             </div>
 
             {/* Pleasanton column */}
             <div className="space-y-8">
-              <div className="bg-white dark:bg-black border border-gray-200 dark:border-gray-700 shadow p-6">
-                <LocationChart 
-                  data={filteredPleasantonData} 
-                  title="Pleasanton Location" 
-                  color="#dc2626" 
-                />
-              </div>
-              <div className="bg-white dark:bg-black border border-gray-200 dark:border-gray-700 shadow p-6">
-                <div className="mb-3 flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
-                  <h4 className="text-lg font-semibold text-gray-800 dark:text-gray-100">Pleasanton Composition</h4>
-                  <div className="sm:w-auto">
-                    <div className="grid grid-flow-col grid-rows-2 auto-cols-max gap-x-4 gap-y-2">
-                      {plLegendKeys.map((k, i) => (
-                        <div key={k} className="flex items-center gap-1.5">
-                          <span
-                            className="inline-block w-3 h-3"
-                            style={{ backgroundColor: amountLegendPalette[i % amountLegendPalette.length] }}
-                          />
-                          <span className="text-xs text-gray-700 dark:text-gray-300">{k === 'Other' ? 'Other' : `$${k}`}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
+              <div className="relative bg-white dark:bg-black border border-gray-200 dark:border-gray-700 shadow p-6">
+                {renderCollapseToggle('revenuePleasantonChart', isRevenuePleasantonChartCollapsed, 'Pleasanton revenue chart')}
+                <div className="pr-12 sm:pr-16">
+                  <h3 className="mb-4 text-lg font-semibold text-gray-800 dark:text-gray-100">Pleasanton Location</h3>
+                  {!isRevenuePleasantonChartCollapsed && (
+                    <LocationChart
+                      data={filteredPleasantonData}
+                      title="Pleasanton Location"
+                      color="#dc2626"
+                      onBarClick={({ month }) => {
+                        setRevenueDetailMode('transactions');
+                        setRevenueFilters(prev => ({ ...prev, month, location: 'Pleasanton' }));
+                        focusRevenueDetails();
+                      }}
+                      showTitle={false}
+                    />
+                  )}
                 </div>
-                <RevenueAmountBreakdownChart data={filteredPlAmountBreakdown} topN={10} showLegend={false} />
+              </div>
+              <div className="relative bg-white dark:bg-black border border-gray-200 dark:border-gray-700 shadow p-6">
+                {renderCollapseToggle('revenuePleasantonComposition', isRevenuePleasantonCompositionCollapsed, 'Pleasanton revenue composition section')}
+                <div className="pr-12 sm:pr-16">
+                  <div className="mb-3 flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
+                    <h4 className="text-lg font-semibold text-gray-800 dark:text-gray-100">Pleasanton Composition</h4>
+                    {!isRevenuePleasantonCompositionCollapsed && (
+                      <div className="sm:w-auto">
+                        <div className="grid grid-flow-col grid-rows-2 auto-cols-max gap-x-4 gap-y-2">
+                          {plLegendKeys.map((k, i) => (
+                            <div key={k} className="flex items-center gap-1.5">
+                              <span
+                                className="inline-block w-3 h-3"
+                                style={{ backgroundColor: amountLegendPalette[i % amountLegendPalette.length] }}
+                              />
+                              <span className="text-xs text-gray-700 dark:text-gray-300">{k === 'Other' ? 'Other' : `$${k}`}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                  {!isRevenuePleasantonCompositionCollapsed && (
+                    <RevenueAmountBreakdownChart
+                      data={filteredPlAmountBreakdown}
+                      topN={10}
+                      showLegend={false}
+                      onSegmentClick={({ month, amountKey }) => {
+                        setRevenueDetailMode('transactions');
+                        setRevenueFilters(prev => ({ ...prev, month, amountKey, location: 'Pleasanton' }));
+                        focusRevenueDetails();
+                      }}
+                    />
+                  )}
+                </div>
               </div>
             </div>
           </section>
 
-          {/* Data Table */}
-          <section className="bg-white dark:bg-black border border-gray-200 dark:border-gray-700 shadow p-6">
-            <h2 className="text-2xl font-semibold mb-4 text-gray-800 dark:text-gray-100">Monthly Revenue Breakdown</h2>
-            <div className="overflow-x-auto">
-              <table className="w-full table-auto">
-                <thead>
-                  <tr className="bg-gray-50 dark:bg-black">
-                    <th className="px-4 py-2 text-left">Month</th>
-                    <th className="px-4 py-2 text-right">Total Revenue</th>
-                    <th className="px-4 py-2 text-right">Los Gatos</th>
-                    <th className="px-4 py-2 text-right">Pleasanton</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {filteredAllData.map((item: any, index: number) => {
-                    const lgItem = filteredLosGatosData.find((lg: any) => lg.month === item.month);
-                    const plItem = filteredPleasantonData.find((pl: any) => pl.month === item.month);
-                    
-                    return (
-                      <tr key={item.month} className={index % 2 === 0 ? 'bg-gray-50 dark:bg-gray-850' : 'bg-white dark:bg-black'}>
-                        <td className="px-4 py-2 font-medium">{item.month}</td>
-                        <td className="px-4 py-2 text-right">${Math.round(item.revenue).toLocaleString()}</td>
-                        <td className="px-4 py-2 text-right">
-                          {lgItem ? `$${Math.round(lgItem.revenue).toLocaleString()}` : 
-                           <span className="text-gray-400 dark:text-gray-500 italic">No data</span>}
-                        </td>
-                        <td className="px-4 py-2 text-right">
-                          {plItem ? `$${Math.round(plItem.revenue).toLocaleString()}` : 
-                           <span className="text-gray-400 dark:text-gray-500 italic">No data</span>}
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
+          {/* Data Table / Transactions */}
+          <section
+            ref={revenueDetailsRef}
+            className="bg-white dark:bg-black border border-gray-200 dark:border-gray-700 shadow p-6"
+          >
+            <div className="mb-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+              <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-100">Revenue Details</h2>
+              <div className="flex items-center gap-2">
+                {canLoadMoreTransactions && (
+                  <button
+                    onClick={handleLoadMoreTransactions}
+                    className="px-3 py-2 text-sm font-medium bg-blue-600 text-white hover:bg-blue-700"
+                  >
+                    Load more
+                  </button>
+                )}
+                <button
+                  onClick={() => setRevenueDetailMode(revenueDetailMode === 'summary' ? 'transactions' : 'summary')}
+                  className="px-3 py-2 text-sm font-medium bg-blue-600 text-white hover:bg-blue-700"
+                >
+                  {revenueDetailMode === 'summary' ? 'Show Transactions' : 'Show Summary'}
+                </button>
+                {hasRevenueFilters && revenueDetailMode === 'transactions' && (
+                  <button
+                    onClick={() => setRevenueFilters({})}
+                    className="px-3 py-2 text-sm font-medium bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600"
+                  >Clear Filters</button>
+                )}
+              </div>
             </div>
-            
-            {filteredAllData.length === 0 && (
+            {revenueDetailMode === 'summary' ? (
+              <div className="overflow-x-auto">
+                <table className="w-full table-auto">
+                  <thead>
+                    <tr className="bg-gray-50 dark:bg-black">
+                      <th className="px-4 py-2 text-left">Month</th>
+                      <th className="px-4 py-2 text-right">Total Revenue</th>
+                      <th className="px-4 py-2 text-right">Los Gatos</th>
+                      <th className="px-4 py-2 text-right">Pleasanton</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {filteredAllData.map((item: any, index: number) => {
+                      const lgItem = filteredLosGatosData.find((lg: any) => lg.month === item.month);
+                      const plItem = filteredPleasantonData.find((pl: any) => pl.month === item.month);
+
+                      return (
+                        <tr key={item.month} className={index % 2 === 0 ? 'bg-gray-50 dark:bg-gray-850' : 'bg-white dark:bg-black'}>
+                          <td className="px-4 py-2 font-medium">{item.month}</td>
+                          <td className="px-4 py-2 text-right">${Math.round(item.revenue).toLocaleString()}</td>
+                          <td className="px-4 py-2 text-right">
+                            {lgItem ? `$${Math.round(lgItem.revenue).toLocaleString()}` :
+                             <span className="text-gray-400 dark:text-gray-500 italic">No data</span>}
+                          </td>
+                          <td className="px-4 py-2 text-right">
+                            {plItem ? `$${Math.round(plItem.revenue).toLocaleString()}` :
+                             <span className="text-gray-400 dark:text-gray-500 italic">No data</span>}
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            ) : (
+              <RevenueTransactionsTable
+                transactions={filteredTransactions}
+                filters={revenueFilters}
+                onClearFilters={() => setRevenueFilters({})}
+                visibleCount={visibleTransactionsCount}
+              />
+            )}
+
+            {revenueDetailMode === 'summary' && filteredAllData.length === 0 && (
               <div className="text-center py-8 text-gray-500 dark:text-gray-400">
                 No data available for the selected date range.
               </div>
@@ -463,21 +813,21 @@ export default function Page() {
       ) : (
         <>
           {/* Overall Membership Chart */}
-          <section className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 shadow p-6">
+          <section className="bg-black border border-gray-800 shadow p-6">
             <div className="mb-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
               <div>
-                <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-100">Overall Membership Overview</h2>
+                <h2 className="text-2xl font-semibold text-white">Overall Membership Overview</h2>
                 <p className="text-sm text-gray-500 dark:text-gray-400">
-                  Data source: {membershipFile === 'membersbeta.csv' ? 'Membership is Yes filter' : 'Client&#39;s First Membership is Yes filter'}
+                  Data source: {membershipFile === 'memberships_all.csv' ? 'All Memberships' : 'First Memberships Only'}
                 </p>
               </div>
               
               {/* Membership File Toggle */}
               <div className="flex items-center gap-2 bg-gray-50 dark:bg-black border border-gray-200 dark:border-gray-700 p-1 w-fit">
                 <button
-                  onClick={() => setMembershipFile('membersbeta.csv')}
+                  onClick={() => setMembershipFile('memberships_all.csv')}
                   className={`px-3 py-2 text-xs font-medium transition-colors ${
-                    membershipFile === 'membersbeta.csv'
+                    membershipFile === 'memberships_all.csv'
                       ? 'bg-green-600 text-white'
                       : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
                   }`}
@@ -485,9 +835,9 @@ export default function Page() {
                   All Memberships
                 </button>
                 <button
-                  onClick={() => setMembershipFile('membersalpha.csv')}
+                  onClick={() => setMembershipFile('memberships_first.csv')}
                   className={`px-3 py-2 text-xs font-medium transition-colors ${
-                    membershipFile === 'membersalpha.csv'
+                    membershipFile === 'memberships_first.csv'
                       ? 'bg-green-600 text-white'
                       : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
                   }`}
@@ -496,73 +846,213 @@ export default function Page() {
                 </button>
               </div>
             </div>
-            <MembershipChart data={filteredAllMembershipData} />
+            <MembershipChart
+              data={filteredAllMembershipData}
+              onBarClick={({ month }) => {
+                setMembershipDetailMode('members');
+                setMembershipFilters(prev => {
+                  const next: MembershipFilters = { ...prev, month };
+                  if (next.program) delete next.program;
+                  if (next.location) delete next.location;
+                  return next;
+                });
+                focusMembershipDetails();
+              }}
+            />
           </section>
 
           {/* Membership Composition by Program (Overall) */}
-          <section className="bg-white dark:bg-black border border-gray-200 dark:border-gray-700 shadow p-6">
-            <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between">
-              <div>
-                <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-100">Membership Composition by Program</h3>
-                <p className="text-sm text-gray-500 dark:text-gray-400">Each bar shows total active members per month, split by program.</p>
+          <section className="relative bg-white dark:bg-black border border-gray-200 dark:border-gray-700 shadow p-6">
+            {renderCollapseToggle('membershipProgram', isMembershipProgramCollapsed, 'membership composition section')}
+            <div className="pr-12 sm:pr-16">
+              <div className="flex flex-col gap-3">
+                <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
+                  <div className="flex flex-col gap-2">
+                    <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-100">Membership Composition by Program</h3>
+                    {!isMembershipProgramCollapsed && (
+                      <p className="text-sm text-gray-500 dark:text-gray-400">Each bar shows total active members per month, split by program.</p>
+                    )}
+                  </div>
+                  {!isMembershipProgramCollapsed && (
+                    <VerticalLegend
+                      keys={overallProgramKeys}
+                      palette={programLegendPalette}
+                      labelFormatter={(k) => (k === 'Other' ? 'Other' : k)}
+                      className="sm:ml-auto w-full sm:w-[32rem]"
+                      columns={2}
+                    />
+                  )}
+                </div>
               </div>
-              <VerticalLegend
-                keys={overallProgramKeys}
-                palette={programLegendPalette}
-                labelFormatter={(k) => (k === 'Other' ? 'Other' : k)}
-                className="sm:ml-auto w-full sm:w-[32rem]"
-                columns={2}
-              />
+              {!isMembershipProgramCollapsed && (
+                <MembershipProgramBreakdownChart
+                  data={filteredProgramBreakdownAll}
+                  topN={10}
+                  showLegend={false}
+                  showAllCategories={true}
+                  onSegmentClick={({ month, program }) => {
+                    setMembershipDetailMode('members');
+                    setMembershipFilters(prev => {
+                      const next: MembershipFilters = { ...prev, month, program };
+                      if (next.location) delete next.location;
+                      return next;
+                    });
+                    focusMembershipDetails();
+                  }}
+                />
+              )}
             </div>
-            <MembershipProgramBreakdownChart data={filteredProgramBreakdownAll} topN={10} showLegend={false} showAllCategories={true} />
           </section>
 
-          {/* Location-specific Membership Charts */}
+          {/* Location-specific Membership Charts (refactored to two-column grid to avoid large gaps when collapsing) */}
           <section className="grid md:grid-cols-2 gap-8">
-            <div className="bg-white dark:bg-black border border-gray-200 dark:border-gray-700 shadow p-6">
-              <LocationMembershipChart 
-                data={filteredLosGatosMembershipData} 
-                title="Los Gatos Membership" 
-                color="#059669" 
-              />
-            </div>
-            
-            <div className="bg-white dark:bg-black border border-gray-200 dark:border-gray-700 shadow pl-6 pt-4 pr-6">
-              <div className=" flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
-                <h4 className="text-lg font-semibold text-gray-800 dark:text-gray-100">Los Gatos Composition</h4>
-                <VerticalLegend
-                  keys={lgProgramKeys}
-                  palette={programLegendPalette}
-                  labelFormatter={(k) => (k === 'Other' ? 'Other' : k)}
-                  className="sm:ml-auto w-full sm:w-64"
-                />
+            {/* Los Gatos column */}
+            <div className="space-y-8">
+              <div className="relative bg-white dark:bg-black border border-gray-200 dark:border-gray-700 shadow p-6">
+                {renderCollapseToggle('membershipLosGatosChart', isMembershipLosGatosChartCollapsed, 'Los Gatos membership chart')}
+                <div className="pr-12 sm:pr-16">
+                  <h3 className={`text-lg font-semibold text-gray-800 dark:text-gray-100 ${
+                    isMembershipLosGatosChartCollapsed ? '' : 'mb-4'
+                  }`}>Los Gatos Membership</h3>
+                  {!isMembershipLosGatosChartCollapsed && (
+                    <LocationMembershipChart
+                      data={filteredLosGatosMembershipData}
+                      title="Los Gatos Membership"
+                      color="#059669"
+                      onBarClick={({ month }) => {
+                        setMembershipDetailMode('members');
+                        setMembershipFilters(prev => {
+                          const next: MembershipFilters = { ...prev, month, location: 'Los Gatos' };
+                          if (next.program) delete next.program;
+                          return next;
+                        });
+                        focusMembershipDetails();
+                      }}
+                      showTitle={false}
+                    />
+                  )}
+                </div>
               </div>
-              <MembershipProgramBreakdownChart data={filteredProgramBreakdownLG} topN={10} showLegend={false} showAllCategories={true} />
-            </div>
-            <div className="bg-white dark:bg-black border border-gray-200 dark:border-gray-700 shadow p-6">
-              <LocationMembershipChart 
-                data={filteredPleasantonMembershipData} 
-                title="Pleasanton Membership" 
-                color="#dc2626" 
-              />
-            </div>
-            <div className="bg-white dark:bg-black border border-gray-200 dark:border-gray-700 shadow pl-6 pt-4 pr-6">
-              <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
-                <h4 className="text-lg font-semibold text-gray-800 dark:text-gray-100">Pleasanton Composition</h4>
-                <VerticalLegend
-                  keys={plProgramKeys}
-                  palette={programLegendPalette}
-                  labelFormatter={(k) => (k === 'Other' ? 'Other' : k)}
-                  className="sm:ml-auto w-full sm:w-64"
-                />
+              <div className="relative bg-white dark:bg-black border border-gray-200 dark:border-gray-700 shadow p-6">
+                {renderCollapseToggle('membershipLosGatosComposition', isMembershipLosGatosCompositionCollapsed, 'Los Gatos membership composition section')}
+                <div className="pr-12 sm:pr-16">
+                  <div className={`flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 ${
+                    isMembershipLosGatosCompositionCollapsed ? '' : 'mb-3'
+                  }`}>
+                    <h4 className="text-lg font-semibold text-gray-800 dark:text-gray-100">Los Gatos Composition</h4>
+                    {!isMembershipLosGatosCompositionCollapsed && (
+                      <VerticalLegend
+                        keys={lgProgramKeys}
+                        palette={programLegendPalette}
+                        labelFormatter={(k) => (k === 'Other' ? 'Other' : k)}
+                        className="sm:ml-auto w-full sm:w-64"
+                      />
+                    )}
+                  </div>
+                  {!isMembershipLosGatosCompositionCollapsed && (
+                    <MembershipProgramBreakdownChart
+                      data={filteredProgramBreakdownLG}
+                      topN={10}
+                      showLegend={false}
+                      showAllCategories={true}
+                      onSegmentClick={({ month, program }) => {
+                        setMembershipDetailMode('members');
+                        setMembershipFilters(prev => ({ ...prev, month, program, location: 'Los Gatos' }));
+                        focusMembershipDetails();
+                      }}
+                    />
+                  )}
+                </div>
               </div>
-              <MembershipProgramBreakdownChart data={filteredProgramBreakdownPL} topN={10} showLegend={false} showAllCategories={true} />
+            </div>
+
+            {/* Pleasanton column */}
+            <div className="space-y-8">
+              <div className="relative bg-white dark:bg-black border border-gray-200 dark:border-gray-700 shadow p-6">
+                {renderCollapseToggle('membershipPleasantonChart', isMembershipPleasantonChartCollapsed, 'Pleasanton membership chart')}
+                <div className="pr-12 sm:pr-16">
+                  <h3 className={`text-lg font-semibold text-gray-800 dark:text-gray-100 ${
+                    isMembershipPleasantonChartCollapsed ? '' : 'mb-4'
+                  }`}>Pleasanton Membership</h3>
+                  {!isMembershipPleasantonChartCollapsed && (
+                    <LocationMembershipChart
+                      data={filteredPleasantonMembershipData}
+                      title="Pleasanton Membership"
+                      color="#dc2626"
+                      onBarClick={({ month }) => {
+                        setMembershipDetailMode('members');
+                        setMembershipFilters(prev => {
+                          const next: MembershipFilters = { ...prev, month, location: 'Pleasanton' };
+                          if (next.program) delete next.program;
+                          return next;
+                        });
+                        focusMembershipDetails();
+                      }}
+                      showTitle={false}
+                    />
+                  )}
+                </div>
+              </div>
+              <div className="relative bg-white dark:bg-black border border-gray-200 dark:border-gray-700 shadow p-6">
+                {renderCollapseToggle('membershipPleasantonComposition', isMembershipPleasantonCompositionCollapsed, 'Pleasanton membership composition section')}
+                <div className="pr-12 sm:pr-16">
+                  <div className={`flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 ${
+                    isMembershipPleasantonCompositionCollapsed ? '' : 'mb-3'
+                  }`}>
+                    <h4 className="text-lg font-semibold text-gray-800 dark:text-gray-100">Pleasanton Composition</h4>
+                    {!isMembershipPleasantonCompositionCollapsed && (
+                      <VerticalLegend
+                        keys={plProgramKeys}
+                        palette={programLegendPalette}
+                        labelFormatter={(k) => (k === 'Other' ? 'Other' : k)}
+                        className="sm:ml-auto w-full sm:w-64"
+                      />
+                    )}
+                  </div>
+                  {!isMembershipPleasantonCompositionCollapsed && (
+                    <MembershipProgramBreakdownChart
+                      data={filteredProgramBreakdownPL}
+                      topN={10}
+                      showLegend={false}
+                      showAllCategories={true}
+                      onSegmentClick={({ month, program }) => {
+                        setMembershipDetailMode('members');
+                        setMembershipFilters(prev => ({ ...prev, month, program, location: 'Pleasanton' }));
+                        focusMembershipDetails();
+                      }}
+                    />
+                  )}
+                </div>
+              </div>
             </div>
           </section>
 
-          {/* Membership Data Table */}
-          <section className="bg-white dark:bg-black border border-gray-200 dark:border-gray-700 shadow p-6">
-            <h2 className="text-2xl font-semibold mb-4 text-gray-800 dark:text-gray-100">Monthly Membership Breakdown</h2>
+          {/* Membership Data Table / Members List Toggle */}
+          <section
+            ref={membershipDetailsRef}
+            className="bg-white dark:bg-black border border-gray-200 dark:border-gray-700 shadow p-6"
+          >
+            <div className="mb-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+              <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-100">Monthly Membership Breakdown</h2>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => {
+                    setMembershipDetailMode(membershipDetailMode === 'monthly' ? 'members' : 'monthly');
+                    if (membershipDetailMode === 'members') setMembershipFilters({});
+                  }}
+                  className="px-3 py-2 text-sm font-medium bg-blue-600 text-white hover:bg-blue-700"
+                >
+                  {membershipDetailMode === 'monthly' ? 'Show Members' : 'Show Monthly Table'}
+                </button>
+                {hasMembershipFilters && membershipDetailMode === 'members' && (
+                  <button
+                    onClick={() => setMembershipFilters({})}
+                    className="px-3 py-2 text-sm font-medium bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600"
+                  >Clear Filters</button>
+                )}
+              </div>
+            </div>
+            {membershipDetailMode === 'monthly' ? (
             <div className="overflow-x-auto">
               <table className="w-full table-auto">
                 <thead>
@@ -600,11 +1090,15 @@ export default function Page() {
                 </tbody>
               </table>
             </div>
-            
-            {filteredAllMembershipData.length === 0 && (
-              <div className="text-center py-8 text-gray-500 dark:text-gray-400">
-                No membership data available for the selected date range.
-              </div>
+            ) : (
+              <MembershipMembersTable
+                members={rawMembers}
+                filters={membershipFilters}
+                onClearFilters={() => setMembershipFilters({})}
+              />
+            )}
+            {membershipDetailMode === 'monthly' && filteredAllMembershipData.length === 0 && (
+              <div className="text-center py-8 text-gray-500 dark:text-gray-400">No membership data available for the selected date range.</div>
             )}
           </section>
         </>

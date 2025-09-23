@@ -7,9 +7,10 @@ interface MembershipChartProps {
   data: MonthlyMembership[];
   title?: string;
   color?: string; // base color for gradient end
+  onBarClick?: (info: { month: string; membershipCount: number }) => void;
 }
 
-export function MembershipChart({ data, title = 'Membership Overview', color = '#1d4ed8' }: MembershipChartProps) {
+export function MembershipChart({ data, title = 'Membership Overview', color = '#1d4ed8', onBarClick }: MembershipChartProps) {
   const ref = useRef<SVGSVGElement | null>(null);
 
   useEffect(() => {
@@ -141,6 +142,9 @@ export function MembershipChart({ data, title = 'Membership Overview', color = '
       .on('mouseout', function() {
         d3.select(this).style('opacity', 1);
         tooltip.style('opacity', 0);
+      })
+      .on('click', function(event, d) {
+        if (onBarClick) onBarClick({ month: d.month, membershipCount: d.membershipCount });
       });
 
     bar.append('text')
@@ -158,7 +162,7 @@ export function MembershipChart({ data, title = 'Membership Overview', color = '
         textElement.style('opacity', 1);
       }
     });
-  }, [data, color]);
+  }, [data, color, onBarClick]);
 
   if (!data || !data.length) {
     return (
