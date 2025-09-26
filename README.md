@@ -1,5 +1,7 @@
 # BAFC Dashboard
 
+https://dashboard-bafc.vercel.app/
+
 Interactive revenue and membership dashboard built with Next.js App Router, Tailwind CSS, D3, and Google Sign‑In via NextAuth.
 
 ## Tech Stack
