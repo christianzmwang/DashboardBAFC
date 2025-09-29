@@ -3,18 +3,12 @@ import path from 'path';
 
 export interface PaymentRecord {
   invoiceNumber: string;
-  invoiceDueDate: string; // ISO date
-  invoiceStatus: string;
-  transactionAt: string;  // date time
-  transactionStatus: string;
-  transactionType: string;
+  transactionDate: string; // YYYY-MM-DD
   transactionAmount: number;
-  paymentAmount: number;
-  currency: string;
-  payer: string;
-  payerHomeLocation: string; // Added location field
-  paymentMethod: string;
+  payerHomeLocation: string;
+  transactionId: string;
   invoiceId: string;
+  currency: string;
 }
 
 export interface MonthlyRevenue {
@@ -62,7 +56,23 @@ export interface MonthlyProgramBreakdown {
   total: number; // total active members that month
 }
 
-const amountToNumber = (raw: string) => Number(raw.replace(/[$,\"]/g, ''));
+// Refunds
+export interface RefundRecord {
+  invoiceNumber: string;
+  transactionDate: string; // YYYY-MM-DD
+  transactionAmount: number; // positive number representing refund amount
+  payer: string;
+  payerHomeLocation: string;
+  transactionId: string;
+  invoiceId: string;
+  currency: string;
+}
+
+const amountToNumber = (raw: string | undefined) => {
+  const s = (raw ?? '').trim();
+  if (!s) return 0;
+  return Number(s.replace(/[$,\"]/g, ''));
+};
 
 // Convert a date string into a Pacific Time month key without relying on host TZ.
 function parseMonthPacific(raw: string | undefined | null): { month: string; year: number } | null {
@@ -112,31 +122,68 @@ function loadPaymentsFromFile(filename: string): PaymentRecord[] {
   const headers = headerLine.split(',');
   const idx = (h: string) => headers.indexOf(h);
   const out: PaymentRecord[] = [];
-  const invoiceStatusIdx = idx('Invoice Status');
-  const transactionStatusIdx = idx('Transaction Status');
-  const transactionTypeIdx = idx('Transaction Type');
-  const payerIdx = idx('Payer');
-  const paymentMethodIdx = idx('Payment Method');
-  const invoiceIdIdx = idx('Invoice ID');
 
   for (const l of lines) {
     if (!l.trim()) continue;
-    // naive CSV split that works for this dataset (no embedded commas except with quotes around numbers we handle above)
+    // Handle CSV with potential commas in quoted strings
+    const parts = l.split(/,(?=(?:[^"]*"[^"]*")*[^"]*$)/);
+    out.push({
+      invoiceNumber: parts[idx('Invoice Number')]?.replace(/"/g, '') || '',
+      transactionDate: parts[idx('Transaction Date')]?.replace(/"/g, '') || '',
+      transactionAmount: amountToNumber(parts[idx('Transaction Amount')]),
+      payerHomeLocation: parts[idx('Payer Home Location')]?.replace(/"/g, '') || '',
+      transactionId: parts[idx('Transaction ID')]?.replace(/"/g, '') || '',
+      invoiceId: parts[idx('Invoice ID')]?.replace(/"/g, '') || '',
+      currency: parts[idx('Currency Code')]?.replace(/"/g, '') || '',
+    });
+  }
+  return out;
+}
+
+function loadRefundsFromFile(filename: string): RefundRecord[] {
+  let text: string = '';
+  let lastError: Error | null = null;
+
+  const possiblePaths = [
+    path.join(process.cwd(), 'public', filename),
+    path.join(process.cwd(), filename),
+    path.join('/var/task/public', filename),
+    path.join('/app/public', filename),
+  ];
+
+  for (const filePath of possiblePaths) {
+    try {
+      if (fs.existsSync(filePath)) {
+        text = fs.readFileSync(filePath, 'utf8');
+        break;
+      }
+    } catch (error) {
+      lastError = error as Error;
+      continue;
+    }
+  }
+
+  if (!text) {
+    throw new Error(`Could not find ${filename} in any of the expected locations. Last error: ${lastError?.message}`);
+  }
+
+  const [headerLine, ...lines] = text.trim().split(/\r?\n/);
+  const headers = headerLine.split(',');
+  const idx = (h: string) => headers.indexOf(h);
+  const out: RefundRecord[] = [];
+
+  for (const l of lines) {
+    if (!l.trim()) continue;
     const parts = l.split(/,(?=(?:[^"]*"[^"]*")*[^"]*$)/);
     out.push({
       invoiceNumber: parts[idx('Invoice Number')],
-      invoiceDueDate: parts[idx('Invoice Due Date')],
-      invoiceStatus: invoiceStatusIdx !== -1 ? parts[invoiceStatusIdx] : '',
-      transactionAt: parts[idx('Transaction At')],
-      transactionStatus: transactionStatusIdx !== -1 ? parts[transactionStatusIdx] : '',
-      transactionType: transactionTypeIdx !== -1 ? parts[transactionTypeIdx] : '',
+      transactionDate: parts[idx('Transaction Date')],
       transactionAmount: amountToNumber(parts[idx('Transaction Amount')]),
-      paymentAmount: amountToNumber(parts[idx('Payment Amount')]),
-      currency: parts[idx('Currency Code')],
-      payer: payerIdx !== -1 ? parts[payerIdx] : '',
+      payer: parts[idx('Payer')],
       payerHomeLocation: parts[idx('Payer Home Location')],
-      paymentMethod: paymentMethodIdx !== -1 ? parts[paymentMethodIdx] : '',
-      invoiceId: invoiceIdIdx !== -1 ? parts[invoiceIdIdx] : '',
+      transactionId: parts[idx('Transaction ID')],
+      invoiceId: parts[idx('Invoice ID')],
+      currency: parts[idx('Currency Code')],
     });
   }
   return out;
@@ -209,12 +256,16 @@ function loadMembersFromFile(filename: string): MemberRecord[] {
   return out;
 }
 
-export function loadPayments(): PaymentRecord[] {
-  return loadPaymentsFromFile('payments.csv');
+export function loadPayments(filename: string = 'payments.csv'): PaymentRecord[] {
+  return loadPaymentsFromFile(filename);
 }
 
 export function loadMembers(filename: string = 'memberships_all.csv'): MemberRecord[] {
   return loadMembersFromFile(filename);
+}
+
+export function loadRefunds(): RefundRecord[] {
+  return loadRefundsFromFile('refunds.csv');
 }
 
 
@@ -284,21 +335,89 @@ export function aggregateMonthlyMemberships(members: MemberRecord[]): MonthlyMem
 export function aggregateMonthly(payments: PaymentRecord[]): MonthlyRevenue[] {
   const map = new Map<string, { revenue: number; count: number }>();
   for (const p of payments) {
-    if (!p.transactionAt) continue;
-    const dateStr = p.transactionAt.split(' ')[0];
-    const month = dateStr.slice(0,7); // YYYY-MM
+    if (!p.transactionDate) continue;
+    const month = p.transactionDate.slice(0,7); // YYYY-MM
     
     // Filter out 2021 data
     if (month.startsWith('2021')) continue;
     
     const current = map.get(month) || { revenue: 0, count: 0 };
-    current.revenue += p.paymentAmount;
+    current.revenue += p.transactionAmount;
     current.count += 1;
     map.set(month, current);
   }
   return Array.from(map.entries())
     .map(([month, { revenue, count }]) => ({ month, revenue, count }))
     .sort((a,b) => a.month.localeCompare(b.month));
+}
+
+// Refund aggregations (mirroring revenue helpers)
+export function aggregateMonthlyRefunds(refunds: RefundRecord[]): MonthlyRevenue[] {
+  const map = new Map<string, { revenue: number; count: number }>();
+  for (const r of refunds) {
+    if (!r.transactionDate) continue;
+    const month = r.transactionDate.slice(0, 7);
+    if (month.startsWith('2021')) continue;
+    const current = map.get(month) || { revenue: 0, count: 0 };
+    current.revenue += r.transactionAmount;
+    current.count += 1;
+    map.set(month, current);
+  }
+  return Array.from(map.entries())
+    .map(([month, { revenue, count }]) => ({ month, revenue, count }))
+    .sort((a, b) => a.month.localeCompare(b.month));
+}
+
+export function loadRefundLocationData(): {
+  allData: MonthlyRevenue[];
+  losGatosData: MonthlyRevenue[];
+  pleasantonData: MonthlyRevenue[];
+} {
+  const allRefunds = loadRefundsFromFile('refunds.csv');
+  const losGatosRefunds = allRefunds.filter(r => r.payerHomeLocation && r.payerHomeLocation.includes('Los Gatos'));
+  const pleasantonRefunds = allRefunds.filter(r => r.payerHomeLocation && r.payerHomeLocation.includes('Pleasanton'));
+  return {
+    allData: aggregateMonthlyRefunds(allRefunds),
+    losGatosData: aggregateMonthlyRefunds(losGatosRefunds),
+    pleasantonData: aggregateMonthlyRefunds(pleasantonRefunds),
+  };
+}
+
+export function aggregateMonthlyRefundAmountBreakdown(refunds: RefundRecord[]): MonthlyAmountBreakdown[] {
+  const map = new Map<string, { amounts: Record<string, number>; total: number }>();
+  for (const r of refunds) {
+    if (!r.transactionDate) continue;
+    const month = r.transactionDate.slice(0, 7);
+    if (month.startsWith('2021')) continue;
+    const amtKey = String(Math.round(r.transactionAmount));
+    const group = map.get(month) || { amounts: {}, total: 0 };
+    group.amounts[amtKey] = (group.amounts[amtKey] || 0) + r.transactionAmount;
+    group.total += r.transactionAmount;
+    map.set(month, group);
+  }
+  return Array.from(map.entries())
+    .map(([month, { amounts, total }]) => ({ month, amounts, total }))
+    .sort((a, b) => a.month.localeCompare(b.month));
+}
+
+export function loadMonthlyRefundAmountBreakdown(): MonthlyAmountBreakdown[] {
+  const refunds = loadRefunds();
+  return aggregateMonthlyRefundAmountBreakdown(refunds);
+}
+
+export function loadRefundLocationAmountBreakdown(): {
+  allData: MonthlyAmountBreakdown[];
+  losGatosData: MonthlyAmountBreakdown[];
+  pleasantonData: MonthlyAmountBreakdown[];
+} {
+  const allRefunds = loadRefundsFromFile('refunds.csv');
+  const losGatosRefunds = allRefunds.filter(r => r.payerHomeLocation && r.payerHomeLocation.includes('Los Gatos'));
+  const pleasantonRefunds = allRefunds.filter(r => r.payerHomeLocation && r.payerHomeLocation.includes('Pleasanton'));
+  return {
+    allData: aggregateMonthlyRefundAmountBreakdown(allRefunds),
+    losGatosData: aggregateMonthlyRefundAmountBreakdown(losGatosRefunds),
+    pleasantonData: aggregateMonthlyRefundAmountBreakdown(pleasantonRefunds),
+  };
 }
 
 export function filterDataByDateRange(data: MonthlyRevenue[], startMonth: string, endMonth: string): MonthlyRevenue[] {
@@ -309,16 +428,16 @@ export function getAvailableMonths(data: MonthlyRevenue[]): string[] {
   return data.map(item => item.month).sort();
 }
 
-export function loadMonthlyRevenue(): MonthlyRevenue[] {
-  return aggregateMonthly(loadPayments());
+export function loadMonthlyRevenue(filename: string = 'payments.csv'): MonthlyRevenue[] {
+  return aggregateMonthly(loadPayments(filename));
 }
 
-export function loadLocationData(): {
+export function loadLocationData(filename: string = 'payments.csv'): {
   allData: MonthlyRevenue[];
   losGatosData: MonthlyRevenue[];
   pleasantonData: MonthlyRevenue[];
 } {
-  const allPayments = loadPaymentsFromFile('payments.csv');
+  const allPayments = loadPaymentsFromFile(filename);
   
   // Filter payments by location
   const losGatosPayments = allPayments.filter(p => 
@@ -363,16 +482,15 @@ export function loadMembershipData(filename: string = 'memberships_all.csv'): {
 export function aggregateMonthlyAmountBreakdown(payments: PaymentRecord[]): MonthlyAmountBreakdown[] {
   const map = new Map<string, { amounts: Record<string, number>; total: number }>();
   for (const p of payments) {
-    if (!p.transactionAt) continue;
-    const dateStr = p.transactionAt.split(' ')[0];
-    const month = dateStr.slice(0, 7); // YYYY-MM
+    if (!p.transactionDate) continue;
+    const month = p.transactionDate.slice(0, 7); // YYYY-MM
     if (month.startsWith('2021')) continue; // keep consistency with other aggregations
 
     // Use rounded whole dollars to form amount buckets, like '55'
-    const amtKey = String(Math.round(p.paymentAmount));
+    const amtKey = String(Math.round(p.transactionAmount));
     const group = map.get(month) || { amounts: {}, total: 0 };
-    group.amounts[amtKey] = (group.amounts[amtKey] || 0) + p.paymentAmount;
-    group.total += p.paymentAmount;
+    group.amounts[amtKey] = (group.amounts[amtKey] || 0) + p.transactionAmount;
+    group.total += p.transactionAmount;
     map.set(month, group);
   }
   return Array.from(map.entries())
@@ -380,8 +498,8 @@ export function aggregateMonthlyAmountBreakdown(payments: PaymentRecord[]): Mont
     .sort((a, b) => a.month.localeCompare(b.month));
 }
 
-export function loadMonthlyAmountBreakdown(): MonthlyAmountBreakdown[] {
-  const payments = loadPayments();
+export function loadMonthlyAmountBreakdown(filename: string = 'payments.csv'): MonthlyAmountBreakdown[] {
+  const payments = loadPayments(filename);
   return aggregateMonthlyAmountBreakdown(payments);
 }
 
@@ -451,12 +569,12 @@ export function loadMonthlyProgramBreakdown(filename: string = 'memberships_all.
   };
 }
 
-export function loadLocationAmountBreakdown(): {
+export function loadLocationAmountBreakdown(filename: string = 'payments.csv'): {
   allData: MonthlyAmountBreakdown[];
   losGatosData: MonthlyAmountBreakdown[];
   pleasantonData: MonthlyAmountBreakdown[];
 } {
-  const allPayments = loadPaymentsFromFile('payments.csv');
+  const allPayments = loadPaymentsFromFile(filename);
   const losGatosPayments = allPayments.filter(p => p.payerHomeLocation && p.payerHomeLocation.includes('Los Gatos'));
   const pleasantonPayments = allPayments.filter(p => p.payerHomeLocation && p.payerHomeLocation.includes('Pleasanton'));
   return {

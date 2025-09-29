@@ -1,9 +1,12 @@
 import { NextResponse } from 'next/server';
 import { loadLocationAmountBreakdown } from '../../../../lib/parseCsv';
 
-export async function GET() {
+export async function GET(request: Request) {
   try {
-    const data = loadLocationAmountBreakdown();
+    const { searchParams } = new URL(request.url);
+    const net = searchParams.get('net') === '1';
+    const filename = net ? 'payments_after_refunds.csv' : 'payments.csv';
+    const data = loadLocationAmountBreakdown(filename);
     return NextResponse.json(data);
   } catch (error) {
     console.error('Error loading location amount breakdown:', error);

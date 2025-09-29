@@ -227,7 +227,7 @@ export const MembershipProgramBreakdownChart: React.FC<Props> = ({ data, topN = 
         d3.select(this).style('opacity', 0.85);
         tooltip
           .style('opacity', 1)
-          .html(`<div><strong>${formatMonthYear(month)}</strong></div><div>${label}: ${Math.round(value).toLocaleString()}</div>`)
+          .html(`<div><strong>${formatMonthYear(month)}</strong></div><div>${label}: ${Math.round(value).toLocaleString()}</div>${onSegmentClick ? '<div style=\"opacity:0.85\">Click to view members</div>' : ''}`)
           .style('left', (event.pageX + 10) + 'px')
           .style('top', (event.pageY - 10) + 'px');
       })

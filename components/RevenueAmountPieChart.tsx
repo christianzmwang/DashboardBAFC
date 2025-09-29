@@ -108,7 +108,7 @@ export const RevenueAmountPieChart: React.FC<RevenueAmountPieChartProps> = ({
         d3.select(this).style('opacity', 0.85);
         tooltip
           .style('opacity', 1)
-          .html(`<div><strong>${d.data.key === 'Other' ? 'Other' : '$' + d.data.key}</strong></div><div>$${Math.round(d.data.value).toLocaleString()} (${pct.toFixed(1)}%)</div>`)
+          .html(`<div><strong>${d.data.key === 'Other' ? 'Other' : '$' + d.data.key}</strong></div><div>$${Math.round(d.data.value).toLocaleString()} (${pct.toFixed(1)}%)</div>${onSliceClick ? '<div style=\"opacity:0.85\">Click to view transactions</div>' : ''}`)
           .style('left', (event.pageX + 10) + 'px')
           .style('top', (event.pageY - 10) + 'px');
       })

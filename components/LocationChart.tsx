@@ -9,9 +9,11 @@ interface Props {
   color?: string;
   onBarClick?: (info: { month: string; revenue: number; count: number }) => void;
   showTitle?: boolean;
+  tooltipValueLabel?: string;
+  valueFormatter?: (value: number) => string;
 }
 
-export const LocationChart: React.FC<Props> = ({ data, title, color = '#1d4ed8', onBarClick, showTitle = true }) => {
+export const LocationChart: React.FC<Props> = ({ data, title, color = '#1d4ed8', onBarClick, showTitle = true, tooltipValueLabel = 'Revenue', valueFormatter }) => {
   const ref = useRef<SVGSVGElement | null>(null);
   const chartContainerRef = useRef<HTMLDivElement | null>(null);
   
@@ -31,7 +33,7 @@ export const LocationChart: React.FC<Props> = ({ data, title, color = '#1d4ed8',
     const innerHeight = height - margin.top - margin.bottom;
 
     // Create tooltip
-    const tooltip = d3.select(chartContainerRef.current)
+    const tooltip = d3.select('body')
       .selectAll('.location-chart-tooltip')
       .data([1])
       .join('div')
@@ -114,22 +116,23 @@ export const LocationChart: React.FC<Props> = ({ data, title, color = '#1d4ed8',
       .style('cursor', 'pointer')
       .on('mouseover', function(event, d: MonthlyRevenue) {
         d3.select(this).style('opacity', 0.8);
-        const rect = chartContainerRef.current!.getBoundingClientRect();
+        const valueText = valueFormatter ? valueFormatter(d.revenue) : `$${Math.round(d.revenue).toLocaleString()}`;
         tooltip
           .style('opacity', 1)
           .html(`
-            <div><strong>${formatMonthLong(d.month)}</strong></div>
-            <div>Revenue: $${Math.round(d.revenue).toLocaleString()}</div>
+            <div><strong>${title}</strong></div>
+            <div>${formatMonthLong(d.month)}</div>
+            <div>${tooltipValueLabel}: ${valueText}</div>
             <div>Transactions: ${d.count}</div>
+            ${onBarClick ? '<div style="opacity:0.85">Click to view transactions</div>' : ''}
           `)
-          .style('left', (event.clientX - rect.left + 10) + 'px')
-          .style('top', (event.clientY - rect.top - 10) + 'px');
+          .style('left', (event.pageX + 10) + 'px')
+          .style('top', (event.pageY - 10) + 'px');
       })
       .on('mousemove', function(event) {
-        const rect = chartContainerRef.current!.getBoundingClientRect();
         tooltip
-          .style('left', (event.clientX - rect.left + 10) + 'px')
-          .style('top', (event.clientY - rect.top - 10) + 'px');
+          .style('left', (event.pageX + 10) + 'px')
+          .style('top', (event.pageY - 10) + 'px');
       })
       .on('mouseout', function() {
         d3.select(this).style('opacity', 1);
@@ -171,7 +174,7 @@ export const LocationChart: React.FC<Props> = ({ data, title, color = '#1d4ed8',
         .text('No revenue for selected range');
     }
 
-  }, [data, color, onBarClick]);
+  }, [data, color, onBarClick, tooltipValueLabel, valueFormatter]);
 
   if (!data.length) {
     return (

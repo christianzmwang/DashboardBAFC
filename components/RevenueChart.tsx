@@ -113,6 +113,7 @@ export const RevenueChart: React.FC<Props> = ({ data, onBarClick }) => {
             <div><strong>${formatMonthLong(d.month)}</strong></div>
             <div>Revenue: $${Math.round(d.revenue).toLocaleString()}</div>
             <div>Transactions: ${d.count}</div>
+            ${onBarClick ? '<div style="opacity:0.85">Click to view transactions</div>' : ''}
           `)
           .style('left', (event.pageX + 10) + 'px')
           .style('top', (event.pageY - 10) + 'px');

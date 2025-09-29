@@ -230,7 +230,7 @@ export const RevenueAmountBreakdownChart: React.FC<Props> = ({ data, topN = 6, s
         d3.select(this).style('opacity', 0.85);
         tooltip
           .style('opacity', 1)
-          .html(`<div><strong>${month}</strong></div><div>${amountLabel}: $${Math.round(value).toLocaleString()}</div>`)
+          .html(`<div><strong>${month}</strong></div><div>${amountLabel}: $${Math.round(value).toLocaleString()}</div>${onSegmentClick ? '<div style=\"opacity:0.85\">Click to view transactions</div>' : ''}`)
           .style('left', (event.pageX + 10) + 'px')
           .style('top', (event.pageY - 10) + 'px');
       })

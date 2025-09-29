@@ -1,31 +1,28 @@
 import { NextResponse } from 'next/server';
 import { loadPayments } from '../../../../lib/parseCsv';
 
-export async function GET() {
+export async function GET(request: Request) {
   try {
-    const payments = loadPayments();
+    const { searchParams } = new URL(request.url);
+    const net = searchParams.get('net') === '1';
+    const filename = net ? 'payments_after_refunds.csv' : 'payments.csv';
+    const payments = loadPayments(filename);
 
     const transactions = payments
-      .filter(p => p.transactionAt)
+      .filter(p => p.transactionDate)
       .map(p => {
-        const [datePart = '', timePart = ''] = p.transactionAt.split(' ');
+        const datePart = p.transactionDate;
         const month = datePart.slice(0, 7);
         return {
           invoiceNumber: p.invoiceNumber,
           invoiceId: p.invoiceId,
-          invoiceStatus: p.invoiceStatus,
-          transactionAt: p.transactionAt,
+          transactionId: p.transactionId,
           transactionDate: datePart,
-          transactionTime: timePart,
           month,
-          transactionStatus: p.transactionStatus,
-          transactionType: p.transactionType,
-          paymentMethod: p.paymentMethod,
-          payer: p.payer,
           payerHomeLocation: p.payerHomeLocation,
-          paymentAmount: Number.isFinite(p.paymentAmount) ? p.paymentAmount : 0,
           transactionAmount: Number.isFinite(p.transactionAmount) ? p.transactionAmount : 0,
-          amountBucket: String(Math.round(Number.isFinite(p.paymentAmount) ? p.paymentAmount : 0)),
+          amountBucket: String(Math.round(Number.isFinite(p.transactionAmount) ? p.transactionAmount : 0)),
+          currency: p.currency,
         };
       })
       .filter(t => t.month && t.month >= '2022-01');

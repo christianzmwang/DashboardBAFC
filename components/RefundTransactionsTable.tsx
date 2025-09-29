@@ -1,15 +1,14 @@
 "use client";
 import React from 'react';
-import { PaymentRow, RevenueFilters } from '../lib/clientUtils';
+import { RefundRow, RevenueFilters } from '../lib/clientUtils';
 
 interface Props {
-  transactions: PaymentRow[];
+  refunds: RefundRow[];
   filters: RevenueFilters;
   onClearFilters: () => void;
-  visibleCount: number;
 }
 
-const formatCurrency = (value: number) => `$${Number(value || 0).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+const formatCurrency = (value: number) => `-$${Number(value || 0).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 
 const formatDate = (isoDate: string) => {
   if (!isoDate) return '—';
@@ -19,22 +18,17 @@ const formatDate = (isoDate: string) => {
   return new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' }).format(dt);
 };
 
-export const RevenueTransactionsTable: React.FC<Props> = ({ transactions, filters, onClearFilters, visibleCount }) => {
+export const RefundTransactionsTable: React.FC<Props> = ({ refunds, filters, onClearFilters }) => {
   const hasFilters = Boolean(filters.month || filters.location || filters.amountKey);
+
   const sorted = React.useMemo(() => {
-    return [...transactions].sort((a, b) => (b.transactionDate || '').localeCompare(a.transactionDate || ''));
-  }, [transactions]);
+    return [...refunds].sort((a, b) => (a.transactionDate > b.transactionDate ? -1 : 1));
+  }, [refunds]);
 
-  const clampedVisibleCount = React.useMemo(() => Math.min(visibleCount, sorted.length), [visibleCount, sorted.length]);
-
-  const visibleTransactions = React.useMemo(() => {
-    return sorted.slice(0, clampedVisibleCount);
-  }, [sorted, clampedVisibleCount]);
-
-  const totalAmount = React.useMemo(() => sorted.reduce((sum, t) => sum + (t.transactionAmount || 0), 0), [sorted]);
+  const totalAmount = React.useMemo(() => sorted.reduce((sum, r) => sum + (r.transactionAmount || 0), 0), [sorted]);
 
   const activeFilters = React.useMemo(() => {
-    const items: Array<{ label: string; value: string }> = [];
+    const items: Array<{ label: string; value: string } > = [];
     if (filters.month) items.push({ label: 'Month', value: filters.month });
     if (filters.location) items.push({ label: 'Location', value: filters.location });
     if (filters.amountKey) items.push({ label: 'Amount', value: filters.amountKey === 'Other' ? 'Other amounts' : `$${filters.amountKey}` });
@@ -64,7 +58,7 @@ export const RevenueTransactionsTable: React.FC<Props> = ({ transactions, filter
         </div>
         <div className="flex items-center gap-3 text-sm text-gray-600 dark:text-gray-300">
           <span>
-            Showing {visibleTransactions.length.toLocaleString()} of {sorted.length.toLocaleString()} transactions
+            Showing {sorted.length.toLocaleString()} transactions
           </span>
           <span>•</span>
           <span>Total {formatCurrency(totalAmount)}</span>
@@ -76,19 +70,21 @@ export const RevenueTransactionsTable: React.FC<Props> = ({ transactions, filter
           <thead className="sticky top-0 bg-gray-100 dark:bg-gray-800 z-10">
             <tr>
               <th className="px-3 py-2 text-left">Date</th>
+              <th className="px-3 py-2 text-left">Payer</th>
               <th className="px-3 py-2 text-left">Location</th>
               <th className="px-3 py-2 text-right">Amount</th>
             </tr>
           </thead>
           <tbody>
-            {visibleTransactions.map((t, index) => (
+            {sorted.map((r, index) => (
               <tr
-                key={`${t.invoiceNumber}-${t.transactionDate}-${index}`}
+                key={`${r.transactionId}-${r.transactionDate}-${index}`}
                 className={index % 2 === 0 ? 'bg-white dark:bg-gray-900' : 'bg-gray-50 dark:bg-gray-800'}
               >
-                <td className="px-3 py-2 whitespace-nowrap">{formatDate(t.transactionDate)}</td>
-                <td className="px-3 py-2 whitespace-nowrap">{t.payerHomeLocation || '—'}</td>
-                <td className="px-3 py-2 text-right font-medium">{formatCurrency(t.transactionAmount)}</td>
+                <td className="px-3 py-2 whitespace-nowrap">{formatDate(r.transactionDate)}</td>
+                <td className="px-3 py-2 whitespace-nowrap">{r.payer || '—'}</td>
+                <td className="px-3 py-2 whitespace-nowrap">{r.payerHomeLocation || '—'}</td>
+                <td className="px-3 py-2 text-right font-medium">{formatCurrency(r.transactionAmount)}</td>
               </tr>
             ))}
             {sorted.length === 0 && (
@@ -102,3 +98,7 @@ export const RevenueTransactionsTable: React.FC<Props> = ({ transactions, filter
     </div>
   );
 };
+
+export default RefundTransactionsTable;
+
+

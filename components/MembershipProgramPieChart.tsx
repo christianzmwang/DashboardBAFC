@@ -106,9 +106,7 @@ export const MembershipProgramPieChart: React.FC<MembershipProgramPieChartProps>
         tooltip
           .style("opacity", 1)
           .html(
-            `<div><strong>${d.data.key}</strong></div><div>${Math.round(d.data.value).toLocaleString()} (${pct.toFixed(
-              1
-            )}%)</div>`
+            `<div><strong>${d.data.key}</strong></div><div>${Math.round(d.data.value).toLocaleString()} (${pct.toFixed(1)}%)</div>${onSliceClick ? '<div style=\"opacity:0.85\">Click to view members</div>' : ''}`
           )
           .style("left", event.pageX + 10 + "px")
           .style("top", event.pageY - 10 + "px");

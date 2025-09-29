@@ -129,6 +129,7 @@ export function LocationMembershipChart({ data, title, color = '#1d4ed8', onBarC
             <div>Active: ${d.membershipCount}</div>
             <div>New: ${d.newMemberships}</div>
             <div>Canceled: ${d.canceledMemberships}</div>
+            ${onBarClick ? '<div style=\"opacity:0.85\">Click to view members</div>' : ''}
           `)
           .style('left', (event.pageX + 10) + 'px')
           .style('top', (event.pageY - 10) + 'px');

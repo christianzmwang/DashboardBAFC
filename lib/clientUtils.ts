@@ -47,19 +47,25 @@ export interface MembershipFilters {
 export interface PaymentRow {
   invoiceNumber: string;
   invoiceId: string;
-  invoiceStatus: string;
-  transactionAt: string;
-  transactionDate: string;
-  transactionTime: string;
-  month: string;
-  transactionStatus: string;
-  transactionType: string;
-  paymentMethod: string;
-  payer: string;
+  transactionId: string;
+  transactionDate: string; // YYYY-MM-DD
+  month: string; // YYYY-MM
   payerHomeLocation: string;
-  paymentAmount: number;
   transactionAmount: number;
   amountBucket: string;
+  currency: string;
+}
+
+export interface RefundRow {
+  invoiceNumber: string;
+  invoiceId: string;
+  transactionId: string;
+  transactionDate: string; // YYYY-MM-DD
+  month: string; // YYYY-MM
+  payer: string;
+  payerHomeLocation: string;
+  transactionAmount: number; // positive number representing refund amount
+  currency: string;
 }
 
 export interface RevenueFilters {
@@ -308,6 +314,15 @@ export function filterTransactionsByDateRange(
   return transactions.filter(t => t.month >= startMonth && t.month <= endMonth);
 }
 
+export function filterRefundsByDateRange(
+  refunds: RefundRow[],
+  startMonth: string,
+  endMonth: string
+): RefundRow[] {
+  if (!startMonth || !endMonth) return refunds;
+  return refunds.filter(r => r.month >= startMonth && r.month <= endMonth);
+}
+
 export function filterTransactionsByFilters(
   transactions: PaymentRow[],
   filters: RevenueFilters,
@@ -323,6 +338,29 @@ export function filterTransactionsByFilters(
       if (amountKey === 'Other') {
         if (topKeysSet.has(t.amountBucket)) return false;
       } else if (t.amountBucket !== amountKey) {
+        return false;
+      }
+    }
+    return true;
+  });
+}
+
+export function filterRefundsByFilters(
+  refunds: RefundRow[],
+  filters: RevenueFilters,
+  topAmountKeys: string[]
+): RefundRow[] {
+  const { month, location, amountKey } = filters;
+  const topKeysSet = new Set(topAmountKeys);
+
+  return refunds.filter(r => {
+    if (month && r.month !== month) return false;
+    if (location && !(r.payerHomeLocation || '').includes(location)) return false;
+    if (amountKey) {
+      const bucket = String(Math.round(r.transactionAmount));
+      if (amountKey === 'Other') {
+        if (topKeysSet.has(bucket)) return false;
+      } else if (bucket !== amountKey) {
         return false;
       }
     }

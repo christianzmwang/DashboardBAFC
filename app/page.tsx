@@ -17,6 +17,9 @@ import {
   RevenueFilters,
   filterTransactionsByDateRange,
   filterTransactionsByFilters,
+  RefundRow,
+  filterRefundsByDateRange,
+  filterRefundsByFilters,
 } from '../lib/clientUtils';
 import { RevenueChart } from '../components/RevenueChart';
 import { LocationChart } from '../components/LocationChart';
@@ -30,6 +33,7 @@ import { MembershipProgramBreakdownChart, programLegendPalette } from '../compon
 import { MembershipProgramPieChart } from '../components/MembershipProgramPieChart';
 import { VerticalLegend } from '../components/VerticalLegend';
 import { RevenueTransactionsTable } from '../components/RevenueTransactionsTable';
+import { RefundTransactionsTable } from '../components/RefundTransactionsTable';
 
 const COLLAPSIBLE_DEFAULTS = {
   revenueAmount: false,
@@ -44,6 +48,11 @@ const COLLAPSIBLE_DEFAULTS = {
   membershipPleasantonChart: false,
   membershipPleasantonComposition: false,
   membershipLocationProgramPies: false,
+  // Refunds collapsibles
+  refundLosGatosChart: false,
+  refundLosGatosComposition: false,
+  refundPleasantonChart: false,
+  refundPleasantonComposition: false,
 } as const;
 
 type CollapsibleKey = keyof typeof COLLAPSIBLE_DEFAULTS;
@@ -96,10 +105,27 @@ export default function Page() {
   const [plAmountBreakdown, setPlAmountBreakdown] = useState<MonthlyAmountBreakdown[]>([]);
   const [filteredLgAmountBreakdown, setFilteredLgAmountBreakdown] = useState<MonthlyAmountBreakdown[]>([]);
   const [filteredPlAmountBreakdown, setFilteredPlAmountBreakdown] = useState<MonthlyAmountBreakdown[]>([]);
+  // Refund amount breakdowns (reuse same chart components/palette)
+  const [refundAmountBreakdown, setRefundAmountBreakdown] = useState<MonthlyAmountBreakdown[]>([]);
+  const [filteredRefundAmountBreakdown, setFilteredRefundAmountBreakdown] = useState<MonthlyAmountBreakdown[]>([]);
+  const [refundLgAmountBreakdown, setRefundLgAmountBreakdown] = useState<MonthlyAmountBreakdown[]>([]);
+  const [refundPlAmountBreakdown, setRefundPlAmountBreakdown] = useState<MonthlyAmountBreakdown[]>([]);
+  const [filteredRefundLgAmountBreakdown, setFilteredRefundLgAmountBreakdown] = useState<MonthlyAmountBreakdown[]>([]);
+  const [filteredRefundPlAmountBreakdown, setFilteredRefundPlAmountBreakdown] = useState<MonthlyAmountBreakdown[]>([]);
+
+  // Refund monthly aggregates for overall and by location
+  const [refundAllData, setRefundAllData] = useState<MonthlyRevenue[]>([]);
+  const [refundLGData, setRefundLGData] = useState<MonthlyRevenue[]>([]);
+  const [refundPLData, setRefundPLData] = useState<MonthlyRevenue[]>([]);
+  const [filteredRefundAllData, setFilteredRefundAllData] = useState<MonthlyRevenue[]>([]);
+  const [filteredRefundLGData, setFilteredRefundLGData] = useState<MonthlyRevenue[]>([]);
+  const [filteredRefundPLData, setFilteredRefundPLData] = useState<MonthlyRevenue[]>([]);
   // Month selection for new pie charts (Los Gatos & Pleasanton)
   // Month selection for membership pies (Los Gatos & Pleasanton)
   const [programPieMonth, setProgramPieMonth] = useState<string>('');
   const [amountPieMonth, setAmountPieMonth] = useState<string>('');
+  // Whether to show revenue after subtracting refunds
+  const [afterRefunds, setAfterRefunds] = useState<boolean>(false);
   // Membership program breakdown state
   const [programBreakdownAll, setProgramBreakdownAll] = useState<MonthlyProgramBreakdown[]>([]);
   const [programBreakdownLG, setProgramBreakdownLG] = useState<MonthlyProgramBreakdown[]>([]);
@@ -108,8 +134,8 @@ export default function Page() {
   const [filteredProgramBreakdownLG, setFilteredProgramBreakdownLG] = useState<MonthlyProgramBreakdown[]>([]);
   const [filteredProgramBreakdownPL, setFilteredProgramBreakdownPL] = useState<MonthlyProgramBreakdown[]>([]);
 
-  // Toggle between revenue and membership view
-  const [viewMode, setViewMode] = useState<'revenue' | 'membership'>('revenue');
+  // Toggle between revenue, refunds and membership view
+  const [viewMode, setViewMode] = useState<'revenue' | 'refunds' | 'membership'>('revenue');
   // Toggle within membership view between monthly table and raw members list
   // Secondary toggle inside membership view: show aggregated monthly table or raw members list
   const [membershipDetailMode, setMembershipDetailMode] = useState<'monthly' | 'members'>('monthly');
@@ -125,6 +151,12 @@ export default function Page() {
   const [revenueFilters, setRevenueFilters] = useState<RevenueFilters>({});
   const hasRevenueFilters = Boolean(revenueFilters.month || revenueFilters.location || revenueFilters.amountKey);
   const [revenueDetailMode, setRevenueDetailMode] = useState<'summary' | 'transactions'>('summary');
+
+  // Refunds
+  const [refunds, setRefunds] = useState<RefundRow[]>([]);
+  const [refundFilters, setRefundFilters] = useState<RevenueFilters>({});
+  const hasRefundFilters = Boolean(refundFilters.month || refundFilters.location || refundFilters.amountKey);
+  const [refundDetailMode, setRefundDetailMode] = useState<'summary' | 'transactions'>('summary');
 
   // Toggle between membership data files
   const [membershipFile, setMembershipFile] = useState<'memberships_all.csv' | 'memberships_first.csv'>('memberships_all.csv');
@@ -154,15 +186,20 @@ export default function Page() {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        const netParam = afterRefunds ? '?net=1' : '';
         // Fetch both revenue and membership data
-        const [revenueResponse, membershipResponse, amountBreakdownResp, amountBreakdownByLocResp, programBreakdownResp, rawMembersResp, transactionsResp] = await Promise.all([
-          fetch('/api/revenue-data'),
+        const [revenueResponse, membershipResponse, amountBreakdownResp, amountBreakdownByLocResp, programBreakdownResp, rawMembersResp, transactionsResp, refundAggResp, refundBreakdownResp, refundBreakdownByLocResp, refundTransResp] = await Promise.all([
+          fetch(`/api/revenue-data${netParam}`),
           fetch(`/api/membership-data?file=${membershipFile}`),
-          fetch('/api/revenue-data/amount-breakdown'),
-          fetch('/api/revenue-data/amount-breakdown-by-location'),
+          fetch(`/api/revenue-data/amount-breakdown${netParam}`),
+          fetch(`/api/revenue-data/amount-breakdown-by-location${netParam}`),
           fetch(`/api/membership-program-breakdown?file=${membershipFile}`),
           fetch(`/api/membership-data/raw?file=${membershipFile}`),
-          fetch('/api/revenue-data/transactions')
+          fetch(`/api/revenue-data/transactions${netParam}`),
+          fetch('/api/refund-data'),
+          fetch('/api/refund-data/amount-breakdown'),
+          fetch('/api/refund-data/amount-breakdown-by-location'),
+          fetch('/api/refund-data/transactions')
         ]);
 
         if (!revenueResponse.ok) {
@@ -186,6 +223,18 @@ export default function Page() {
         if (!transactionsResp.ok) {
           throw new Error(`Transactions API error! status: ${transactionsResp.status}`);
         }
+        if (!refundAggResp.ok) {
+          throw new Error(`Refund aggregates API error! status: ${refundAggResp.status}`);
+        }
+        if (!refundBreakdownResp.ok) {
+          throw new Error(`Refund amount breakdown API error! status: ${refundBreakdownResp.status}`);
+        }
+        if (!refundBreakdownByLocResp.ok) {
+          throw new Error(`Refund amount breakdown by location API error! status: ${refundBreakdownByLocResp.status}`);
+        }
+        if (!refundTransResp.ok) {
+          throw new Error(`Refund transactions API error! status: ${refundTransResp.status}`);
+        }
 
     const revenueData: LocationDataResponse = await revenueResponse.json();
     const membershipData: MembershipDataResponse = await membershipResponse.json();
@@ -194,6 +243,10 @@ export default function Page() {
   const programByData = await programBreakdownResp.json();
   const rawMembersJson = await rawMembersResp.json();
   const transactionsJson = await transactionsResp.json();
+  const refundsAggJson = await refundAggResp.json();
+  const refundBreakdownJson = await refundBreakdownResp.json();
+  const refundBreakdownByLocJson = await refundBreakdownByLocResp.json();
+  const refundTransJson = await refundTransResp.json();
 
         // Set revenue data
         setAllData(revenueData.allData);
@@ -214,6 +267,15 @@ export default function Page() {
   setProgramBreakdownPL(programByData?.pleasantonData || []);
   setRawMembers(rawMembersJson?.members || []);
   setTransactions(transactionsJson?.transactions || []);
+  // Refund aggregates
+  setRefundAllData(refundsAggJson?.allData || []);
+  setRefundLGData(refundsAggJson?.losGatosData || []);
+  setRefundPLData(refundsAggJson?.pleasantonData || []);
+  // Refund transactions
+  setRefunds(refundTransJson?.refunds || []);
+  setRefundAmountBreakdown(refundBreakdownJson?.breakdown || []);
+  setRefundLgAmountBreakdown(refundBreakdownByLocJson?.losGatosData || []);
+  setRefundPlAmountBreakdown(refundBreakdownByLocJson?.pleasantonData || []);
 
         // Set available months from revenue data only (previous behavior)
         const months = getAvailableMonths(revenueData.allData);
@@ -233,7 +295,7 @@ export default function Page() {
     };
 
     fetchData();
-  }, [membershipFile]);
+  }, [membershipFile, afterRefunds]);
 
   useEffect(() => {
     if (!startMonth || !endMonth) return;
@@ -253,11 +315,25 @@ export default function Page() {
     if (amountBreakdown.length > 0) {
       setFilteredAmountBreakdown(filterAmountBreakdownByDateRange(amountBreakdown, startMonth, endMonth));
     }
+    if (refundAmountBreakdown.length > 0) {
+      setFilteredRefundAmountBreakdown(filterAmountBreakdownByDateRange(refundAmountBreakdown, startMonth, endMonth));
+    }
     if (lgAmountBreakdown.length > 0) {
       setFilteredLgAmountBreakdown(filterAmountBreakdownByDateRange(lgAmountBreakdown, startMonth, endMonth));
     }
     if (plAmountBreakdown.length > 0) {
       setFilteredPlAmountBreakdown(filterAmountBreakdownByDateRange(plAmountBreakdown, startMonth, endMonth));
+    }
+    if (refundAllData.length > 0) {
+      setFilteredRefundAllData(filterDataByDateRange(refundAllData, startMonth, endMonth));
+      setFilteredRefundLGData(filterDataByDateRange(refundLGData, startMonth, endMonth));
+      setFilteredRefundPLData(filterDataByDateRange(refundPLData, startMonth, endMonth));
+    }
+    if (refundLgAmountBreakdown.length > 0) {
+      setFilteredRefundLgAmountBreakdown(filterAmountBreakdownByDateRange(refundLgAmountBreakdown, startMonth, endMonth));
+    }
+    if (refundPlAmountBreakdown.length > 0) {
+      setFilteredRefundPlAmountBreakdown(filterAmountBreakdownByDateRange(refundPlAmountBreakdown, startMonth, endMonth));
     }
 
     if (programBreakdownAll.length > 0) {
@@ -279,8 +355,14 @@ export default function Page() {
     losGatosMembershipData,
     pleasantonMembershipData,
     amountBreakdown,
+    refundAmountBreakdown,
     lgAmountBreakdown,
     plAmountBreakdown,
+    refundLgAmountBreakdown,
+    refundPlAmountBreakdown,
+    refundAllData,
+    refundLGData,
+    refundPLData,
     programBreakdownAll,
     programBreakdownLG,
     programBreakdownPL,
@@ -328,6 +410,7 @@ export default function Page() {
   const prevHasRevenueFiltersRef = useRef(hasRevenueFilters);
   const revenueDetailsRef = useRef<HTMLDivElement | null>(null);
   const membershipDetailsRef = useRef<HTMLDivElement | null>(null);
+  const refundDetailsRef = useRef<HTMLDivElement | null>(null);
 
   const scrollSectionIntoView = (element: HTMLElement | null) => {
     if (typeof window === 'undefined' || !element) return;
@@ -338,6 +421,7 @@ export default function Page() {
 
   const focusRevenueDetails = () => scrollSectionIntoView(revenueDetailsRef.current);
   const focusMembershipDetails = () => scrollSectionIntoView(membershipDetailsRef.current);
+  const focusRefundDetails = () => scrollSectionIntoView(refundDetailsRef.current);
 
   const renderCollapseToggle = (key: CollapsibleKey, isCollapsed: boolean, label: string) => (
     <button
@@ -350,6 +434,10 @@ export default function Page() {
         {isCollapsed ? '↓' : '—'}
       </span>
     </button>
+  );
+
+  const renderFilterHint = () => (
+    <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">Tip: Click bars, segments, or slices to filter details below.</p>
   );
 
   useEffect(() => {
@@ -365,6 +453,7 @@ export default function Page() {
   }, [filteredTransactions.length, hasRevenueFilters]);
 
   const isViewingTransactions = viewMode === 'revenue' && revenueDetailMode === 'transactions';
+  const isViewingRefundTransactions = viewMode === 'refunds' && refundDetailMode === 'transactions';
 
   useEffect(() => {
     if (!isViewingTransactions && !hasRevenueFilters) {
@@ -392,11 +481,40 @@ export default function Page() {
     setEndMonth(month);
   };
 
+  // Compute net revenue datasets (revenue minus refunds)
+  const netAllData = useMemo(() => {
+    return filteredAllData;
+  }, [filteredAllData]);
+
+  const netLGData = useMemo(() => {
+    return filteredLosGatosData;
+  }, [filteredLosGatosData]);
+
+  const netPLData = useMemo(() => {
+    return filteredPleasantonData;
+  }, [filteredPleasantonData]);
+
+  // Compute net amount breakdowns per month (subtract refund totals from overall monthly total only)
+  const netAmountBreakdown = useMemo(() => {
+    return filteredAmountBreakdown;
+  }, [filteredAmountBreakdown]);
+
+  const netLgAmountBreakdown = useMemo(() => {
+    return filteredLgAmountBreakdown;
+  }, [filteredLgAmountBreakdown]);
+
+  const netPlAmountBreakdown = useMemo(() => {
+    return filteredPlAmountBreakdown;
+  }, [filteredPlAmountBreakdown]);
+
   // Legend keys for external legends on location-specific composition charts
   const lgLegendKeys = useMemo(() => computeAmountLegendKeys(filteredLgAmountBreakdown, 10), [filteredLgAmountBreakdown]);
   const plLegendKeys = useMemo(() => computeAmountLegendKeys(filteredPlAmountBreakdown, 10), [filteredPlAmountBreakdown]);
   // Legend keys for the overall composition chart
   const overallLegendKeys = useMemo(() => computeAmountLegendKeys(filteredAmountBreakdown, 10), [filteredAmountBreakdown]);
+  const refundOverallLegendKeys = useMemo(() => computeAmountLegendKeys(filteredRefundAmountBreakdown, 10), [filteredRefundAmountBreakdown]);
+  const refundLgLegendKeys = useMemo(() => computeAmountLegendKeys(filteredRefundLgAmountBreakdown, 10), [filteredRefundLgAmountBreakdown]);
+  const refundPlLegendKeys = useMemo(() => computeAmountLegendKeys(filteredRefundPlAmountBreakdown, 10), [filteredRefundPlAmountBreakdown]);
   // Program legend keys
   // Derive all unique program categories across the filtered data (sorted by total contribution desc)
   const overallProgramKeys = useMemo(() => {
@@ -427,6 +545,16 @@ export default function Page() {
     return Array.from(sum.entries()).sort((a, b) => b[1] - a[1]).map(([k]) => k);
   }, [filteredProgramBreakdownPL]);
 
+  const filteredRefundTransactions = useMemo(() => {
+    if (!startMonth || !endMonth) return [] as RefundRow[];
+    const base = filterRefundsByDateRange(refunds, startMonth, endMonth);
+    const amountKeys = computeAmountLegendKeys(
+      filterAmountBreakdownByDateRange(refundAmountBreakdown, startMonth, endMonth),
+      10,
+    ).filter(k => k !== 'Other');
+    return filterRefundsByFilters(base, refundFilters, amountKeys);
+  }, [refunds, startMonth, endMonth, refundFilters, refundAmountBreakdown]);
+
   const {
     revenueAmount: isRevenueAmountCollapsed,
     revenueLosGatosChart: isRevenueLosGatosChartCollapsed,
@@ -440,6 +568,10 @@ export default function Page() {
     membershipLosGatosComposition: isMembershipLosGatosCompositionCollapsed,
     membershipPleasantonChart: isMembershipPleasantonChartCollapsed,
     membershipPleasantonComposition: isMembershipPleasantonCompositionCollapsed,
+    refundLosGatosChart: isRefundLosGatosChartCollapsed,
+    refundLosGatosComposition: isRefundLosGatosCompositionCollapsed,
+    refundPleasantonChart: isRefundPleasantonChartCollapsed,
+    refundPleasantonComposition: isRefundPleasantonCompositionCollapsed,
   } = collapsedSections;
 
   if (loading) {
@@ -499,6 +631,16 @@ export default function Page() {
               Revenue
             </button>
             <button
+              onClick={() => setViewMode('refunds')}
+              className={`px-4 py-2 text-sm font-medium transition-colors ${
+                viewMode === 'refunds'
+                  ? 'bg-blue-600 text-white'
+                  : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
+              }`}
+            >
+              Refunds
+            </button>
+            <button
               onClick={() => setViewMode('membership')}
               className={`px-4 py-2 text-sm font-medium transition-colors ${
                 viewMode === 'membership'
@@ -532,15 +674,27 @@ export default function Page() {
         <>
           {/* Overall Revenue Chart */}
           <section className="bg-white dark:bg-black border border-gray-200 dark:border-gray-700 shadow p-6">
-            <h2 className="text-2xl font-semibold mb-4 text-gray-800 dark:text-gray-100">Overall Monthly Revenue</h2>
+            <div className="mb-4 flex items-center justify-between">
+              <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-100">Overall Monthly Revenue</h2>
+              <button
+                type="button"
+                onClick={() => setAfterRefunds(v => !v)}
+                aria-pressed={afterRefunds}
+                className={`px-3 py-2 text-sm font-medium border transition-colors ${afterRefunds ? 'bg-green-600 text-white border-green-600' : 'bg-white dark:bg-black text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800'}`}
+                title="Show revenue after refunds"
+              >
+                After Refunds
+              </button>
+            </div>
             <RevenueChart
-              data={filteredAllData}
+              data={netAllData}
               onBarClick={({ month }) => {
                 setRevenueDetailMode('transactions');
                 setRevenueFilters(prev => ({ ...prev, month, location: undefined, amountKey: undefined }));
                 focusRevenueDetails();
               }}
             />
+            {renderFilterHint()}
           </section>
 
 
@@ -572,16 +726,17 @@ export default function Page() {
               {!isRevenueAmountCollapsed && (
                 <>
                   <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">Each bar shows the monthly total, built from segments proportional to common transaction amounts.</p>
-                  <RevenueAmountBreakdownChart
-                    data={filteredAmountBreakdown}
+                    <RevenueAmountBreakdownChart
+                    data={netAmountBreakdown}
                     topN={10}
                     showLegend={false}
                     onSegmentClick={({ month, amountKey }) => {
                       setRevenueDetailMode('transactions');
-                      setRevenueFilters(prev => ({ ...prev, month, amountKey }));
+                      setRevenueFilters(prev => ({ ...prev, month, amountKey, location: undefined }));
                       focusRevenueDetails();
                     }}
                   />
+                  {renderFilterHint()}
                 </>
               )}
             </div>
@@ -615,7 +770,7 @@ export default function Page() {
                 <div className="grid md:grid-cols-2 gap-8 pb-4">
                   <div className="overflow-hidden">
                     <RevenueAmountPieChart
-                      breakdown={filteredLgAmountBreakdown.find(d => d.month === amountPieMonth)}
+                      breakdown={netLgAmountBreakdown.find(d => d.month === amountPieMonth)}
                       legendKeys={lgLegendKeys}
                       title={`Los Gatos – ${amountPieMonth || ''}`}
                       showTotalBelowTitle
@@ -625,10 +780,11 @@ export default function Page() {
                         focusRevenueDetails();
                       }}
                     />
+                    {renderFilterHint()}
                   </div>
                   <div className="overflow-hidden">
                     <RevenueAmountPieChart
-                      breakdown={filteredPlAmountBreakdown.find(d => d.month === amountPieMonth)}
+                      breakdown={netPlAmountBreakdown.find(d => d.month === amountPieMonth)}
                       legendKeys={plLegendKeys}
                       title={`Pleasanton – ${amountPieMonth || ''}`}
                       showTotalBelowTitle
@@ -638,6 +794,7 @@ export default function Page() {
                         focusRevenueDetails();
                       }}
                     />
+                    {renderFilterHint()}
                   </div>
                 </div>
               )}
@@ -654,7 +811,7 @@ export default function Page() {
                   <h3 className="mb-4 text-lg font-semibold text-gray-800 dark:text-gray-100">Los Gatos Location</h3>
                   {!isRevenueLosGatosChartCollapsed && (
                     <LocationChart
-                      data={filteredLosGatosData}
+                      data={netLGData}
                       title="Los Gatos Location"
                       color="#059669"
                       onBarClick={({ month }) => {
@@ -665,6 +822,7 @@ export default function Page() {
                       showTitle={false}
                     />
                   )}
+                  {!isRevenueLosGatosChartCollapsed && renderFilterHint()}
                 </div>
               </div>
               <div className="relative bg-white dark:bg-black border border-gray-200 dark:border-gray-700 shadow p-6">
@@ -690,7 +848,7 @@ export default function Page() {
                   </div>
                   {!isRevenueLosGatosCompositionCollapsed && (
                     <RevenueAmountBreakdownChart
-                      data={filteredLgAmountBreakdown}
+                      data={netLgAmountBreakdown}
                       topN={10}
                       showLegend={false}
                       onSegmentClick={({ month, amountKey }) => {
@@ -700,6 +858,7 @@ export default function Page() {
                       }}
                     />
                   )}
+                  {!isRevenueLosGatosCompositionCollapsed && renderFilterHint()}
                 </div>
               </div>
             </div>
@@ -712,7 +871,7 @@ export default function Page() {
                   <h3 className="mb-4 text-lg font-semibold text-gray-800 dark:text-gray-100">Pleasanton Location</h3>
                   {!isRevenuePleasantonChartCollapsed && (
                     <LocationChart
-                      data={filteredPleasantonData}
+                      data={netPLData}
                       title="Pleasanton Location"
                       color="#dc2626"
                       onBarClick={({ month }) => {
@@ -723,6 +882,7 @@ export default function Page() {
                       showTitle={false}
                     />
                   )}
+                  {!isRevenuePleasantonChartCollapsed && renderFilterHint()}
                 </div>
               </div>
               <div className="relative bg-white dark:bg-black border border-gray-200 dark:border-gray-700 shadow p-6">
@@ -748,7 +908,7 @@ export default function Page() {
                   </div>
                   {!isRevenuePleasantonCompositionCollapsed && (
                     <RevenueAmountBreakdownChart
-                      data={filteredPlAmountBreakdown}
+                      data={netPlAmountBreakdown}
                       topN={10}
                       showLegend={false}
                       onSegmentClick={({ month, amountKey }) => {
@@ -758,6 +918,7 @@ export default function Page() {
                       }}
                     />
                   )}
+                  {!isRevenuePleasantonCompositionCollapsed && renderFilterHint()}
                 </div>
               </div>
             </div>
@@ -805,9 +966,9 @@ export default function Page() {
                     </tr>
                   </thead>
                   <tbody>
-                    {filteredAllData.map((item: any, index: number) => {
-                      const lgItem = filteredLosGatosData.find((lg: any) => lg.month === item.month);
-                      const plItem = filteredPleasantonData.find((pl: any) => pl.month === item.month);
+                    {netAllData.map((item: any, index: number) => {
+                      const lgItem = netLGData.find((lg: any) => lg.month === item.month);
+                      const plItem = netPLData.find((pl: any) => pl.month === item.month);
 
                       return (
                         <tr key={item.month} className={index % 2 === 0 ? 'bg-gray-50 dark:bg-gray-850' : 'bg-white dark:bg-black'}>
@@ -843,13 +1004,13 @@ export default function Page() {
             )}
           </section>
         </>
-      ) : (
+      ) : viewMode === 'membership' ? (
         <>
           {/* Overall Membership Chart */}
-          <section className="bg-black border border-gray-800 shadow p-6">
+          <section className="relative bg-white dark:bg-black border border-gray-200 dark:border-gray-700 shadow p-6">
             <div className="mb-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
               <div>
-                <h2 className="text-2xl font-semibold text-white">Overall Membership Overview</h2>
+                <h2 className="text-2xl font-semibold text-gray-900 dark:text-white">Overall Membership Overview</h2>
                 <p className="text-sm text-gray-500 dark:text-gray-400">
                   Data source: {membershipFile === 'memberships_all.csv' ? 'All Memberships' : 'First Memberships Only'}
                 </p>
@@ -892,6 +1053,7 @@ export default function Page() {
                 focusMembershipDetails();
               }}
             />
+            {renderFilterHint()}
           </section>
 
           {/* Membership Composition by Program (Overall) */}
@@ -934,6 +1096,7 @@ export default function Page() {
                   }}
                 />
               )}
+              {!isMembershipProgramCollapsed && renderFilterHint()}
             </div>
           </section>
 
@@ -967,7 +1130,7 @@ export default function Page() {
                     <MembershipProgramPieChart
                       breakdown={filteredProgramBreakdownLG.find(d => d.month === programPieMonth)}
                       legendKeys={lgProgramKeys}
-                      title={`Los Gatos  ${programPieMonth || ''}`}
+                      title={`Los Gatos – ${programPieMonth || ''}`}
                       showTotalBelowTitle
                       onSliceClick={({ program, month }) => {
                         setMembershipDetailMode('members');
@@ -975,12 +1138,13 @@ export default function Page() {
                         focusMembershipDetails();
                       }}
                     />
+                    {renderFilterHint()}
                   </div>
                   <div className="overflow-hidden">
                     <MembershipProgramPieChart
                       breakdown={filteredProgramBreakdownPL.find(d => d.month === programPieMonth)}
                       legendKeys={plProgramKeys}
-                      title={`Pleasanton  ${programPieMonth || ''}`}
+                      title={`Pleasanton – ${programPieMonth || ''}`}
                       showTotalBelowTitle
                       onSliceClick={({ program, month }) => {
                         setMembershipDetailMode('members');
@@ -988,6 +1152,7 @@ export default function Page() {
                         focusMembershipDetails();
                       }}
                     />
+                    {renderFilterHint()}
                   </div>
                 </div>
               )}
@@ -1022,6 +1187,7 @@ export default function Page() {
                       showTitle={false}
                     />
                   )}
+                  {!isMembershipLosGatosChartCollapsed && renderFilterHint()}
                 </div>
               </div>
               <div className="relative bg-white dark:bg-black border border-gray-200 dark:border-gray-700 shadow p-6">
@@ -1053,6 +1219,7 @@ export default function Page() {
                       }}
                     />
                   )}
+                  {!isMembershipLosGatosCompositionCollapsed && renderFilterHint()}
                 </div>
               </div>
             </div>
@@ -1082,6 +1249,7 @@ export default function Page() {
                       showTitle={false}
                     />
                   )}
+                  {!isMembershipPleasantonChartCollapsed && renderFilterHint()}
                 </div>
               </div>
               <div className="relative bg-white dark:bg-black border border-gray-200 dark:border-gray-700 shadow p-6">
@@ -1113,6 +1281,7 @@ export default function Page() {
                       }}
                     />
                   )}
+                  {!isMembershipPleasantonCompositionCollapsed && renderFilterHint()}
                 </div>
               </div>
             </div>
@@ -1190,6 +1359,305 @@ export default function Page() {
             )}
             {membershipDetailMode === 'monthly' && filteredAllMembershipData.length === 0 && (
               <div className="text-center py-8 text-gray-500 dark:text-gray-400">No membership data available for the selected date range.</div>
+            )}
+          </section>
+        </>
+      ) : (
+        <>
+          {/* Refunds Charts (mirror Revenue) */}
+          <section className="bg-white dark:bg-black border border-gray-200 dark:border-gray-700 shadow p-6">
+            <h2 className="text-2xl font-semibold mb-4 text-gray-800 dark:text-gray-100">Overall Monthly Refunds</h2>
+            <RevenueChart
+              data={filteredRefundAmountBreakdown.map(d => ({ month: d.month, revenue: d.total, count: 0 }))}
+              onBarClick={({ month }) => {
+                setRefundDetailMode('transactions');
+                setRefundFilters(prev => ({ ...prev, month, location: undefined, amountKey: undefined }));
+                focusRefundDetails();
+              }}
+            />
+            {renderFilterHint()}
+          </section>
+
+          <section className="relative bg-white dark:bg-black border border-gray-200 dark:border-gray-700 shadow p-6">
+            {renderCollapseToggle('revenueAmount', isRevenueAmountCollapsed, 'refund composition section')}
+            <div className="pr-12 sm:pr-16">
+              <div className="mb-2 flex flex-col gap-3">
+                <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
+                  <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-100">Refund Composition by Transaction Amount</h3>
+                  {!isRevenueAmountCollapsed && (
+                    <div className="sm:w-auto">
+                      <div className="grid grid-flow-col grid-rows-2 auto-cols-max gap-x-4 gap-y-2">
+                        {refundOverallLegendKeys.map((k, i) => (
+                          <div key={k} className="flex items-center gap-1.5">
+                            <span
+                              className="inline-block w-3 h-3"
+                              style={{ backgroundColor: amountLegendPalette[i % amountLegendPalette.length] }}
+                            />
+                            <span className="text-xs text-gray-700 dark:text-gray-300">{k === 'Other' ? 'Other' : `$${k}`}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+              {!isRevenueAmountCollapsed && (
+                <>
+                  <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">Each bar shows the monthly total refunds, built from segments proportional to common refund amounts.</p>
+                  <RevenueAmountBreakdownChart
+                    data={filteredRefundAmountBreakdown}
+                    topN={10}
+                    showLegend={false}
+                    onSegmentClick={({ month, amountKey }) => {
+                      setRefundDetailMode('transactions');
+                      setRefundFilters(prev => ({ ...prev, month, amountKey, location: undefined }));
+                      focusRefundDetails();
+                    }}
+                  />
+                  {renderFilterHint()}
+                </>
+              )}
+            </div>
+          </section>
+
+          <section className="relative bg-white dark:bg-black border border-gray-200 dark:border-gray-700 shadow p-6 mt-8 overflow-hidden">
+            {renderCollapseToggle('revenueLocationAmountPies', isRevenueLocationAmountPiesCollapsed, 'refund location composition pies section')}
+            <div className="pr-12 sm:pr-16">
+              <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-4">
+                <div>
+                  <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-100">Location Composition</h3>
+                </div>
+                {!isRevenueLocationAmountPiesCollapsed && (
+                  <div className="flex items-center gap-2">
+                    <label htmlFor="amountPieMonth" className="text-xs font-medium text-gray-600 dark:text-gray-300">Month:</label>
+                    <select
+                      id="amountPieMonth"
+                      value={amountPieMonth}
+                      onChange={e => setAmountPieMonth(e.target.value)}
+                      className="text-sm border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 px-2 py-1 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                    >
+                      {filteredRefundAmountBreakdown.map(d => (
+                        <option key={d.month} value={d.month}>{d.month}</option>
+                      ))}
+                    </select>
+                  </div>
+                )}
+              </div>
+              {!isRevenueLocationAmountPiesCollapsed && (
+                <div className="grid md:grid-cols-2 gap-8 pb-4">
+                  <div className="overflow-hidden">
+                    <RevenueAmountPieChart
+                      breakdown={filteredRefundLgAmountBreakdown.find(d => d.month === amountPieMonth)}
+                      legendKeys={refundLgLegendKeys}
+                      title={`Los Gatos – ${amountPieMonth || ''}`}
+                      showTotalBelowTitle
+                      onSliceClick={({ amountKey, month }) => {
+                        setRefundDetailMode('transactions');
+                        setRefundFilters(prev => ({ ...prev, month, amountKey, location: 'Los Gatos' }));
+                        focusRefundDetails();
+                      }}
+                    />
+                    {renderFilterHint()}
+                  </div>
+                  <div className="overflow-hidden">
+                    <RevenueAmountPieChart
+                      breakdown={filteredRefundPlAmountBreakdown.find(d => d.month === amountPieMonth)}
+                      legendKeys={refundPlLegendKeys}
+                      title={`Pleasanton – ${amountPieMonth || ''}`}
+                      showTotalBelowTitle
+                      onSliceClick={({ amountKey, month }) => {
+                        setRefundDetailMode('transactions');
+                        setRefundFilters(prev => ({ ...prev, month, amountKey, location: 'Pleasanton' }));
+                        focusRefundDetails();
+                      }}
+                    />
+                    {renderFilterHint()}
+                  </div>
+                </div>
+              )}
+            </div>
+          </section>
+
+          {/* Refunds Table (simplified columns) */}
+          {/* Location-specific Refund Charts and Composition */}
+          <section className="grid md:grid-cols-2 gap-8 mt-8">
+            <div className="space-y-8">
+              <div className="relative bg-white dark:bg-black border border-gray-200 dark:border-gray-700 shadow p-6">
+                {renderCollapseToggle('refundLosGatosChart', isRefundLosGatosChartCollapsed, 'Los Gatos refunds chart')}
+                <div className="pr-12 sm:pr-16">
+                  <h3 className="mb-4 text-lg font-semibold text-gray-800 dark:text-gray-100">Los Gatos Refunds</h3>
+                  {!isRefundLosGatosChartCollapsed && (
+                    <LocationChart
+                      data={filteredRefundLGData}
+                      title="Los Gatos Refunds"
+                      color="#059669"
+                      tooltipValueLabel="Refunds"
+                      valueFormatter={(v) => `-$${Math.round(v).toLocaleString()}`}
+                      onBarClick={({ month }) => {
+                        setRefundDetailMode('transactions');
+                        setRefundFilters(prev => ({ ...prev, month, location: 'Los Gatos' }));
+                        focusRefundDetails();
+                      }}
+                      showTitle={false}
+                    />
+                  )}
+                  {!isRefundLosGatosChartCollapsed && renderFilterHint()}
+                </div>
+              </div>
+              <div className="relative bg-white dark:bg-black border border-gray-200 dark:border-gray-700 shadow p-6">
+                {renderCollapseToggle('refundLosGatosComposition', isRefundLosGatosCompositionCollapsed, 'Los Gatos refund composition section')}
+                <div className="pr-12 sm:pr-16">
+                  <div className="mb-3 flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
+                    <h4 className="text-lg font-semibold text-gray-800 dark:text-gray-100">Los Gatos Composition</h4>
+                    {!isRefundLosGatosCompositionCollapsed && (
+                      <div className="sm:w-auto">
+                        <div className="grid grid-flow-col grid-rows-2 auto-cols-max gap-x-4 gap-y-2">
+                          {refundLgLegendKeys.map((k, i) => (
+                            <div key={k} className="flex items-center gap-1.5">
+                              <span className="inline-block w-3 h-3" style={{ backgroundColor: amountLegendPalette[i % amountLegendPalette.length] }} />
+                              <span className="text-xs text-gray-700 dark:text-gray-300">{k === 'Other' ? 'Other' : `$${k}`}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                  {!isRefundLosGatosCompositionCollapsed && (
+                    <RevenueAmountBreakdownChart
+                      data={filteredRefundLgAmountBreakdown}
+                      topN={10}
+                      showLegend={false}
+                      onSegmentClick={({ month, amountKey }) => {
+                        setRefundDetailMode('transactions');
+                        setRefundFilters(prev => ({ ...prev, month, amountKey, location: 'Los Gatos' }));
+                        focusRefundDetails();
+                      }}
+                    />
+                  )}
+                  {!isRefundLosGatosCompositionCollapsed && renderFilterHint()}
+                </div>
+              </div>
+            </div>
+
+            <div className="space-y-8">
+              <div className="relative bg-white dark:bg-black border border-gray-200 dark:border-gray-700 shadow p-6">
+                {renderCollapseToggle('refundPleasantonChart', isRefundPleasantonChartCollapsed, 'Pleasanton refunds chart')}
+                <div className="pr-12 sm:pr-16">
+                  <h3 className="mb-4 text-lg font-semibold text-gray-800 dark:text-gray-100">Pleasanton Refunds</h3>
+                  {!isRefundPleasantonChartCollapsed && (
+                    <LocationChart
+                      data={filteredRefundPLData}
+                      title="Pleasanton Refunds"
+                      color="#dc2626"
+                      tooltipValueLabel="Refunds"
+                      valueFormatter={(v) => `-$${Math.round(v).toLocaleString()}`}
+                      onBarClick={({ month }) => {
+                        setRefundDetailMode('transactions');
+                        setRefundFilters(prev => ({ ...prev, month, location: 'Pleasanton' }));
+                        focusRefundDetails();
+                      }}
+                      showTitle={false}
+                    />
+                  )}
+                  {!isRefundPleasantonChartCollapsed && renderFilterHint()}
+                </div>
+              </div>
+              <div className="relative bg-white dark:bg-black border border-gray-200 dark:border-gray-700 shadow p-6">
+                {renderCollapseToggle('refundPleasantonComposition', isRefundPleasantonCompositionCollapsed, 'Pleasanton refund composition section')}
+                <div className="pr-12 sm:pr-16">
+                  <div className="mb-3 flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
+                    <h4 className="text-lg font-semibold text-gray-800 dark:text-gray-100">Pleasanton Composition</h4>
+                    {!isRefundPleasantonCompositionCollapsed && (
+                      <div className="sm:w-auto">
+                        <div className="grid grid-flow-col grid-rows-2 auto-cols-max gap-x-4 gap-y-2">
+                          {refundPlLegendKeys.map((k, i) => (
+                            <div key={k} className="flex items-center gap-1.5">
+                              <span className="inline-block w-3 h-3" style={{ backgroundColor: amountLegendPalette[i % amountLegendPalette.length] }} />
+                              <span className="text-xs text-gray-700 dark:text-gray-300">{k === 'Other' ? 'Other' : `$${k}`}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                  {!isRefundPleasantonCompositionCollapsed && (
+                    <RevenueAmountBreakdownChart
+                      data={filteredRefundPlAmountBreakdown}
+                      topN={10}
+                      showLegend={false}
+                      onSegmentClick={({ month, amountKey }) => {
+                        setRefundDetailMode('transactions');
+                        setRefundFilters(prev => ({ ...prev, month, amountKey, location: 'Pleasanton' }));
+                        focusRefundDetails();
+                      }}
+                    />
+                  )}
+                  {!isRefundPleasantonCompositionCollapsed && renderFilterHint()}
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Refund Details: Summary/Transactions toggle */}
+          <section
+            ref={refundDetailsRef}
+            className="bg-white dark:bg-black border border-gray-200 dark:border-gray-700 shadow p-6"
+          >
+            <div className="mb-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+              <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-100">Refund Details</h2>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => setRefundDetailMode(refundDetailMode === 'summary' ? 'transactions' : 'summary')}
+                  className="px-3 py-2 text-sm font-medium bg-blue-600 text-white hover:bg-blue-700"
+                >
+                  {refundDetailMode === 'summary' ? 'Show Transactions' : 'Show Summary'}
+                </button>
+                {hasRefundFilters && refundDetailMode === 'transactions' && (
+                  <button
+                    onClick={() => setRefundFilters({})}
+                    className="px-3 py-2 text-sm font-medium bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600"
+                  >Clear Filters</button>
+                )}
+              </div>
+            </div>
+
+            {refundDetailMode === 'summary' ? (
+              <div className="overflow-x-auto">
+                <table className="w-full table-auto">
+                  <thead>
+                    <tr className="bg-gray-50 dark:bg-black">
+                      <th className="px-4 py-2 text-left">Month</th>
+                      <th className="px-4 py-2 text-right">Total Refunds</th>
+                      <th className="px-4 py-2 text-right">Los Gatos</th>
+                      <th className="px-4 py-2 text-right">Pleasanton</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {filteredRefundAllData.map((item: any, index: number) => {
+                      const lgItem = filteredRefundLGData.find((lg: any) => lg.month === item.month);
+                      const plItem = filteredRefundPLData.find((pl: any) => pl.month === item.month);
+                      return (
+                        <tr key={item.month} className={index % 2 === 0 ? 'bg-gray-50 dark:bg-gray-850' : 'bg-white dark:bg-black'}>
+                          <td className="px-4 py-2 font-medium">{item.month}</td>
+                          <td className="px-4 py-2 text-right">-${Math.round(item.revenue).toLocaleString()}</td>
+                          <td className="px-4 py-2 text-right">{lgItem ? `-$${Math.round(lgItem.revenue).toLocaleString()}` : <span className="text-gray-400 dark:text-gray-500 italic">No data</span>}</td>
+                          <td className="px-4 py-2 text-right">{plItem ? `-$${Math.round(plItem.revenue).toLocaleString()}` : <span className="text-gray-400 dark:text-gray-500 italic">No data</span>}</td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            ) : (
+              <RefundTransactionsTable
+                refunds={filteredRefundTransactions}
+                filters={refundFilters}
+                onClearFilters={() => setRefundFilters({})}
+              />
+            )}
+
+            {refundDetailMode === 'summary' && filteredRefundAllData.length === 0 && (
+              <div className="text-center py-8 text-gray-500 dark:text-gray-400">No data available for the selected date range.</div>
             )}
           </section>
         </>
